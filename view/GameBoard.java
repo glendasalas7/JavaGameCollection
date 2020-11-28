@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
 import controller.KeyController;
 import controller.TimerListener;
 import model.EnemyComposite;
@@ -72,7 +71,6 @@ public class GameBoard {
 			score = 0;
 			GameBoard.scoreBoard.setText("Score: " + score);
 			GameBoard.enemyCount.setText("Enemies Left: " + enemies);
-
 			canvas.getGameElements().add(shooter);
 			canvas.getGameElements().add(enemyComposite);
 			timer.start();

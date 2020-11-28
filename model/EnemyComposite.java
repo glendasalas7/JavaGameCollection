@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
+
+import model.Berry;
 import view.GameBoard;
 import view.TextDraw;
 
@@ -11,12 +13,13 @@ public class EnemyComposite extends GameElement {
 
 	public static final int NROWS = 2;
 	public static final int NCOLS = 10;
-	public static final int ENEMY_SIZE = 22;//size of enemy block
-	public static final int UNIT_MOVE = 5; //speed
+	public static final int ENEMY_SIZE = 20;//size of enemy block
+	public static final int UNIT_MOVE = 6; //sped
 
 	private GameBoard gameboard;
 	private ArrayList<ArrayList<GameElement>> rows;
 	private ArrayList<GameElement> bombs;
+	private ArrayList<GameElement> berries;
 	private boolean movingToRight = true;
 	private Random random = new Random();
 	private int score;
@@ -26,6 +29,7 @@ public class EnemyComposite extends GameElement {
 		this.gameboard = gameboard;
 		rows = new ArrayList<>();
 		bombs = new ArrayList<>();
+		berries = new ArrayList<>();
 		enemies = NROWS*NCOLS;
 		GameBoard.enemies = enemies;
 
@@ -87,6 +91,10 @@ public class EnemyComposite extends GameElement {
 		for(var b: bombs){
 			b.animate();
 		}
+		
+		for(var berries:berries){
+			berries.animate();
+		}
 	}
 
 	private int rightEnd(){
@@ -126,6 +134,22 @@ public class EnemyComposite extends GameElement {
 			}
 		}
 		bombs.removeAll(remove);
+	}
+
+	public void dropBerries(){
+		Random rand = new Random();
+		int randX = rand.nextInt(575);
+		berries.add(new Berry(randX, 0));
+	}
+
+	public void removeBerriesOutOfBound(){
+		var remove = new ArrayList<GameElement>();
+		for(var b: berries){
+			if(b.y >= GameBoard.HEIGHT){
+				remove.add(b);
+			}
+		}
+		berries.removeAll(remove);
 	}
 
 	public void processCollision(Shooter shooter){

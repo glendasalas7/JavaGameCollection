@@ -27,7 +27,7 @@ public class Shooter extends GameElement {
 	}
 
 	public void moveRight(){
-		// if(components.get(3).x < 580){
+		// if(components.get(0).x < 560){
 			super.x += UNIT_MOVE;
 				for(var c: components){
 					c.x += UNIT_MOVE;

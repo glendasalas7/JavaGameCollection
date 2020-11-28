@@ -16,7 +16,8 @@ public class TimerListener implements ActionListener {
 
 	private GameBoard gameBoard;
 	private LinkedList<EventType> eventQueue;
-	private final int BOMB_DROP_FREQ = 20;
+	private final int BOMB_DROP_FREQ = 5;
+	private final int BERRY_DROP_FREQ = 3;
 	private int frameCounter = 0;
 
 	public TimerListener(GameBoard gameBoard){
@@ -38,7 +39,6 @@ public class TimerListener implements ActionListener {
 			eventQueue.removeFirst();
 			Shooter shooter = gameBoard.getShooter();
 			if (shooter == null) return;
-
 			switch(e){
 				case KEY_LEFT:
 					shooter.moveLeft();
@@ -54,8 +54,10 @@ public class TimerListener implements ActionListener {
 		}
 		if (frameCounter == BOMB_DROP_FREQ){
 			gameBoard.getEnemyComposite().dropBombs();
+			if(frameCounter == BERRY_DROP_FREQ){
+				gameBoard.getEnemyComposite().dropBerries();
+			}
 			frameCounter = 0;
-
 		}
 	}
 
@@ -65,8 +67,8 @@ public class TimerListener implements ActionListener {
 
 		shooter.removeBulletsOutOfBounds();
 		enemyComposite.removeBombsOutOfBound();
+		enemyComposite.removeBerriesOutOfBound();
 		enemyComposite.processCollision(shooter);
-
 	}
 
 	private void update(){
