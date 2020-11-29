@@ -17,22 +17,19 @@ import model.ShooterElement;
 public class GameBoard {
 	private JFrame window;
 	private MyCanvas canvas;
+	private Timer timer;
+	private Shooter shooter;
+	private TimerListener timerListener;
+	private EnemyComposite enemyComposite;
 	public static final int WIDTH = 600;
 	public static final int HEIGHT = 300;
 	public static final int FPS = 20;
 	public static final int DELAY = 1000/FPS;
-	private Shooter shooter;
-	private EnemyComposite enemyComposite;
-	private Timer timer;
-	private TimerListener timerListener;
 	public static int score = 0;
 	public static int enemies = 0;
 	public static JLabel scoreBoard = new JLabel("");
 	public static JLabel enemyCount = new JLabel("");
-
 	public static JPanel southPanel = new JPanel();
-
-
 
 	public GameBoard(JFrame window){
 		this.window = window;

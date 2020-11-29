@@ -4,8 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
-
-import model.Berry;
 import view.GameBoard;
 import view.TextDraw;
 
@@ -13,8 +11,8 @@ public class EnemyComposite extends GameElement {
 
 	public static final int NROWS = 2;
 	public static final int NCOLS = 10;
-	public static final int ENEMY_SIZE = 20;//size of enemy block
-	public static final int UNIT_MOVE = 6; //sped
+	public static final int ENEMY_SIZE = 15;//size of enemy block
+	public static final int UNIT_MOVE = 4; //speed
 
 	private GameBoard gameboard;
 	private ArrayList<ArrayList<GameElement>> rows;
@@ -52,10 +50,14 @@ public class EnemyComposite extends GameElement {
 				e.render(g2);
 			}
 		}
-	//render bombs
-	for(var b: bombs){
-		b.render(g2);
-	}
+		//render bombs
+		for(var b: bombs){
+			b.render(g2);
+		}
+		//render berries
+		for(var b: berries){
+			b.render(g2);
+		}
 	}
 
 	@Override
@@ -91,9 +93,9 @@ public class EnemyComposite extends GameElement {
 		for(var b: bombs){
 			b.animate();
 		}
-		
-		for(var berries:berries){
-			berries.animate();
+		//animate berries
+		for(var b:berries){
+			b.animate();
 		}
 	}
 
@@ -139,7 +141,7 @@ public class EnemyComposite extends GameElement {
 	public void dropBerries(){
 		Random rand = new Random();
 		int randX = rand.nextInt(575);
-		berries.add(new Berry(randX, 0));
+		berries.add(new Potion(randX, 0));
 	}
 
 	public void removeBerriesOutOfBound(){

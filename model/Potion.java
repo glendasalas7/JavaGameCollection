@@ -9,12 +9,11 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import java.awt.Color;
 
-public class Berry extends GameElement{
-
+public class Potion extends GameElement{
     public static final int SIZE = 7;
-	public static final int UNIT_MOVE = 5;
-
-    public Berry(int x, int y) {
+    public static final int UNIT_MOVE = 5;
+    
+    public Potion(int x, int y) {
         super(x, y, Color.green, true, SIZE, SIZE);
     }
 
@@ -41,21 +40,16 @@ public class Berry extends GameElement{
 
     @Override
     public void render(Graphics2D g2) {
-    //         try{
-    //             BufferedImage berryIMG = ImageIO.read(new File("model/pictures/images.png"));
-    //             Image temp = berryIMG.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-    //             BufferedImage resizedImage = new BufferedImage(20, 20, BufferedImage.TYPE_INT_ARGB);
-    //             g2 = resizedImage.createGraphics();
-    //             g2.drawImage(temp, 0, 0, null);
-    //         } catch(Exception e){
-    //             System.out.println("Image file load error");
-    //         }
-    // }
-        g2.setColor(Color.MAGENTA);
-        g2.fillOval(x, y, 20, 20);
-        System.out.println(x);
-        System.out.println(y);
+            try{
+                BufferedImage berryIMG = ImageIO.read(new File("pictures/potion.png"));
+                Image temp = berryIMG.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+
+                g2.drawImage(temp, x, y, null);
+            } catch(Exception e){
+                System.out.println("Image file load error");
+            } 
 }
+
 
     @Override
     public void animate() {

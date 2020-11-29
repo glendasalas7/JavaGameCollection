@@ -16,7 +16,7 @@ public class MyCanvas extends JPanel {
 	
 	public MyCanvas(GameBoard gameBoard, int width, int height){
 		this.gameBoard = gameBoard;
-		setBackground(Color.black);
+		setBackground(Color.BLUE);
 		setPreferredSize(new Dimension(width, height));
 
 	}
