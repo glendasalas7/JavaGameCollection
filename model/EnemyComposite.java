@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import view.GameBoard;
 import view.TextDraw;
+import model.Berries.Observer;
 
-public class EnemyComposite extends GameElement {
+public class EnemyComposite extends GameElement implements Observer{
 
 	public static final int NROWS = 2;
 	public static final int NCOLS = 10;
@@ -17,7 +18,7 @@ public class EnemyComposite extends GameElement {
 	private GameBoard gameboard;
 	private ArrayList<ArrayList<GameElement>> rows;
 	private ArrayList<GameElement> bombs;
-	private ArrayList<GameElement> berries;
+	private ArrayList<GameElement> potions;
 	private boolean movingToRight = true;
 	private Random random = new Random();
 	private int score;
@@ -27,7 +28,7 @@ public class EnemyComposite extends GameElement {
 		this.gameboard = gameboard;
 		rows = new ArrayList<>();
 		bombs = new ArrayList<>();
-		berries = new ArrayList<>();
+		potions = new ArrayList<>();
 		enemies = NROWS*NCOLS;
 		GameBoard.enemies = enemies;
 
@@ -55,8 +56,8 @@ public class EnemyComposite extends GameElement {
 			b.render(g2);
 		}
 		//render berries
-		for(var b: berries){
-			b.render(g2);
+		for(var p: potions){
+			p.render(g2);
 		}
 	}
 
@@ -94,8 +95,8 @@ public class EnemyComposite extends GameElement {
 			b.animate();
 		}
 		//animate berries
-		for(var b:berries){
-			b.animate();
+		for(var p:potions){
+			p.animate();
 		}
 	}
 
@@ -138,20 +139,20 @@ public class EnemyComposite extends GameElement {
 		bombs.removeAll(remove);
 	}
 
-	public void dropBerries(){
+	public void dropPotions(){
 		Random rand = new Random();
 		int randX = rand.nextInt(575);
-		berries.add(new Potion(randX, 0));
+		potions.add(new Potion(randX, 0));
 	}
 
-	public void removeBerriesOutOfBound(){
+	public void removePotionsOutOfBound(){
 		var remove = new ArrayList<GameElement>();
-		for(var b: berries){
-			if(b.y >= GameBoard.HEIGHT){
-				remove.add(b);
+		for(var p: potions){
+			if(p.y >= GameBoard.HEIGHT){
+				remove.add(p);
 			}
 		}
-		berries.removeAll(remove);
+		potions.removeAll(remove);
 	}
 
 	public void processCollision(Shooter shooter){
@@ -250,5 +251,40 @@ public class EnemyComposite extends GameElement {
 			shooter.getComponents().removeAll(removeComponent);
 			row.removeAll(removeEnemies);
 		}
+	}
+	//potion -> shooter
+	@Override
+	public void actionPerformed(Shooter shooter) {
+		var removeComponent = new ArrayList<GameElement>();
+		var removePotions = new ArrayList<GameElement>();
+
+		for(var p: potions){
+			for(var player: shooter.getComponents()){
+				if(p.collideWith(player)){
+					removePotions.add(p);
+					
+					removeComponent.add(player);
+				}
+			}
+			// removeBombs.clear();
+			shooter.getComponents().removeAll(removeComponent);	
+			// bombs.removeAll(removeBombs);
+		}
+
+		if(shooter.getComponentSize() == 0){
+			gameboard.getCanvas().getGameElements().clear();
+			gameboard.getCanvas().getGameElements().add(new TextDraw("GAME OVER!", 200, 100, Color.MAGENTA, 35));
+			gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + GameBoard.score, 215, 200, Color.GREEN, 35));
+			score = 0;
+		}
+
+	}
+	@Override
+	public int getY() {
+		return super.getY();
+	}
+	@Override
+	public int getX() {
+		return super.getX();
 	}
 }

@@ -17,7 +17,7 @@ public class TimerListener implements ActionListener {
 	private GameBoard gameBoard;
 	private LinkedList<EventType> eventQueue;
 	private final int BOMB_DROP_FREQ = 7;
-	private final int BERRY_DROP_FREQ = 50;
+	private final int POTION_DROP_FREQ = 50;
 	private int frameCounter = 0;
 	private int frameCounter2 = 0;
 
@@ -59,8 +59,8 @@ public class TimerListener implements ActionListener {
 			gameBoard.getEnemyComposite().dropBombs();
 			frameCounter = 0;
 		}
-		if(frameCounter2 == BERRY_DROP_FREQ){
-			gameBoard.getEnemyComposite().dropBerries();
+		if(frameCounter2 == POTION_DROP_FREQ){
+			gameBoard.getEnemyComposite().dropPotions();
 			frameCounter2 = 0;
 		}
 	}

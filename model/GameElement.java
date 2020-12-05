@@ -39,6 +39,9 @@ public abstract class GameElement {
 	public int getY() {
 		return y;
 	}
+	public int getX() {
+		return x;
+	}
 	
 	public abstract void render(Graphics2D g2);
 	public abstract void animate();

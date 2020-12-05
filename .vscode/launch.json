@@ -9,6 +9,13 @@
             "name": "CodeLens (Launch) - Main",
             "request": "launch",
             "mainClass": "Main",
+            "projectName": "OOP_Project_2_810f79fc"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "Main",
             "projectName": "OOP_lesson7-master (another copy)_3e53c68f"
         },
         {

@@ -1,9 +1,12 @@
-// package model.Berries;
+package model.Berries;
 // // participant: Observer
+
 // //      Observer defines an updating interface for objects that should be
 // //                  be notified of changes in a subject
 
-// public interface Observer {
+import model.Shooter;
 
-//     void actionPerformed(String action);
-// }
+public interface Observer {
+
+    void actionPerformed(Shooter shooter);
+}
