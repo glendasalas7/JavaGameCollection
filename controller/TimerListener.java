@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import model.Bullet;
+import model.GameComments;
 import model.Shooter;
 import view.GameBoard;
 
@@ -15,11 +16,14 @@ public class TimerListener implements ActionListener {
 	}
 
 	private GameBoard gameBoard;
+	private GameComments gameComments;
 	private LinkedList<EventType> eventQueue;
 	private final int BOMB_DROP_FREQ = 7;
 	private final int POTION_DROP_FREQ = 50;
+	private final int UPDATE_FREQ = 6;
 	private int frameCounter = 0;
 	private int frameCounter2 = 0;
+	private int frameCounter3 = 0 ;
 
 
 	public TimerListener(GameBoard gameBoard){
@@ -63,6 +67,9 @@ public class TimerListener implements ActionListener {
 			gameBoard.getEnemyComposite().dropPotions();
 			frameCounter2 = 0;
 		}
+		// if(frameCounter2 == UPDATE_FREQ){
+		// 	gameComments.returnPane();
+		// }
 	}
 
 	private void processCollision(){

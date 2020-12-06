@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Container;
+import java.util.ArrayList;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -13,6 +14,7 @@ import controller.TimerListener;
 import model.EnemyComposite;
 import model.Shooter;
 import model.ShooterElement;
+import model.Berries.Observer;
 
 public class GameBoard {
 	private JFrame window;
@@ -30,6 +32,7 @@ public class GameBoard {
 	public static JLabel scoreBoard = new JLabel("");
 	public static JLabel enemyCount = new JLabel("");
 	public static JPanel southPanel = new JPanel();
+	public static ArrayList<Observer> observers;
 
 	public GameBoard(JFrame window){
 		this.window = window;
@@ -95,6 +98,9 @@ public class GameBoard {
 	}
 	public static JPanel getSouthpanel() {
 		return southPanel;
+	}
+	public static void setSouthPanel(JPanel southPanel) {
+		GameBoard.southPanel = southPanel;
 	}
 	public static int getEnemies() {
 		return enemies;

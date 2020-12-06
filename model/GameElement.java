@@ -2,16 +2,21 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
-public abstract class GameElement {
+import model.Berries.Observer;
+
+public abstract class GameElement{
 	public int y;
 	public int x;
 	public Color color;
 	public boolean filled;
 	public int width;
 	public int height;
+	public ArrayList<Observer> observers = new ArrayList<>();
 
 	public GameElement(int x, int y, Color color, boolean filled, int width, int height){
+		
 		this.x = x;
 		this.y = y;
 		this.color = color;
@@ -33,16 +38,25 @@ public abstract class GameElement {
 		else
 			return true;
 	}
-	public void setY(int y) {
-		this.y = y;
-	}
+
 	public int getY() {
 		return y;
 	}
 	public int getX() {
 		return x;
 	}
-	
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+	public ArrayList<Observer> getObservers() {
+		return observers;
+	}
+
 	public abstract void render(Graphics2D g2);
 	public abstract void animate();
 }

@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import model.Berries.Observer;
-import model.Berries.Subject;
+import view.GameBoard;
 
 import java.awt.Color;
 
-public class Potion extends GameElement implements Subject{
+public class Potion extends GameElement{
     public static final int SIZE = 7;
     public static final int UNIT_MOVE = 5;
     private ArrayList<Observer> observers = new ArrayList<>();
@@ -21,7 +21,6 @@ public class Potion extends GameElement implements Subject{
     public Potion(int x, int y) {
         super(x, y, Color.green, true, SIZE, SIZE);
     }
-
 
     @Override
     public void render(Graphics2D g2) {
@@ -33,27 +32,11 @@ public class Potion extends GameElement implements Subject{
             } catch(Exception e){
                 System.out.println("Image file load error");
             } 
-}
-
-
+    }
+    // @Override
+	public void drink() {}
     @Override
     public void animate() {
         super.y += UNIT_MOVE;
     }
-
-    @Override
-    public void addListener(Observer o) {
-        observers.add(o);
-    }
-
-    @Override
-    public void removeListener(Observer o) {
-        observers.remove(o);
-    }
-
-
-    @Override
-    public void notifyListeners(String string) {
-    }
-    
 }

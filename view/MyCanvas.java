@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import model.GameElement;
 
 public class MyCanvas extends JPanel {
-	// private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	private GameBoard gameBoard;
 	
 	private ArrayList<GameElement> gameElements = new ArrayList<>();
@@ -18,7 +18,6 @@ public class MyCanvas extends JPanel {
 		this.gameBoard = gameBoard;
 		setBackground(Color.BLUE);
 		setPreferredSize(new Dimension(width, height));
-
 	}
 	@Override
 	public void paintComponent(Graphics g){
@@ -28,7 +27,6 @@ public class MyCanvas extends JPanel {
 			e.render(g2);
 		}
 	}
-
 	public ArrayList<GameElement> getGameElements(){
 		return gameElements;
 	}

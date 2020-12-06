@@ -11,14 +11,17 @@ import model.Berries.Observer;
 public class EnemyComposite extends GameElement implements Observer{
 
 	public static final int NROWS = 2;
-	public static final int NCOLS = 10;
-	public static final int ENEMY_SIZE = 15;//size of enemy block
+	public static final int NCOLS = 15;
+	public static final int ENEMY_SIZE = 13;//size of enemy block
 	public static final int UNIT_MOVE = 4; //speed
 
 	private GameBoard gameboard;
 	private ArrayList<ArrayList<GameElement>> rows;
 	private ArrayList<GameElement> bombs;
 	private ArrayList<GameElement> potions;
+	private int lostComponents = 0;
+	// private ArrayList<Observer> observers = new ArrayList<>();
+    // private Shooter shooter;
 	private boolean movingToRight = true;
 	private Random random = new Random();
 	private int score;
@@ -29,6 +32,7 @@ public class EnemyComposite extends GameElement implements Observer{
 		rows = new ArrayList<>();
 		bombs = new ArrayList<>();
 		potions = new ArrayList<>();
+		// lostComponents = new ArrayList<>();
 		enemies = NROWS*NCOLS;
 		GameBoard.enemies = enemies;
 
@@ -41,7 +45,6 @@ public class EnemyComposite extends GameElement implements Observer{
 			}
 		}
 	}
-
 
 	@Override
 	public void render(Graphics2D g2) {
@@ -142,6 +145,7 @@ public class EnemyComposite extends GameElement implements Observer{
 	public void dropPotions(){
 		Random rand = new Random();
 		int randX = rand.nextInt(575);
+		// this.addListener(this);
 		potions.add(new Potion(randX, 0));
 	}
 
@@ -167,11 +171,9 @@ public class EnemyComposite extends GameElement implements Observer{
 						score =	GameBoard.score +10;
 						GameBoard.scoreBoard.setText("Score: " + score);
 						GameBoard.score = score;
-
 						enemies = GameBoard.enemies -1;
 						GameBoard.enemyCount.setText("Enemies Left: " + enemies);
 						GameBoard.enemies = enemies;
-
 						removeBullets.add(bullet);
 						removeEnemies.add(enemy);
 					}
@@ -187,33 +189,31 @@ public class EnemyComposite extends GameElement implements Observer{
 		shooter.getWeapons().removeAll(removeBullets);
 		//end bullets vs enemies
 
-
 		//bombs vs shooter
-		var removeComponent = new ArrayList<GameElement>();
+		var removeComponents = new ArrayList<GameElement>();
 		var removeBombs = new ArrayList<GameElement>();
 
 		for(var b: bombs){
 			for(var player: shooter.getComponents()){
 				if(b.collideWith(player)){
 					removeBombs.add(b);
-					// shooter.getComponents().remove(player);
-					removeComponent.add(player);
+					// lostComponents.add(player);
+					lostComponents++;
+					removeComponents.add(player);
+					break;
 				}
 			}
-			// removeBombs.clear();
-			shooter.getComponents().removeAll(removeComponent);	
+			shooter.getComponents().removeAll(removeComponents);
 			// bombs.removeAll(removeBombs);
 		}
-
 
 		if(shooter.getComponentSize() == 0){
 			gameboard.getCanvas().getGameElements().clear();
 			gameboard.getCanvas().getGameElements().add(new TextDraw("GAME OVER!", 200, 100, Color.MAGENTA, 35));
-			gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + GameBoard.score, 215, 200, Color.GREEN, 35));
+			gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + GameBoard.score, 210, 200, Color.GREEN, 35));
 			score = 0;
 		}
 		//end bomb vs shooter
-	
 
 		//bullets vs bombs
 		removeBullets.clear();
@@ -237,7 +237,7 @@ public class EnemyComposite extends GameElement implements Observer{
 			for(var enemy: row){	
 				for(var player: shooter.getComponents()){
 					if (enemy.collideWith(player)){
-						removeComponent.add(player);
+						removeComponents.add(player);
 						removeEnemies.add(enemy);
 					}
 					if(enemy.y >= 275){
@@ -246,38 +246,99 @@ public class EnemyComposite extends GameElement implements Observer{
 						gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + GameBoard.score, 215, 200, Color.GREEN, 35));
 						score = 0;
 					}
+					if(rows.size() == 0 && shooter.getComponentSize() !=0){
+						gameboard.getCanvas().getGameElements().clear();
+						gameboard.getCanvas().getGameElements().add(new TextDraw("YOU WIN!", 73, 150, Color.GREEN, 100));
+						gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + GameBoard.score, 215, 200, Color.GREEN, 35));
+						score = 0;
+					}
 				}
 			}
-			shooter.getComponents().removeAll(removeComponent);
+			shooter.getComponents().removeAll(removeComponents);
 			row.removeAll(removeEnemies);
 		}
-	}
-	//potion -> shooter
-	@Override
-	public void actionPerformed(Shooter shooter) {
-		var removeComponent = new ArrayList<GameElement>();
-		var removePotions = new ArrayList<GameElement>();
+		// //potion -> shooter
+		// for(var p: potions){
+		// 	for(var player: shooter.getComponents()){
+		// 		if(p.collideWith(player)){
+		// 			player.drink();
+		// 		}
+		// 	}
+		// }
 
 		for(var p: potions){
+			ArrayList<GameElement> newComponents = new ArrayList<>();
 			for(var player: shooter.getComponents()){
-				if(p.collideWith(player)){
-					removePotions.add(p);
-					
-					removeComponent.add(player);
+				if(p.collideWith(player) && lostComponents > 0){
+					potions.remove(p);
+					newComponents.clear();
+					lostComponents--;
+					int size = ShooterElement.SIZE;
+					int x= player.getX();
+					int y = 300-size;
+					var b1 = new ShooterElement(x-size, y, Color.MAGENTA, false);
+					var b2 = new ShooterElement(x, y, Color.MAGENTA, false);
+					var b3 = new ShooterElement(x-size, y-size, Color.MAGENTA, false);
+					var b4 = new ShooterElement(x, y-size, Color.MAGENTA, false);
+
+
+					if(shooter.getComponentSize() == 1){
+						System.out.println(shooter.getComponentSize());
+						newComponents.add(b1);
+						newComponents.add(b2);
+						shooter.setComponents(newComponents);
+						shooter.setX(x-size);
+						shooter.setY(y);
+						return;
+						// newComponents.clear();
+					}else if(shooter.getComponentSize() == 2){
+						System.out.println(shooter.getComponentSize());
+
+						newComponents.add(b1);
+						newComponents.add(b2);
+						newComponents.add(b3);
+						shooter.setComponents(newComponents);
+						shooter.setX(x-size);
+						shooter.setY(y);
+						return;
+						// newComponents.clear();
+					}else if(shooter.getComponentSize() == 3){
+						System.out.println(shooter.getComponentSize());
+
+						newComponents.add(b1);
+						newComponents.add(b2);
+						newComponents.add(b3);
+						newComponents.add(b4);
+						shooter.setComponents(newComponents);
+						shooter.setX(x-size);
+						shooter.setY(y);
+						return;
+						// newComponents.clear();
+					}
 				}
 			}
-			// removeBombs.clear();
-			shooter.getComponents().removeAll(removeComponent);	
-			// bombs.removeAll(removeBombs);
-		}
+		}		
+	}
 
-		if(shooter.getComponentSize() == 0){
-			gameboard.getCanvas().getGameElements().clear();
-			gameboard.getCanvas().getGameElements().add(new TextDraw("GAME OVER!", 200, 100, Color.MAGENTA, 35));
-			gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + GameBoard.score, 215, 200, Color.GREEN, 35));
-			score = 0;
-		}
+	// //potion -> shooter
+	@Override
+	public void actionPerformed(Shooter shooter) {
+		// System.out.println("HELLO!");
+		// var removePotions = new ArrayList<GameElement>();
+		// GameElement newBlock;
 
+		// for(var p: potions){
+		// 	for(var player: shooter.getComponents()){
+		// 		if(p.collideWith(player)){
+		// 			removePotions.add(p);
+		// 			if(lostComponents.size() >=0){
+		// 				newBlock = lostComponents.get(0);
+		// 				shooter.getComponents().add(newBlock);	
+		// 			}
+		// 		}
+		// 	}
+		// 	potions.removeAll(removePotions);
+		// }
 	}
 	@Override
 	public int getY() {
@@ -288,3 +349,4 @@ public class EnemyComposite extends GameElement implements Observer{
 		return super.getX();
 	}
 }
+

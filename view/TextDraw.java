@@ -1,17 +1,19 @@
 package view;
 
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import model.GameElement;
+import model.Berries.Observer;
+
 import java.awt.Color;
 import java.awt.Font;
 
-
-public class TextDraw extends GameElement{
+public class TextDraw extends GameElement {
 	private String text;
 	private int size;
 
-	public TextDraw(String text, int x, int y, Color color, int size){
+	public TextDraw(String text, int x, int y, Color color, int size) {
 		super(x, y, color, false, 0, 0);
 		this.text = text;
 		this.size = size;
@@ -27,8 +29,6 @@ public class TextDraw extends GameElement{
 
 	@Override
 	public void animate() {
-	
-		
+
 	}
-	
 }
