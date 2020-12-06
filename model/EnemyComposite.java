@@ -6,13 +6,12 @@ import java.util.ArrayList;
 import java.util.Random;
 import view.GameBoard;
 import view.TextDraw;
-import model.Berries.Observer;
 
-public class EnemyComposite extends GameElement implements Observer{
+public class EnemyComposite extends GameElement {
 
 	public static final int NROWS = 2;
 	public static final int NCOLS = 15;
-	public static final int ENEMY_SIZE = 13;//size of enemy block
+	public static final int ENEMY_SIZE = 14;//size of enemy block
 	public static final int UNIT_MOVE = 4; //speed
 
 	private GameBoard gameboard;
@@ -265,11 +264,13 @@ public class EnemyComposite extends GameElement implements Observer{
 		// 		}
 		// 	}
 		// }
+		GameComments gameComments = new GameComments(gameboard);
 
 		for(var p: potions){
 			ArrayList<GameElement> newComponents = new ArrayList<>();
 			for(var player: shooter.getComponents()){
 				if(p.collideWith(player) && lostComponents > 0){
+					gameComments.sendMessage();
 					potions.remove(p);
 					newComponents.clear();
 					lostComponents--;

@@ -2,9 +2,6 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-
-import model.Berries.Observer;
 
 public class Bullet extends GameElement {
 	public static final int WIDTH = 5;
@@ -28,5 +25,8 @@ public class Bullet extends GameElement {
 	public void animate() {
 		super.y -= UNIT_MOVE;
 	}
+
+	@Override
+	public void actionPerformed(Shooter shooter) {}
 	
 }

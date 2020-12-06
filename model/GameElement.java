@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import model.Berries.Observer;
 
-public abstract class GameElement{
+public abstract class GameElement implements Observer{
 	public int y;
 	public int x;
 	public Color color;

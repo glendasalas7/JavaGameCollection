@@ -11,5 +11,5 @@ public interface Subject {
 
     void removeListener(Observer o);
 
-    void notifyListeners(ArrayList<Observer> o);
+    void notifyListeners();
 }

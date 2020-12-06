@@ -5,18 +5,12 @@ import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
-import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
-import model.Berries.Observer;
-import view.GameBoard;
-
 import java.awt.Color;
 
 public class Potion extends GameElement{
     public static final int SIZE = 7;
     public static final int UNIT_MOVE = 5;
-    private ArrayList<Observer> observers = new ArrayList<>();
     
     public Potion(int x, int y) {
         super(x, y, Color.green, true, SIZE, SIZE);
@@ -39,4 +33,7 @@ public class Potion extends GameElement{
     public void animate() {
         super.y += UNIT_MOVE;
     }
+
+    @Override
+    public void actionPerformed(Shooter shooter) {}
 }

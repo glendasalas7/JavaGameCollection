@@ -1,11 +1,8 @@
 package view;
 
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-
 import model.GameElement;
-import model.Berries.Observer;
-
+import model.Shooter;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -29,6 +26,12 @@ public class TextDraw extends GameElement {
 
 	@Override
 	public void animate() {
+
+	}
+
+	@Override
+	public void actionPerformed(Shooter shooter) {
+		// TODO Auto-generated method stub
 
 	}
 }

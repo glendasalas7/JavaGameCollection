@@ -6,7 +6,6 @@ import java.awt.Color;
 public class ShooterElement extends GameElement {
 
 	public static final int SIZE = 15;
-	private Shooter shooter;
 
 	public ShooterElement(int x, int y, Color color, boolean filled) {
 		super(x, y, color, filled, SIZE, SIZE);
@@ -24,5 +23,8 @@ public class ShooterElement extends GameElement {
 
 	@Override
 	public void animate() {}
+
+	@Override
+	public void actionPerformed(Shooter shooter) {}
 	
 }

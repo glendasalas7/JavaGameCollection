@@ -2,8 +2,6 @@ package model;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-
-import model.Berries.Observer;
 import java.awt.Color;
 
 public class Shooter extends GameElement{
@@ -99,6 +97,12 @@ public class Shooter extends GameElement{
 	public void setY(int y) {
 		// TODO Auto-generated method stub
 		super.setY(y);
+	}
+
+	@Override
+	public void actionPerformed(Shooter shooter) {
+		// TODO Auto-generated method stub
+
 	}
 }
 
