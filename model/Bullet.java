@@ -26,7 +26,4 @@ public class Bullet extends GameElement {
 		super.y -= UNIT_MOVE;
 	}
 
-	@Override
-	public void actionPerformed(Shooter shooter) {}
-	
 }

@@ -2,11 +2,10 @@ package view;
 
 import java.awt.Graphics2D;
 import model.GameElement;
-import model.Shooter;
 import java.awt.Color;
 import java.awt.Font;
 
-public class TextDraw extends GameElement {
+public class TextDraw extends GameElement{
 	private String text;
 	private int size;
 
@@ -14,7 +13,6 @@ public class TextDraw extends GameElement {
 		super(x, y, color, false, 0, 0);
 		this.text = text;
 		this.size = size;
-
 	}
 
 	@Override
@@ -26,12 +24,5 @@ public class TextDraw extends GameElement {
 
 	@Override
 	public void animate() {
-
-	}
-
-	@Override
-	public void actionPerformed(Shooter shooter) {
-		// TODO Auto-generated method stub
-
 	}
 }

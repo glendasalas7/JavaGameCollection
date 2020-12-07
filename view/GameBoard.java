@@ -12,17 +12,20 @@ import javax.swing.Timer;
 import controller.KeyController;
 import controller.TimerListener;
 import model.EnemyComposite;
+import model.GameComments;
+import model.PanelChanger;
 import model.Shooter;
 import model.ShooterElement;
-import model.Berries.Observer;
+import model.ObserverPattern.Observer;
 
-public class GameBoard {
-	private JFrame window;
+public class GameBoard{
+	private final JFrame window;
 	private MyCanvas canvas;
 	private Timer timer;
 	private Shooter shooter;
 	private TimerListener timerListener;
 	private EnemyComposite enemyComposite;
+	private GameComments gameComments;
 	public static final int WIDTH = 600;
 	public static final int HEIGHT = 300;
 	public static final int FPS = 20;
@@ -40,33 +43,31 @@ public class GameBoard {
 
 	public void init(){
 		Container cp = window.getContentPane();
-
 		canvas = new MyCanvas(this, WIDTH, HEIGHT);	
 		cp.add(BorderLayout.CENTER, canvas);
 		canvas.addKeyListener(new KeyController(this));
 		canvas.requestFocusInWindow();
 		canvas.setFocusable(true);
 
+
 		JButton startButton = new JButton("Start");
 		JButton quitButton = new JButton("Quit");
-		
 		startButton.setFocusable(false);
 		quitButton.setFocusable(false);
-
 		southPanel.add(startButton);
 		southPanel.add(quitButton);
 		southPanel.add(scoreBoard);
 		southPanel.add(enemyCount);
-		
+		gameComments = new GameComments(southPanel);
+		gameComments.addListener(new PanelChanger(this));
 		cp.add(BorderLayout.SOUTH, southPanel);
-
 		canvas.getGameElements().add(new TextDraw("Click <Start> to play", 100, 100, Color.yellow, 30));
 		timerListener = new TimerListener(this);
 		timer = new Timer(DELAY, timerListener);
 
 		startButton.addActionListener(event ->{
 			shooter = new Shooter(GameBoard.WIDTH /2, GameBoard.HEIGHT - ShooterElement.SIZE);
-			enemyComposite = new EnemyComposite(this);
+			enemyComposite = new EnemyComposite(this, gameComments);
 			canvas.getGameElements().clear();
 			score = 0;
 			GameBoard.scoreBoard.setText("Score: " + score);
@@ -114,4 +115,5 @@ public class GameBoard {
 	public static JLabel getEnemyCount() {
 		return enemyCount;
 	}
+
 }

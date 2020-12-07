@@ -5,36 +5,35 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import model.Bullet;
-import model.GameComments;
 import model.Shooter;
 import view.GameBoard;
 
-public class TimerListener implements ActionListener {
+public class TimerListener implements ActionListener{
 	
 	public enum EventType{
 		KEY_RIGHT, KEY_LEFT, KEY_SPACE
 	}
 
 	private GameBoard gameBoard;
-	private GameComments gameComments;
 	private LinkedList<EventType> eventQueue;
 	private final int BOMB_DROP_FREQ = 7;
 	private final int POTION_DROP_FREQ = 50;
-	private final int UPDATE_FREQ = 6;
+	private final int ALIEN_FREQ = 50;
 	private int frameCounter = 0;
 	private int frameCounter2 = 0;
-	private int frameCounter3 = 0 ;
-
+	private int frameCounter3 = 0;
 
 	public TimerListener(GameBoard gameBoard){
 		this.gameBoard = gameBoard;
 		eventQueue = new LinkedList<>();
 	}
 
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		++frameCounter;
 		++frameCounter2;
+		++frameCounter3;
 		update();
 		processEventQueue();
 		processCollision();
@@ -67,9 +66,11 @@ public class TimerListener implements ActionListener {
 			gameBoard.getEnemyComposite().dropPotions();
 			frameCounter2 = 0;
 		}
-		// if(frameCounter2 == UPDATE_FREQ){
-		// 	gameComments.returnPane();
-		// }
+		if(frameCounter3 == ALIEN_FREQ){
+			gameBoard.getEnemyComposite().dropAliens();
+			frameCounter3 = 0;
+		}
+		
 	}
 
 	private void processCollision(){
@@ -78,7 +79,8 @@ public class TimerListener implements ActionListener {
 
 		shooter.removeBulletsOutOfBounds();
 		enemyComposite.removeBombsOutOfBound();
-		// enemyComposite.removeBerriesOutOfBound();
+		enemyComposite.removePotionsOutOfBound();
+		enemyComposite.removeAliensOutOfBound();
 		enemyComposite.processCollision(shooter);
 	}
 
@@ -93,6 +95,7 @@ public class TimerListener implements ActionListener {
 	public GameBoard getGameBoard() {
 		return gameBoard;
 	}
+
 
 	
 }

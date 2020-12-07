@@ -1,11 +1,12 @@
 package model;
 
-// participant: ConcreteSubject
+
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
+
 import java.awt.Color;
 
 public class Potion extends GameElement{
@@ -19,21 +20,17 @@ public class Potion extends GameElement{
     @Override
     public void render(Graphics2D g2) {
             try{
-                BufferedImage berryIMG = ImageIO.read(new File("pictures/potion.png"));
-                Image temp = berryIMG.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+                BufferedImage potionIMG = ImageIO.read(new File("pictures/potion.png"));
+                Image temp = potionIMG.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 
                 g2.drawImage(temp, x, y, null);
             } catch(Exception e){
                 System.out.println("Image file load error");
             } 
     }
-    // @Override
-	public void drink() {}
+
     @Override
     public void animate() {
         super.y += UNIT_MOVE;
     }
-
-    @Override
-    public void actionPerformed(Shooter shooter) {}
 }

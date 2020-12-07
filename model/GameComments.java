@@ -1,57 +1,47 @@
 package model;
 
-import java.awt.Graphics2D;
+import java.awt.Color;
 import java.util.ArrayList;
-
 import javax.swing.JPanel;
 
-import model.Berries.Observer;
-import model.Berries.Subject;
+import model.ObserverPattern.Observer;
+import model.ObserverPattern.Subject;
 import view.GameBoard;
 
-public class GameComments extends GameElement implements Subject{
+public class GameComments implements Subject{
 
-    private GameBoard gameboard;
-    private JPanel originalPanel;
-    private JPanel tempPanel;
-    private ArrayList<Observer> observers;
+    private JPanel panel = new JPanel();
+    private JPanel tempPanel = new JPanel();
+    private final ArrayList<Observer> observers = new ArrayList<>();
+    private Boolean active = false;
 
-    public GameComments(GameBoard gameboard) {
-        this.gameboard = gameboard;
-
-        
+    public GameComments(JPanel panel){
+        this.panel = panel;
+        tempPanel = panel;
     }
 
-    public void messagePanel(){
-        originalPanel = gameboard.getSouthpanel();
-        tempPanel = new JPanel();
 
-        // tempPanel.add(startButton);
-		// tempPanel.add(quitButton);
-		// tempPanel.add(scoreBoard);
-		// tempPanel.add(enemyCount);
-		
 
+    public void healthUpdate(int size){
+        if(size == 1){
+            panel.setBackground(Color.RED);
+        }
+        else if(size == 2){
+            panel.setBackground(Color.ORANGE);
+        }
+        else if(size == 3){
+            panel.setBackground(Color.YELLOW);
+        }else if(size == 4){
+            panel.setBackground(Color.GREEN);
+        }
+        notifyListeners();
+        active = true;
     }
 
-    public void returnPane(){
-
+    public void returnPane() {
+		GameBoard.setSouthPanel(getTempPanel());
     }
-
-    public void sendMessage(){
-        System.out.println("WOO");
-        // notifyListeners();
-    }
-
-    @Override
-    public void render(Graphics2D g2) {}
     
-    @Override
-    public void animate() {}
-
-    @Override
-    public void actionPerformed(Shooter shooter) {}
-
     @Override
     public void addListener(Observer o) {
         observers.add(o);
@@ -65,7 +55,24 @@ public class GameComments extends GameElement implements Subject{
     @Override
     public void notifyListeners() {
         for (Observer o: observers) {
-            // o.actionPerformed("Button:"+name + " has clicked.");
+            o.actionPerformed(panel);
         }
     }
+    public void setOriginalPanel(JPanel originalPanel) {
+        this.panel = originalPanel;
+    }
+    public JPanel getOriginalPanel() {
+        return panel;
+    }
+    public void setTempPanel(JPanel tempPanel) {
+        this.tempPanel = tempPanel;
+    }
+    public JPanel getTempPanel() {
+        return tempPanel;
+    }
+    public Boolean getActive() {
+        return active;
+    }
+
+	
 }

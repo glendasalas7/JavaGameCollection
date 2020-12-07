@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+
 import view.GameBoard;
 
 public class Main{

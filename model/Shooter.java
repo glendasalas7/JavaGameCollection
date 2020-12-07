@@ -90,19 +90,11 @@ public class Shooter extends GameElement{
 	}
 	@Override
 	public void setX(int x) {
-		// TODO Auto-generated method stub
 		super.setX(x);
 	}
 	@Override
 	public void setY(int y) {
-		// TODO Auto-generated method stub
 		super.setY(y);
-	}
-
-	@Override
-	public void actionPerformed(Shooter shooter) {
-		// TODO Auto-generated method stub
-
 	}
 }
 

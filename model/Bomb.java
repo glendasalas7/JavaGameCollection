@@ -11,7 +11,7 @@ public class Bomb extends GameElement {
 	public Bomb(int x, int y) {
 		super(x, y, Color.green, true, SIZE, SIZE);
 	}
-
+	
 	@Override
 	public void render(Graphics2D g2) {
 		g2.setColor(color);
@@ -26,7 +26,4 @@ public class Bomb extends GameElement {
 		super.y += UNIT_MOVE;
 	}
 
-	@Override
-	public void actionPerformed(Shooter shooter) {}
-	
 }

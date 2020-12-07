@@ -21,6 +21,4 @@ public class Enemy extends GameElement {
 	public void animate() {
 	}
 
-	@Override
-	public void actionPerformed(Shooter shooter) {}
 }

@@ -23,8 +23,4 @@ public class ShooterElement extends GameElement {
 
 	@Override
 	public void animate() {}
-
-	@Override
-	public void actionPerformed(Shooter shooter) {}
-	
 }

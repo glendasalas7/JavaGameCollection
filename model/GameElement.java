@@ -4,9 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import model.Berries.Observer;
+import model.ObserverPattern.Observer;
+import model.SrategyPattern.Animation;
 
-public abstract class GameElement implements Observer{
+public abstract class GameElement implements Animation{
 	public int y;
 	public int x;
 	public Color color;

@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
+
+import model.SrategyPattern.HorizontalAlienAnimation;
 import view.GameBoard;
 import view.TextDraw;
 
@@ -15,26 +17,28 @@ public class EnemyComposite extends GameElement {
 	public static final int UNIT_MOVE = 4; //speed
 
 	private GameBoard gameboard;
+	private GameComments gameComments;
+	private Alien alien;
 	private ArrayList<ArrayList<GameElement>> rows;
 	private ArrayList<GameElement> bombs;
 	private ArrayList<GameElement> potions;
+	private ArrayList<GameElement> aliens;
+
 	private int lostComponents = 0;
-	// private ArrayList<Observer> observers = new ArrayList<>();
-    // private Shooter shooter;
 	private boolean movingToRight = true;
 	private Random random = new Random();
 	private int score;
 	private int enemies;
 
-	public EnemyComposite(GameBoard gameboard){
+	public EnemyComposite(GameBoard gameboard, GameComments gameComments){
 		this.gameboard = gameboard;
+		this.gameComments = gameComments;
 		rows = new ArrayList<>();
 		bombs = new ArrayList<>();
 		potions = new ArrayList<>();
-		// lostComponents = new ArrayList<>();
+		aliens = new ArrayList<>();
 		enemies = NROWS*NCOLS;
 		GameBoard.enemies = enemies;
-
 		for(int r = 0; r < NROWS; r++){ //populate enemies
 			var oneRow = new ArrayList<GameElement>();
 			rows.add(oneRow);
@@ -57,9 +61,13 @@ public class EnemyComposite extends GameElement {
 		for(var b: bombs){
 			b.render(g2);
 		}
-		//render berries
+		//render potions
 		for(var p: potions){
 			p.render(g2);
+		}
+		//render aliens
+		for(var a: aliens){
+			a.render(g2);
 		}
 	}
 
@@ -96,9 +104,13 @@ public class EnemyComposite extends GameElement {
 		for(var b: bombs){
 			b.animate();
 		}
-		//animate berries
+		//animate potions
 		for(var p:potions){
 			p.animate();
+		}
+		//animate aliens
+		for(var a:aliens){
+			a.animate();
 		}
 	}
 
@@ -144,7 +156,6 @@ public class EnemyComposite extends GameElement {
 	public void dropPotions(){
 		Random rand = new Random();
 		int randX = rand.nextInt(575);
-		// this.addListener(this);
 		potions.add(new Potion(randX, 0));
 	}
 
@@ -156,6 +167,25 @@ public class EnemyComposite extends GameElement {
 			}
 		}
 		potions.removeAll(remove);
+	}
+	public void dropAliens(){
+		Random rand = new Random();
+		// int randX = rand.nextInt(575);
+		int randY = rand.nextInt(200);
+		int units = Alien.UNIT_MOVE;
+		Alien alien = new Alien(0, randY);
+		alien.setAnimation(new HorizontalAlienAnimation(Alien.UNIT_MOVE, 0, randY));
+		aliens.add(alien);
+		}
+
+	public void removeAliensOutOfBound(){
+		var remove = new ArrayList<GameElement>();
+		for(var a: aliens){
+			if(a.y >= GameBoard.HEIGHT){
+				remove.add(a);
+			}
+		}
+		aliens.removeAll(remove);
 	}
 
 	public void processCollision(Shooter shooter){
@@ -196,13 +226,13 @@ public class EnemyComposite extends GameElement {
 			for(var player: shooter.getComponents()){
 				if(b.collideWith(player)){
 					removeBombs.add(b);
-					// lostComponents.add(player);
 					lostComponents++;
 					removeComponents.add(player);
 					break;
 				}
 			}
 			shooter.getComponents().removeAll(removeComponents);
+			gameComments.healthUpdate(shooter.getComponentSize());
 			// bombs.removeAll(removeBombs);
 		}
 
@@ -229,6 +259,7 @@ public class EnemyComposite extends GameElement {
 		}
 		shooter.getWeapons().removeAll(removeBullets);
 		bombs.removeAll(removeBombs);
+		//end bullet vs bombs
 	
 		//enemies vs shooter
 		for(var row: rows){
@@ -254,23 +285,15 @@ public class EnemyComposite extends GameElement {
 				}
 			}
 			shooter.getComponents().removeAll(removeComponents);
+			gameComments.healthUpdate(shooter.getComponentSize());
 			row.removeAll(removeEnemies);
-		}
-		// //potion -> shooter
-		// for(var p: potions){
-		// 	for(var player: shooter.getComponents()){
-		// 		if(p.collideWith(player)){
-		// 			player.drink();
-		// 		}
-		// 	}
-		// }
-		GameComments gameComments = new GameComments(gameboard);
+		}//end enemies vs shooter
 
+		//potions + shooter
 		for(var p: potions){
 			ArrayList<GameElement> newComponents = new ArrayList<>();
 			for(var player: shooter.getComponents()){
 				if(p.collideWith(player) && lostComponents > 0){
-					gameComments.sendMessage();
 					potions.remove(p);
 					newComponents.clear();
 					lostComponents--;
@@ -288,10 +311,11 @@ public class EnemyComposite extends GameElement {
 						newComponents.add(b1);
 						newComponents.add(b2);
 						shooter.setComponents(newComponents);
+				     	gameComments.healthUpdate(shooter.getComponentSize());
 						shooter.setX(x-size);
 						shooter.setY(y);
 						return;
-						// newComponents.clear();
+				
 					}else if(shooter.getComponentSize() == 2){
 						System.out.println(shooter.getComponentSize());
 
@@ -299,10 +323,11 @@ public class EnemyComposite extends GameElement {
 						newComponents.add(b2);
 						newComponents.add(b3);
 						shooter.setComponents(newComponents);
+					    gameComments.healthUpdate(shooter.getComponentSize());
+
 						shooter.setX(x-size);
 						shooter.setY(y);
 						return;
-						// newComponents.clear();
 					}else if(shooter.getComponentSize() == 3){
 						System.out.println(shooter.getComponentSize());
 
@@ -311,36 +336,17 @@ public class EnemyComposite extends GameElement {
 						newComponents.add(b3);
 						newComponents.add(b4);
 						shooter.setComponents(newComponents);
+					    gameComments.healthUpdate(shooter.getComponentSize());
+
 						shooter.setX(x-size);
 						shooter.setY(y);
 						return;
-						// newComponents.clear();
 					}
 				}
 			}
 		}		
-	}
+	}//end potions + shooter
 
-	// //potion -> shooter
-	@Override
-	public void actionPerformed(Shooter shooter) {
-		// System.out.println("HELLO!");
-		// var removePotions = new ArrayList<GameElement>();
-		// GameElement newBlock;
-
-		// for(var p: potions){
-		// 	for(var player: shooter.getComponents()){
-		// 		if(p.collideWith(player)){
-		// 			removePotions.add(p);
-		// 			if(lostComponents.size() >=0){
-		// 				newBlock = lostComponents.get(0);
-		// 				shooter.getComponents().add(newBlock);	
-		// 			}
-		// 		}
-		// 	}
-		// 	potions.removeAll(removePotions);
-		// }
-	}
 	@Override
 	public int getY() {
 		return super.getY();
