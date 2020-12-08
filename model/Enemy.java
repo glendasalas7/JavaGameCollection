@@ -3,6 +3,8 @@ package model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import model.SrategyPattern.Animation;
+
 public class Enemy extends GameElement {
 	public Enemy(int x, int y, int size, Color color, boolean filled) {
 		super(x, y, color, filled, size, size);
@@ -20,5 +22,13 @@ public class Enemy extends GameElement {
 	@Override
 	public void animate() {
 	}
+
+	@Override
+	public void setAnimation(Animation animation) {
+		// TODO Auto-generated method stub
+
+	}
+
+
 
 }

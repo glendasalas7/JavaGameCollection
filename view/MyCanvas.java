@@ -8,14 +8,14 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 import controller.TimerListener;
-import model.GameComments;
+import model.HealthNotifier;
 import model.GameElement;
 import model.ObserverPattern.Observer;
 
 public class MyCanvas extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private GameBoard gameBoard;
-	private GameComments gameComments;
+	private HealthNotifier gameComments;
 	private TimerListener timerListener;
 
 	private ArrayList<GameElement> gameElements = new ArrayList<>();

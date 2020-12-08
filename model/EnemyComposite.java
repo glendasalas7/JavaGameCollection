@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 
+import model.SrategyPattern.Animation;
+import model.SrategyPattern.AquiredAlien;
 import model.SrategyPattern.HorizontalAlienAnimation;
 import view.GameBoard;
 import view.TextDraw;
@@ -13,12 +15,11 @@ public class EnemyComposite extends GameElement {
 
 	public static final int NROWS = 2;
 	public static final int NCOLS = 15;
-	public static final int ENEMY_SIZE = 14;//size of enemy block
-	public static final int UNIT_MOVE = 4; //speed
+	public static final int ENEMY_SIZE = 12;// size of enemy block
+	public static final int UNIT_MOVE = 4; // speed
 
 	private GameBoard gameboard;
-	private GameComments gameComments;
-	private Alien alien;
+	private HealthNotifier gameComments;
 	private ArrayList<ArrayList<GameElement>> rows;
 	private ArrayList<GameElement> bombs;
 	private ArrayList<GameElement> potions;
@@ -30,43 +31,42 @@ public class EnemyComposite extends GameElement {
 	private int score;
 	private int enemies;
 
-	public EnemyComposite(GameBoard gameboard, GameComments gameComments){
+	public EnemyComposite(GameBoard gameboard, HealthNotifier gameComments) {
 		this.gameboard = gameboard;
 		this.gameComments = gameComments;
 		rows = new ArrayList<>();
 		bombs = new ArrayList<>();
 		potions = new ArrayList<>();
 		aliens = new ArrayList<>();
-		enemies = NROWS*NCOLS;
+		enemies = NROWS * NCOLS;
 		GameBoard.enemies = enemies;
-		for(int r = 0; r < NROWS; r++){ //populate enemies
+		for (int r = 0; r < NROWS; r++) { // populate enemies
 			var oneRow = new ArrayList<GameElement>();
 			rows.add(oneRow);
-			for(int c = 0; c < NCOLS; c++){
-				oneRow.add(new Enemy(
-					c * ENEMY_SIZE * 2, r * ENEMY_SIZE * 2, ENEMY_SIZE, Color.yellow, true));
+			for (int c = 0; c < NCOLS; c++) {
+				oneRow.add(new Enemy(c * ENEMY_SIZE * 2, r * ENEMY_SIZE * 2, ENEMY_SIZE, Color.yellow, true));
 			}
 		}
 	}
 
 	@Override
 	public void render(Graphics2D g2) {
-		//render enemy array
-		for(var r: rows){
-			for(var e: r){
+		// render enemy array
+		for (var r : rows) {
+			for (var e : r) {
 				e.render(g2);
 			}
 		}
-		//render bombs
-		for(var b: bombs){
+		// render bombs
+		for (var b : bombs) {
 			b.render(g2);
 		}
-		//render potions
-		for(var p: potions){
+		// render potions
+		for (var p : potions) {
 			p.render(g2);
 		}
-		//render aliens
-		for(var a: aliens){
+		// render aliens
+		for (var a : aliens) {
 			a.render(g2);
 		}
 	}
@@ -74,114 +74,118 @@ public class EnemyComposite extends GameElement {
 	@Override
 	public void animate() {
 		int dx = UNIT_MOVE;
-		if(movingToRight){
-			if(rightEnd() >= GameBoard.WIDTH){
-				for(var row: rows){
-					for(var r:row)//enemy moves down - from right
+		if (movingToRight) {
+			if (rightEnd() >= GameBoard.WIDTH) {
+				for (var row : rows) {
+					for (var r : row)// enemy moves down - from right
 						r.y += 20;
 				}
 				dx = -dx;
 				movingToRight = false;
 			}
-		}else{
+		} else {
 			dx = -dx;
-			if(leftEnd() <= 0){
+			if (leftEnd() <= 0) {
 				dx = -dx;
 				movingToRight = true;
-				for(var row: rows){//enemy moves down - from left
-					for(var r:row)
+				for (var row : rows) {// enemy moves down - from left
+					for (var r : row)
 						r.y += 20;
 				}
 				dx = -dx;
 				movingToRight = true;
 			}
 		}
-		for(var row: rows){
-			for(var e:row)
+		for (var row : rows) {
+			for (var e : row)
 				e.x += dx;
 		}
-		//animate bombs
-		for(var b: bombs){
+		// animate bombs
+		for (var b : bombs) {
 			b.animate();
 		}
-		//animate potions
-		for(var p:potions){
+		// animate potions
+		for (var p : potions) {
 			p.animate();
 		}
-		//animate aliens
-		for(var a:aliens){
+
+		for (var a : aliens) {
 			a.animate();
 		}
+
 	}
 
-	private int rightEnd(){
+	private int rightEnd() {
 		int xEnd = -100;
-		for(var row: rows){
-			if(row.size() == 0) continue;
-			int x = row.get(row.size()-1).x + ENEMY_SIZE;
-			if(x > xEnd) xEnd = x;
-		}
-		return xEnd;
-	}
-	private int leftEnd(){
-		int xEnd = 9000;
-		for(var row: rows){
-			if(row.size() == 0) continue;
-			int x = row.get(0).x;
-			if(x < xEnd) xEnd = x;
+		for (var row : rows) {
+			if (row.size() == 0)
+				continue;
+			int x = row.get(row.size() - 1).x + ENEMY_SIZE;
+			if (x > xEnd)
+				xEnd = x;
 		}
 		return xEnd;
 	}
 
-	public void dropBombs(){
-		for(var row: rows){
-			for(var e: row){
-				if(random.nextFloat() < 0.1F){//very small
+	private int leftEnd() {
+		int xEnd = 9000;
+		for (var row : rows) {
+			if (row.size() == 0)
+				continue;
+			int x = row.get(0).x;
+			if (x < xEnd)
+				xEnd = x;
+		}
+		return xEnd;
+	}
+
+	public void dropBombs() {
+		for (var row : rows) {
+			for (var e : row) {
+				if (random.nextFloat() < 0.1F) {// very small
 					bombs.add(new Bomb(e.x, e.y));
 				}
 			}
 		}
 	}
 
-	public void removeBombsOutOfBound(){
+	public void removeBombsOutOfBound() {
 		var remove = new ArrayList<GameElement>();
-		for(var b: bombs){
-			if(b.y >= GameBoard.HEIGHT){
+		for (var b : bombs) {
+			if (b.y >= GameBoard.HEIGHT) {
 				remove.add(b);
 			}
 		}
 		bombs.removeAll(remove);
 	}
 
-	public void dropPotions(){
+	public void dropPotions() {
 		Random rand = new Random();
 		int randX = rand.nextInt(575);
 		potions.add(new Potion(randX, 0));
 	}
 
-	public void removePotionsOutOfBound(){
+	public void removePotionsOutOfBound() {
 		var remove = new ArrayList<GameElement>();
-		for(var p: potions){
-			if(p.y >= GameBoard.HEIGHT){
+		for (var p : potions) {
+			if (p.y >= GameBoard.HEIGHT) {
 				remove.add(p);
 			}
 		}
 		potions.removeAll(remove);
 	}
-	public void dropAliens(){
-		Random rand = new Random();
-		// int randX = rand.nextInt(575);
-		int randY = rand.nextInt(200);
-		int units = Alien.UNIT_MOVE;
-		Alien alien = new Alien(0, randY);
-		alien.setAnimation(new HorizontalAlienAnimation(Alien.UNIT_MOVE, 0, randY));
-		aliens.add(alien);
-		}
 
-	public void removeAliensOutOfBound(){
+	public void dropAliens() {
+		Random rand = new Random();
+		int randx = rand.nextInt(200);
+		HorizontalAlienAnimation haa = new HorizontalAlienAnimation();
+		aliens.add(new Alien(randx, 0, haa));
+	}
+
+	public void removeAliensOutOfBound() {
 		var remove = new ArrayList<GameElement>();
-		for(var a: aliens){
-			if(a.y >= GameBoard.HEIGHT){
+		for (var a : aliens) {
+			if (a.y >= GameBoard.HEIGHT) {
 				remove.add(a);
 			}
 		}
@@ -261,6 +265,38 @@ public class EnemyComposite extends GameElement {
 		bombs.removeAll(removeBombs);
 		//end bullet vs bombs
 	
+		// alien vs player
+		for(var a: aliens){
+			ArrayList<GameElement> newComponents = new ArrayList<>();
+			ArrayList<GameElement> aliensRemove = new ArrayList<>();
+
+			for(var player: shooter.getComponents()){
+				if(a.collideWith(player) && lostComponents > 0){	
+
+					lostComponents = 0;
+					int size = ShooterElement.SIZE;
+					int x= player.getX();
+					int y = 300-size;
+					var b1 = new ShooterElement(x-size, y, Color.MAGENTA, false);
+					var b2 = new ShooterElement(x, y, Color.MAGENTA, false);
+					var b3 = new ShooterElement(x-size, y-size, Color.MAGENTA, false);
+					var b4 = new ShooterElement(x, y-size, Color.MAGENTA, false);
+
+
+						newComponents.add(b1);
+						newComponents.add(b2);
+						newComponents.add(b3);
+						newComponents.add(b4);
+						shooter.setComponents(newComponents);
+				     	gameComments.healthUpdate(shooter.getComponentSize());
+						shooter.setX(x-size);
+						shooter.setY(y);	
+						a.setAnimation(new AquiredAlien());
+				}
+			}
+		}
+
+
 		//enemies vs shooter
 		for(var row: rows){
 			var removeEnemies = new ArrayList<GameElement>();
@@ -344,16 +380,27 @@ public class EnemyComposite extends GameElement {
 					}
 				}
 			}
-		}		
-	}//end potions + shooter
+		}
+				
+		//end potions + shooter
+	}
 
 	@Override
 	public int getY() {
 		return super.getY();
 	}
+
 	@Override
 	public int getX() {
 		return super.getX();
 	}
+
+	@Override
+	public void setAnimation(Animation animation) {
+		// TODO Auto-generated method stub
+
+	}
+
+
 }
 

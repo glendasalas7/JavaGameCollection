@@ -2,10 +2,12 @@ package view;
 
 import java.awt.Graphics2D;
 import model.GameElement;
+import model.SrategyPattern.Animation;
+
 import java.awt.Color;
 import java.awt.Font;
 
-public class TextDraw extends GameElement{
+public class TextDraw extends GameElement {
 	private String text;
 	private int size;
 
@@ -25,4 +27,11 @@ public class TextDraw extends GameElement{
 	@Override
 	public void animate() {
 	}
+
+	@Override
+	public void setAnimation(Animation animation) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

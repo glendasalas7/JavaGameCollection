@@ -1,6 +1,9 @@
 package model;
 
 import java.awt.Graphics2D;
+
+import model.SrategyPattern.Animation;
+
 import java.awt.Color;
 
 public class Bomb extends GameElement {
@@ -11,7 +14,7 @@ public class Bomb extends GameElement {
 	public Bomb(int x, int y) {
 		super(x, y, Color.green, true, SIZE, SIZE);
 	}
-	
+
 	@Override
 	public void render(Graphics2D g2) {
 		g2.setColor(color);
@@ -25,5 +28,13 @@ public class Bomb extends GameElement {
 	public void animate() {
 		super.y += UNIT_MOVE;
 	}
+
+	@Override
+	public void setAnimation(Animation animation) {
+		// TODO Auto-generated method stub
+
+	}
+
+
 
 }

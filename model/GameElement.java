@@ -60,4 +60,5 @@ public abstract class GameElement implements Animation{
 
 	public abstract void render(Graphics2D g2);
 	public abstract void animate();
+	public abstract void setAnimation(Animation animation);
 }

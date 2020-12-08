@@ -18,7 +18,7 @@ public class TimerListener implements ActionListener{
 	private LinkedList<EventType> eventQueue;
 	private final int BOMB_DROP_FREQ = 7;
 	private final int POTION_DROP_FREQ = 50;
-	private final int ALIEN_FREQ = 50;
+	private final int ALIEN_FREQ = 90;
 	private int frameCounter = 0;
 	private int frameCounter2 = 0;
 	private int frameCounter3 = 0;

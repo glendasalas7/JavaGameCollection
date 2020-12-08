@@ -3,51 +3,45 @@ package model;
 import java.awt.Graphics2D;
 import model.SrategyPattern.Animation;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
-public class Alien extends GameElement {
+public class Alien extends GameElement{
     
     private Animation animation;
     private Graphics2D g2;
     public static final int SIZE = 7;
     public static final int UNIT_MOVE = 5;
-    
-    public Alien(int x, int y) {
+
+    public Alien(int x, int y, Animation animation) {
         super(x, y, Color.green, true, SIZE, SIZE);
+        this.animation = animation;
+        animation.setX(super.x);
+        animation.setY(super.y);
     }
 
     public void setAnimation(Animation animation) {
         this.animation = animation;
     }
-    
-    public void update() {
-        animation.animate();
-        render(g2);
-    }
 
 	@Override
 	public void render(Graphics2D g2) {
-		
+        animation.setX(super.x);
+        animation.setY(super.y);
+        animation.render(g2);
 	}
 
-    @Override
     public void animate() {
+        super.y += UNIT_MOVE;
     }
-    @Override
-    public int getY() {
-        return super.getY();
-    }
+
     @Override
     public int getX() {
+        // TODO Auto-generated method stub
         return super.getX();
     }
     @Override
-    public void setX(int x) {
+    public int getY() {
         // TODO Auto-generated method stub
-        super.setX(x);
-    }
-    @Override
-    public void setY(int y) {
-        // TODO Auto-generated method stub
-        super.setY(y);
+        return super.getY();
     }
 }

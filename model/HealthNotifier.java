@@ -8,14 +8,14 @@ import model.ObserverPattern.Observer;
 import model.ObserverPattern.Subject;
 import view.GameBoard;
 
-public class GameComments implements Subject{
+public class HealthNotifier implements Subject{
 
     private JPanel panel = new JPanel();
     private JPanel tempPanel = new JPanel();
     private final ArrayList<Observer> observers = new ArrayList<>();
     private Boolean active = false;
 
-    public GameComments(JPanel panel){
+    public HealthNotifier(JPanel panel){
         this.panel = panel;
         tempPanel = panel;
     }

@@ -1,6 +1,9 @@
 package model;
 
 import java.awt.Graphics2D;
+
+import model.SrategyPattern.Animation;
+
 import java.awt.Color;
 
 public class ShooterElement extends GameElement {
@@ -22,5 +25,13 @@ public class ShooterElement extends GameElement {
 	}
 
 	@Override
-	public void animate() {}
+	public void animate() {
+	}
+
+	@Override
+	public void setAnimation(Animation animation) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

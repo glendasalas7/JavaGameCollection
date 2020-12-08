@@ -3,15 +3,16 @@ package model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import model.SrategyPattern.Animation;
+
 public class Bullet extends GameElement {
 	public static final int WIDTH = 5;
 	public static final int UNIT_MOVE = 30;
-	// public static int x;
-	// public static int y;
 
 	public Bullet(int x, int y) {
 		super(x, y, Color.red, true, WIDTH, WIDTH + 3);
 	}
+
 	@Override
 	public void render(Graphics2D g2) {
 		g2.setColor(color);
@@ -25,5 +26,13 @@ public class Bullet extends GameElement {
 	public void animate() {
 		super.y -= UNIT_MOVE;
 	}
+
+	@Override
+	public void setAnimation(Animation animation) {
+		// TODO Auto-generated method stub
+
+	}
+
+
 
 }

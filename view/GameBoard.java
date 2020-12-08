@@ -12,7 +12,7 @@ import javax.swing.Timer;
 import controller.KeyController;
 import controller.TimerListener;
 import model.EnemyComposite;
-import model.GameComments;
+import model.HealthNotifier;
 import model.PanelChanger;
 import model.Shooter;
 import model.ShooterElement;
@@ -25,7 +25,7 @@ public class GameBoard{
 	private Shooter shooter;
 	private TimerListener timerListener;
 	private EnemyComposite enemyComposite;
-	private GameComments gameComments;
+	private HealthNotifier gameComments;
 	public static final int WIDTH = 600;
 	public static final int HEIGHT = 300;
 	public static final int FPS = 20;
@@ -58,7 +58,7 @@ public class GameBoard{
 		southPanel.add(quitButton);
 		southPanel.add(scoreBoard);
 		southPanel.add(enemyCount);
-		gameComments = new GameComments(southPanel);
+		gameComments = new HealthNotifier(southPanel);
 		gameComments.addListener(new PanelChanger(this));
 		cp.add(BorderLayout.SOUTH, southPanel);
 		canvas.getGameElements().add(new TextDraw("Click <Start> to play", 100, 100, Color.yellow, 30));
