@@ -1,12 +1,11 @@
-package model;
+package model.ObserverPattern;
 import javax.swing.JPanel;
-import model.ObserverPattern.Observer;
 import view.GameBoard;
 
-public class PanelChanger implements Observer {
+public class HealthChanger implements Observer {
     private GameBoard gameBoard;
 
-    public PanelChanger(GameBoard gameBoard) {
+    public HealthChanger(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
     }
 

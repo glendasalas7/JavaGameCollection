@@ -2,8 +2,8 @@ package model;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-
 import model.SrategyPattern.Animation;
+import view.GameBoard;
 
 import java.awt.Color;
 
@@ -13,10 +13,11 @@ public class Shooter extends GameElement {
 	public static final int MAX_BULLETS = 3;
 	private ArrayList<GameElement> components = new ArrayList<>();
 	private ArrayList<GameElement> weapons = new ArrayList<>();
+	private BulletState state;
 
 	public Shooter(int x, int y) {
 		super(x, y, 0, 0);
-
+		state = new BulletStateFired(GameBoard.getComment()); // initial state
 		var size = ShooterElement.SIZE;
 		var s1 = new ShooterElement(x - size, y - size, Color.MAGENTA, false);
 		var s2 = new ShooterElement(x, y - size, Color.MAGENTA, false);
@@ -62,6 +63,21 @@ public class Shooter extends GameElement {
 		return weapons;
 	}
 
+
+    public void goNextState() {
+        state.goNext(this, GameBoard.getComment());
+	}
+
+	public void goBackState() {
+        state.goBack(this, GameBoard.getComment());
+    }
+
+    public void setState(BulletState state) {
+        this.state = state;
+    }
+
+
+
 	@Override
 	public void render(Graphics2D g2) {
 		for (var c : components) {
@@ -102,8 +118,6 @@ public class Shooter extends GameElement {
 
 	@Override
 	public void setAnimation(Animation animation) {
-		// TODO Auto-generated method stub
-
 	}
 }
 

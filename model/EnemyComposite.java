@@ -229,6 +229,11 @@ public class EnemyComposite extends GameElement {
 		for(var b: bombs){
 			for(var player: shooter.getComponents()){
 				if(b.collideWith(player)){
+					if(shooter.getComponentSize() != 0){
+						if(shooter.getComponentSize() != 1){
+							shooter.goNextState();
+						}
+					}
 					removeBombs.add(b);
 					lostComponents++;
 					removeComponents.add(player);
@@ -292,6 +297,7 @@ public class EnemyComposite extends GameElement {
 						shooter.setX(x-size);
 						shooter.setY(y);	
 						a.setAnimation(new AquiredAlien());
+						shooter.setState(new BulletStateFired(GameBoard.getComment()));
 				}
 			}
 		}
@@ -305,6 +311,10 @@ public class EnemyComposite extends GameElement {
 					if (enemy.collideWith(player)){
 						removeComponents.add(player);
 						removeEnemies.add(enemy);
+						if(shooter.getComponentSize() != 1)
+						{
+							shooter.goNextState();
+						}
 					}
 					if(enemy.y >= 275){
 						gameboard.getCanvas().getGameElements().clear();
@@ -330,6 +340,7 @@ public class EnemyComposite extends GameElement {
 			ArrayList<GameElement> newComponents = new ArrayList<>();
 			for(var player: shooter.getComponents()){
 				if(p.collideWith(player) && lostComponents > 0){
+					shooter.goBackState();
 					potions.remove(p);
 					newComponents.clear();
 					lostComponents--;
@@ -397,8 +408,6 @@ public class EnemyComposite extends GameElement {
 
 	@Override
 	public void setAnimation(Animation animation) {
-		// TODO Auto-generated method stub
-
 	}
 
 

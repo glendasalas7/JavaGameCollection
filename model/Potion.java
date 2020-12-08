@@ -38,8 +38,6 @@ public class Potion extends GameElement {
 
     @Override
     public void setAnimation(Animation animation) {
-        // TODO Auto-generated method stub
-
     }
 
 

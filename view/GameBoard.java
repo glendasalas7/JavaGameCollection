@@ -13,7 +13,7 @@ import controller.KeyController;
 import controller.TimerListener;
 import model.EnemyComposite;
 import model.HealthNotifier;
-import model.PanelChanger;
+import model.HealthChanger;
 import model.Shooter;
 import model.ShooterElement;
 import model.ObserverPattern.Observer;
@@ -36,7 +36,7 @@ public class GameBoard{
 	public static JLabel enemyCount = new JLabel("");
 	public static JPanel southPanel = new JPanel();
 	public static ArrayList<Observer> observers;
-
+	public static JLabel comment = new JLabel("");
 	public GameBoard(JFrame window){
 		this.window = window;
 	}
@@ -54,12 +54,13 @@ public class GameBoard{
 		JButton quitButton = new JButton("Quit");
 		startButton.setFocusable(false);
 		quitButton.setFocusable(false);
+		southPanel.add(comment);
 		southPanel.add(startButton);
 		southPanel.add(quitButton);
 		southPanel.add(scoreBoard);
 		southPanel.add(enemyCount);
 		gameComments = new HealthNotifier(southPanel);
-		gameComments.addListener(new PanelChanger(this));
+		gameComments.addListener(new HealthChanger(this));
 		cp.add(BorderLayout.SOUTH, southPanel);
 		canvas.getGameElements().add(new TextDraw("Click <Start> to play", 100, 100, Color.yellow, 30));
 		timerListener = new TimerListener(this);
@@ -115,5 +116,10 @@ public class GameBoard{
 	public static JLabel getEnemyCount() {
 		return enemyCount;
 	}
-
+	public static JLabel getComment() {
+		return comment;
+	}
+	public static void setComment(JLabel comment) {
+		GameBoard.comment = comment;
+	}
 }
