@@ -5,10 +5,10 @@ package model;
 
 import javax.swing.JLabel;
 
-public class BulletStateDone implements BulletState {
+public class ShooterDangerLevel implements ShooterState {
 	private JLabel label;
 
-	public BulletStateDone(JLabel label) {
+	public ShooterDangerLevel(JLabel label) {
 		label.setText("WARNING");
 
 	}
@@ -20,7 +20,7 @@ public class BulletStateDone implements BulletState {
 
 	@Override
 	public void goBack(Shooter context, JLabel label) {
-		context.setState(new BulletStateExplosion(label));
+		context.setState(new ShooterYellowLevel(label));
 
 	}
 

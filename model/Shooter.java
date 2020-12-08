@@ -13,11 +13,11 @@ public class Shooter extends GameElement {
 	public static final int MAX_BULLETS = 3;
 	private ArrayList<GameElement> components = new ArrayList<>();
 	private ArrayList<GameElement> weapons = new ArrayList<>();
-	private BulletState state;
+	private ShooterState state;
 
 	public Shooter(int x, int y) {
 		super(x, y, 0, 0);
-		state = new BulletStateFired(GameBoard.getComment()); // initial state
+		state = new ShooterGreenLevel(GameBoard.getComment()); // initial state
 		var size = ShooterElement.SIZE;
 		var s1 = new ShooterElement(x - size, y - size, Color.MAGENTA, false);
 		var s2 = new ShooterElement(x, y - size, Color.MAGENTA, false);
@@ -72,7 +72,7 @@ public class Shooter extends GameElement {
         state.goBack(this, GameBoard.getComment());
     }
 
-    public void setState(BulletState state) {
+    public void setState(ShooterState state) {
         this.state = state;
     }
 

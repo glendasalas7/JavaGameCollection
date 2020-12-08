@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import view.GameBoard;
 
-public interface BulletState {
+public interface ShooterState {
 
 	void goNext(Shooter context, JLabel panel);
 	void goBack(Shooter context, JLabel panel);

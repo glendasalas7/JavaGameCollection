@@ -15,7 +15,7 @@ public class EnemyComposite extends GameElement {
 
 	public static final int NROWS = 2;
 	public static final int NCOLS = 15;
-	public static final int ENEMY_SIZE = 12;// size of enemy block
+	public static final int ENEMY_SIZE = 13;// size of enemy block
 	public static final int UNIT_MOVE = 4; // speed
 
 	private GameBoard gameboard;
@@ -229,10 +229,8 @@ public class EnemyComposite extends GameElement {
 		for(var b: bombs){
 			for(var player: shooter.getComponents()){
 				if(b.collideWith(player)){
-					if(shooter.getComponentSize() != 0){
-						if(shooter.getComponentSize() != 1){
+					if(shooter.getComponentSize() >= 2){
 							shooter.goNextState();
-						}
 					}
 					removeBombs.add(b);
 					lostComponents++;
@@ -297,7 +295,7 @@ public class EnemyComposite extends GameElement {
 						shooter.setX(x-size);
 						shooter.setY(y);	
 						a.setAnimation(new AquiredAlien());
-						shooter.setState(new BulletStateFired(GameBoard.getComment()));
+						shooter.setState(new ShooterGreenLevel(GameBoard.getComment()));
 				}
 			}
 		}
@@ -311,10 +309,6 @@ public class EnemyComposite extends GameElement {
 					if (enemy.collideWith(player)){
 						removeComponents.add(player);
 						removeEnemies.add(enemy);
-						if(shooter.getComponentSize() != 1)
-						{
-							shooter.goNextState();
-						}
 					}
 					if(enemy.y >= 275){
 						gameboard.getCanvas().getGameElements().clear();
@@ -339,8 +333,16 @@ public class EnemyComposite extends GameElement {
 		for(var p: potions){
 			ArrayList<GameElement> newComponents = new ArrayList<>();
 			for(var player: shooter.getComponents()){
-				if(p.collideWith(player) && lostComponents > 0){
-					shooter.goBackState();
+				if(p.collideWith(player) && lostComponents !=0){
+					if(shooter.getComponentSize() == 3){
+						shooter.setState(new ShooterGreenLevel(GameBoard.getComment()));
+						}
+						if(shooter.getComponentSize() == 2){
+							shooter.setState(new ShooterYellowLevel(GameBoard.getComment()));
+							}
+							if(shooter.getComponentSize() == 1){
+								shooter.setState(new ShooterDangerLevel(GameBoard.getComment()));
+								}
 					potions.remove(p);
 					newComponents.clear();
 					lostComponents--;
