@@ -12,11 +12,12 @@ import javax.swing.Timer;
 import controller.KeyController;
 import controller.TimerListener;
 import model.EnemyComposite;
-import model.HealthNotifier;
-import model.HealthChanger;
+import model.ObserverPattern.HealthNotifier;
+import model.ObserverPattern.HealthChanger;
 import model.Shooter;
 import model.ShooterElement;
 import model.ObserverPattern.Observer;
+import java.awt.Font;
 
 public class GameBoard{
 	private final JFrame window;
@@ -54,6 +55,7 @@ public class GameBoard{
 		JButton quitButton = new JButton("Quit");
 		startButton.setFocusable(false);
 		quitButton.setFocusable(false);
+		comment.setFont(new Font("Courier", Font.BOLD, 15));
 		southPanel.add(comment);
 		southPanel.add(startButton);
 		southPanel.add(quitButton);
@@ -62,7 +64,8 @@ public class GameBoard{
 		gameComments = new HealthNotifier(southPanel);
 		gameComments.addListener(new HealthChanger(this));
 		cp.add(BorderLayout.SOUTH, southPanel);
-		canvas.getGameElements().add(new TextDraw("Click <Start> to play", 100, 100, Color.yellow, 30));
+		canvas.getGameElements().add(new TextDraw("SPACE INVADER", 10, 125, Color.GREEN, 70));
+		canvas.getGameElements().add(new TextDraw("Click <Start> to play", 190, 190, Color.MAGENTA, 20));
 		timerListener = new TimerListener(this);
 		timer = new Timer(DELAY, timerListener);
 

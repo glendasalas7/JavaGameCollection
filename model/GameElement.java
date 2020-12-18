@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import model.ObserverPattern.Observer;
-import model.SrategyPattern.Animation;
+import model.StrategyPattern.Animation;
 
 public abstract class GameElement implements Animation{
 	public int y;

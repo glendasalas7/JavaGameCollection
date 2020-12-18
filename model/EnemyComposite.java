@@ -5,9 +5,13 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 
-import model.SrategyPattern.Animation;
-import model.SrategyPattern.AquiredAlien;
-import model.SrategyPattern.HorizontalAlienAnimation;
+import model.ObserverPattern.HealthNotifier;
+import model.StatePattern.DangerLevel;
+import model.StatePattern.SafeLevel;
+import model.StatePattern.CautionLevel;
+import model.StrategyPattern.Animation;
+import model.StrategyPattern.AquiredAlien;
+import model.StrategyPattern.HorizontalAlienAnimation;
 import view.GameBoard;
 import view.TextDraw;
 
@@ -15,7 +19,7 @@ public class EnemyComposite extends GameElement {
 
 	public static final int NROWS = 2;
 	public static final int NCOLS = 15;
-	public static final int ENEMY_SIZE = 13;// size of enemy block
+	public static final int ENEMY_SIZE = 15;// size of enemy block
 	public static final int UNIT_MOVE = 4; // speed
 
 	private GameBoard gameboard;
@@ -213,9 +217,12 @@ public class EnemyComposite extends GameElement {
 				}
 			}
 			row.removeAll(removeEnemies);
+
 			if(GameBoard.enemies == 0){
 				gameboard.getCanvas().getGameElements().clear();
 				gameboard.getCanvas().getGameElements().add(new TextDraw("YOU WIN!", 75, 150, Color.GREEN, 100));
+				gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + GameBoard.score, 210, 200, Color.GREEN, 35));
+
 				score = 0;
 			}
 		}
@@ -229,19 +236,19 @@ public class EnemyComposite extends GameElement {
 		for(var b: bombs){
 			for(var player: shooter.getComponents()){
 				if(b.collideWith(player)){
-					if(shooter.getComponentSize() >= 2){
-							shooter.goNextState();
+					if(shooter.getComponentSize() != 1){
+						shooter.goNextState();
 					}
 					removeBombs.add(b);
 					lostComponents++;
 					removeComponents.add(player);
-					break;
 				}
 			}
 			shooter.getComponents().removeAll(removeComponents);
 			gameComments.healthUpdate(shooter.getComponentSize());
 			// bombs.removeAll(removeBombs);
 		}
+		bombs.removeAll(removeBombs);
 
 		if(shooter.getComponentSize() == 0){
 			gameboard.getCanvas().getGameElements().clear();
@@ -271,7 +278,7 @@ public class EnemyComposite extends GameElement {
 		// alien vs player
 		for(var a: aliens){
 			ArrayList<GameElement> newComponents = new ArrayList<>();
-			ArrayList<GameElement> aliensRemove = new ArrayList<>();
+			// ArrayList<GameElement> aliensRemove = new ArrayList<>();
 
 			for(var player: shooter.getComponents()){
 				if(a.collideWith(player) && lostComponents > 0){	
@@ -281,9 +288,9 @@ public class EnemyComposite extends GameElement {
 					int x= player.getX();
 					int y = 300-size;
 					var b1 = new ShooterElement(x-size, y, Color.MAGENTA, false);
-					var b2 = new ShooterElement(x, y, Color.MAGENTA, false);
-					var b3 = new ShooterElement(x-size, y-size, Color.MAGENTA, false);
-					var b4 = new ShooterElement(x, y-size, Color.MAGENTA, false);
+					var b2 = new ShooterElement(x, y, Color.GREEN, false);
+					var b3 = new ShooterElement(x-size, y-size, Color.red, false);
+					var b4 = new ShooterElement(x, y-size, Color.YELLOW, false);
 
 
 						newComponents.add(b1);
@@ -292,10 +299,10 @@ public class EnemyComposite extends GameElement {
 						newComponents.add(b4);
 						shooter.setComponents(newComponents);
 				     	gameComments.healthUpdate(shooter.getComponentSize());
-						shooter.setX(x-size);
+						shooter.setX(x-size+10);
 						shooter.setY(y);	
 						a.setAnimation(new AquiredAlien());
-						shooter.setState(new ShooterGreenLevel(GameBoard.getComment()));
+						shooter.setState(new SafeLevel(GameBoard.getComment()));
 				}
 			}
 		}
@@ -334,15 +341,6 @@ public class EnemyComposite extends GameElement {
 			ArrayList<GameElement> newComponents = new ArrayList<>();
 			for(var player: shooter.getComponents()){
 				if(p.collideWith(player) && lostComponents !=0){
-					if(shooter.getComponentSize() == 3){
-						shooter.setState(new ShooterGreenLevel(GameBoard.getComment()));
-						}
-						if(shooter.getComponentSize() == 2){
-							shooter.setState(new ShooterYellowLevel(GameBoard.getComment()));
-							}
-							if(shooter.getComponentSize() == 1){
-								shooter.setState(new ShooterDangerLevel(GameBoard.getComment()));
-								}
 					potions.remove(p);
 					newComponents.clear();
 					lostComponents--;
@@ -361,11 +359,11 @@ public class EnemyComposite extends GameElement {
 						newComponents.add(b2);
 						shooter.setComponents(newComponents);
 				     	gameComments.healthUpdate(shooter.getComponentSize());
-						shooter.setX(x-size);
+						shooter.setX(x-size+10);
 						shooter.setY(y);
-						return;
+						break;
 				
-					}else if(shooter.getComponentSize() == 2){
+					}if(shooter.getComponentSize() == 2){
 						System.out.println(shooter.getComponentSize());
 
 						newComponents.add(b1);
@@ -374,10 +372,11 @@ public class EnemyComposite extends GameElement {
 						shooter.setComponents(newComponents);
 					    gameComments.healthUpdate(shooter.getComponentSize());
 
-						shooter.setX(x-size);
+						shooter.setX(x-size+10);
 						shooter.setY(y);
-						return;
-					}else if(shooter.getComponentSize() == 3){
+						break;
+
+					}if(shooter.getComponentSize() == 3){
 						System.out.println(shooter.getComponentSize());
 
 						newComponents.add(b1);
@@ -387,14 +386,30 @@ public class EnemyComposite extends GameElement {
 						shooter.setComponents(newComponents);
 					    gameComments.healthUpdate(shooter.getComponentSize());
 
-						shooter.setX(x-size);
+						shooter.setX(x-size+10);
 						shooter.setY(y);
-						return;
+						break;
 					}
+					if(shooter.getComponentSize() == 4){
+						System.out.println("4");
+						shooter.setState(new SafeLevel(GameBoard.getComment()));
+						}
+					if(shooter.getComponentSize() == 3){
+						System.out.println("3");
+						shooter.setState(new SafeLevel(GameBoard.getComment()));
+						}
+					if(shooter.getComponentSize() == 2){
+						System.out.println("2");
+						shooter.setState(new CautionLevel(GameBoard.getComment()));
+						}
+					if(shooter.getComponentSize() == 1){
+						System.out.println("1");
+						shooter.setState(new DangerLevel(GameBoard.getComment()));
+						}
+					
 				}
 			}
 		}
-				
 		//end potions + shooter
 	}
 

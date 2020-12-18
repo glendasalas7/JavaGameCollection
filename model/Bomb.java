@@ -2,7 +2,7 @@ package model;
 
 import java.awt.Graphics2D;
 
-import model.SrategyPattern.Animation;
+import model.StrategyPattern.Animation;
 
 import java.awt.Color;
 

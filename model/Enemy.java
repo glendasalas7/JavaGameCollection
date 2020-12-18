@@ -3,7 +3,7 @@ package model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import model.SrategyPattern.Animation;
+import model.StrategyPattern.Animation;
 
 public class Enemy extends GameElement {
 	public Enemy(int x, int y, int size, Color color, boolean filled) {

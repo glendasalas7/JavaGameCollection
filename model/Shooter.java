@@ -2,9 +2,11 @@ package model;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import model.SrategyPattern.Animation;
-import view.GameBoard;
 
+import model.StatePattern.SafeLevel;
+import model.StatePattern.ShooterState;
+import model.StrategyPattern.Animation;
+import view.GameBoard;
 import java.awt.Color;
 
 public class Shooter extends GameElement {
@@ -17,7 +19,7 @@ public class Shooter extends GameElement {
 
 	public Shooter(int x, int y) {
 		super(x, y, 0, 0);
-		state = new ShooterGreenLevel(GameBoard.getComment()); // initial state
+		state = new SafeLevel(GameBoard.getComment()); // initial state
 		var size = ShooterElement.SIZE;
 		var s1 = new ShooterElement(x - size, y - size, Color.MAGENTA, false);
 		var s2 = new ShooterElement(x, y - size, Color.MAGENTA, false);

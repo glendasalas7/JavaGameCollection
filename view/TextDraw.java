@@ -2,7 +2,7 @@ package view;
 
 import java.awt.Graphics2D;
 import model.GameElement;
-import model.SrategyPattern.Animation;
+import model.StrategyPattern.Animation;
 
 import java.awt.Color;
 import java.awt.Font;

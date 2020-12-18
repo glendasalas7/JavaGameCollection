@@ -7,7 +7,7 @@ import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
 
-import model.SrategyPattern.Animation;
+import model.StrategyPattern.Animation;
 
 import java.awt.Color;
 

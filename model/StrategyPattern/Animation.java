@@ -1,4 +1,4 @@
-package model.SrategyPattern;
+package model.StrategyPattern;
 import java.awt.Graphics2D;
 public interface Animation {
 

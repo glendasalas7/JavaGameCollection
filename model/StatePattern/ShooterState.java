@@ -1,13 +1,10 @@
-package model;
+package model.StatePattern;
 /*
  * Participant: State
  */
-
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-import view.GameBoard;
-
+import model.Shooter;
 public interface ShooterState {
 
 	void goNext(Shooter context, JLabel panel);

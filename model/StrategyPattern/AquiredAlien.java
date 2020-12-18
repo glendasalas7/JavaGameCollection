@@ -1,4 +1,4 @@
-package model.SrategyPattern;
+package model.StrategyPattern;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;

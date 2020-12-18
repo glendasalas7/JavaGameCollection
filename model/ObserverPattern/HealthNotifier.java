@@ -3,9 +3,6 @@ package model.ObserverPattern;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-
-import model.ObserverPattern.Observer;
-import model.ObserverPattern.Subject;
 import view.GameBoard;
 
 public class HealthNotifier implements Subject{

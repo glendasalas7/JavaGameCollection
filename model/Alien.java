@@ -1,14 +1,13 @@
 package model;
 
 import java.awt.Graphics2D;
-import model.SrategyPattern.Animation;
 import java.awt.Color;
-import java.awt.image.BufferedImage;
+import model.StrategyPattern.Animation;
 
 public class Alien extends GameElement{
     
     private Animation animation;
-    private Graphics2D g2;
+    // private Graphics2D g2;
     public static final int SIZE = 7;
     public static final int UNIT_MOVE = 5;
 
@@ -36,12 +35,10 @@ public class Alien extends GameElement{
 
     @Override
     public int getX() {
-        // TODO Auto-generated method stub
         return super.getX();
     }
     @Override
     public int getY() {
-        // TODO Auto-generated method stub
         return super.getY();
     }
 }
