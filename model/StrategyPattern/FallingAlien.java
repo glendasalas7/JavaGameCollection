@@ -6,15 +6,15 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
 
-public class HorizontalAlienAnimation implements Animation{;
+public class FallingAlien implements Animation{;
     private int x;
     private int y;
 
     @Override
     public void render(Graphics2D g2) {
         try {
-            BufferedImage potionIMG = ImageIO.read(new File("pictures/alien.png"));
-            Image temp = potionIMG.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            BufferedImage fallingAlienIMG = ImageIO.read(new File("pictures/alien.png"));
+            Image temp = fallingAlienIMG.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
     
             g2.drawImage(temp, y, x, null);
         } catch (Exception e) {

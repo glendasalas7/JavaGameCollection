@@ -1,8 +1,10 @@
-package model;
+package model.StrategyPattern;
 
 import java.awt.Graphics2D;
 import java.awt.Color;
-import model.StrategyPattern.Animation;
+
+import model.GameElement;
+// import model.StrategyPattern.Animation;
 
 public class Alien extends GameElement{
     

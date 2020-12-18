@@ -4,14 +4,14 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
-
+import model.StrategyPattern.Alien;
 import model.ObserverPattern.HealthNotifier;
 import model.StatePattern.DangerLevel;
 import model.StatePattern.SafeLevel;
 import model.StatePattern.CautionLevel;
 import model.StrategyPattern.Animation;
 import model.StrategyPattern.AquiredAlien;
-import model.StrategyPattern.HorizontalAlienAnimation;
+import model.StrategyPattern.FallingAlien;
 import view.GameBoard;
 import view.TextDraw;
 
@@ -183,8 +183,8 @@ public class EnemyComposite extends GameElement {
 	public void dropAliens() {
 		Random rand = new Random();
 		int randx = rand.nextInt(200);
-		HorizontalAlienAnimation haa = new HorizontalAlienAnimation();
-		aliens.add(new Alien(randx, 0, haa));
+		FallingAlien alien = new FallingAlien();
+		aliens.add(new Alien(randx, 0, alien));
 	}
 
 	public void removeAliensOutOfBound() {
