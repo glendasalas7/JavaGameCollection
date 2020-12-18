@@ -55,11 +55,15 @@ public class GameBoard{
 		JButton quitButton = new JButton("Quit");
 		startButton.setFocusable(false);
 		quitButton.setFocusable(false);
-		comment.setFont(new Font("Courier", Font.BOLD, 15));
+		comment.setFont(new Font("Courier", Font.BOLD, 16));
+		enemyCount.setFont(new Font("Courier", Font.BOLD, 16));
+		scoreBoard.setFont(new Font("Courier", Font.BOLD, 16));
 		southPanel.add(comment);
+		southPanel.add(new JLabel("    "));
 		southPanel.add(startButton);
 		southPanel.add(quitButton);
 		southPanel.add(scoreBoard);
+		southPanel.add(new JLabel("  "));
 		southPanel.add(enemyCount);
 		gameComments = new HealthNotifier(southPanel);
 		gameComments.addListener(new HealthChanger(this));
@@ -70,6 +74,7 @@ public class GameBoard{
 		timer = new Timer(DELAY, timerListener);
 
 		startButton.addActionListener(event ->{
+			startButton.setText("Restart");
 			shooter = new Shooter(GameBoard.WIDTH /2, GameBoard.HEIGHT - ShooterElement.SIZE);
 			enemyComposite = new EnemyComposite(this, gameComments);
 			canvas.getGameElements().clear();

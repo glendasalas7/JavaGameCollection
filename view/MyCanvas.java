@@ -39,7 +39,7 @@ public class MyCanvas extends JPanel {
 	public void paintComponent(Graphics g) {
 		BufferedImage starBG;
 		try {
-			starBG = ImageIO.read(new File("pictures/starsBG.jpg"));
+			starBG = ImageIO.read(new File("pictures/stars.jpg"));
 			Image temp = starBG.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 			g.drawImage(temp, 0,0,null);
 		} catch (IOException e1) {

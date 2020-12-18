@@ -44,6 +44,7 @@ public class EnemyComposite extends GameElement {
 		aliens = new ArrayList<>();
 		enemies = NROWS * NCOLS;
 		GameBoard.enemies = enemies;
+
 		for (int r = 0; r < NROWS; r++) { // populate enemies
 			var oneRow = new ArrayList<GameElement>();
 			rows.add(oneRow);
@@ -112,7 +113,7 @@ public class EnemyComposite extends GameElement {
 		for (var p : potions) {
 			p.animate();
 		}
-
+		//animate aliens falling
 		for (var a : aliens) {
 			a.animate();
 		}
