@@ -13,8 +13,8 @@ public class FallingAlien implements Animation{;
     @Override
     public void render(Graphics2D g2) {
         try {
-            BufferedImage fallingAlienIMG = ImageIO.read(new File("pictures/alien.png"));
-            Image temp = fallingAlienIMG.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            BufferedImage fallingAlienIMG = ImageIO.read(new File("pictures/alien_full.png"));
+            Image temp = fallingAlienIMG.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
     
             g2.drawImage(temp, y, x, null);
         } catch (Exception e) {

@@ -1,6 +1,5 @@
 import javax.swing.JFrame;
 import view.GameBoard;
-import java.awt.Color;
   
 public class Main{
     public static void main(String[] args){

@@ -247,6 +247,18 @@ public class EnemyComposite extends GameElement {
 			}
 			shooter.getComponents().removeAll(removeComponents);
 			gameComments.healthUpdate(shooter.getComponentSize());
+			if(shooter.getComponentSize() == 1){
+				int x = shooter.getComponents().get(0).getX();
+				shooter.setX(x-ShooterElement.SIZE+28);
+			}
+			if(shooter.getComponentSize() == 2){
+				int size = ShooterElement.SIZE;
+				int x = shooter.getComponents().get(0).getX();
+				if(shooter.getComponents().get(1).getX() == x-size){
+					shooter.setX(x-ShooterElement.SIZE+28);
+				}
+		
+			}
 			// bombs.removeAll(removeBombs);
 		}
 		bombs.removeAll(removeBombs);
@@ -279,14 +291,12 @@ public class EnemyComposite extends GameElement {
 		// alien vs player
 		for(var a: aliens){
 			ArrayList<GameElement> newComponents = new ArrayList<>();
-			// ArrayList<GameElement> aliensRemove = new ArrayList<>();
-
 			for(var player: shooter.getComponents()){
 				if(a.collideWith(player) && lostComponents > 0){	
 
 					lostComponents = 0;
 					int size = ShooterElement.SIZE;
-					int x= player.getX();
+					int x = player.getX();
 					int y = 300-size;
 					var b1 = new ShooterElement(x-size, y, Color.MAGENTA, false);
 					var b2 = new ShooterElement(x, y, Color.GREEN, false);
@@ -300,7 +310,7 @@ public class EnemyComposite extends GameElement {
 						newComponents.add(b4);
 						shooter.setComponents(newComponents);
 				     	gameComments.healthUpdate(shooter.getComponentSize());
-						shooter.setX(x-size+10);
+						shooter.setX(x-size+20);
 						shooter.setY(y);	
 						a.setAnimation(new AquiredAlien());
 						shooter.setState(new SafeLevel(GameBoard.getComment()));
@@ -360,7 +370,7 @@ public class EnemyComposite extends GameElement {
 						newComponents.add(b2);
 						shooter.setComponents(newComponents);
 				     	gameComments.healthUpdate(shooter.getComponentSize());
-						shooter.setX(x-size+10);
+						shooter.setX(x-size+20);
 						shooter.setY(y);
 						break;
 				
@@ -373,7 +383,7 @@ public class EnemyComposite extends GameElement {
 						shooter.setComponents(newComponents);
 					    gameComments.healthUpdate(shooter.getComponentSize());
 
-						shooter.setX(x-size+10);
+						shooter.setX(x-size+20);
 						shooter.setY(y);
 						break;
 
@@ -387,7 +397,7 @@ public class EnemyComposite extends GameElement {
 						shooter.setComponents(newComponents);
 					    gameComments.healthUpdate(shooter.getComponentSize());
 
-						shooter.setX(x-size+10);
+						shooter.setX(x-size+20);
 						shooter.setY(y);
 						break;
 					}
@@ -412,16 +422,6 @@ public class EnemyComposite extends GameElement {
 			}
 		}
 		//end potions + shooter
-	}
-
-	@Override
-	public int getY() {
-		return super.getY();
-	}
-
-	@Override
-	public int getX() {
-		return super.getX();
 	}
 
 	@Override

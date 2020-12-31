@@ -9,8 +9,7 @@ import model.GameElement;
 public class Alien extends GameElement{
     
     private Animation animation;
-    // private Graphics2D g2;
-    public static final int SIZE = 7;
+    public static final int SIZE = 28;
     public static final int UNIT_MOVE = 5;
 
     public Alien(int x, int y, Animation animation) {
