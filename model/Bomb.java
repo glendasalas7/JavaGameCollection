@@ -1,9 +1,7 @@
 package model;
 
 import java.awt.Graphics2D;
-
 import model.StrategyPattern.Animation;
-
 import java.awt.Color;
 
 public class Bomb extends GameElement {
@@ -35,6 +33,11 @@ public class Bomb extends GameElement {
 
 	@Override
 	public void setActive(boolean status) {
+	}
+
+	@Override
+	public boolean getActive() {
+		return false;
 	}
 
 

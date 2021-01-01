@@ -189,6 +189,7 @@ public class EnemyComposite extends GameElement {
 		Alien alien = new Alien(randx, 0, fullAlien);
 		alien.setActive(true);
 		aliens.add(alien);
+		System.out.println(alien.getActive());
 	}
 
 	public void removeAliensOutOfBound() {
@@ -297,32 +298,32 @@ public class EnemyComposite extends GameElement {
 			ArrayList<GameElement> newComponents = new ArrayList<>();
 			for(var player: shooter.getComponents()){
 				if(a.collideWith(player) && lostComponents > 0){	
-
-					lostComponents = 0;
-					int size = ShooterElement.SIZE;
-					int x = player.getX();
-					int y = 300-size;
-					var b1 = new ShooterElement(x-size, y, Color.MAGENTA, false);
-					var b2 = new ShooterElement(x, y, Color.GREEN, false);
-					var b3 = new ShooterElement(x-size, y-size, Color.red, false);
-					var b4 = new ShooterElement(x, y-size, Color.YELLOW, false);
-					
+					if(a.getActive() == true){
+						lostComponents = 0;
+						int size = ShooterElement.SIZE;
+						int x = player.getX();
+						int y = 300-size;
+						var b1 = new ShooterElement(x-size, y, Color.MAGENTA, false);
+						var b2 = new ShooterElement(x, y, Color.GREEN, false);
+						var b3 = new ShooterElement(x-size, y-size, Color.red, false);
+						var b4 = new ShooterElement(x, y-size, Color.YELLOW, false);
 						newComponents.add(b1);
 						newComponents.add(b2);
 						newComponents.add(b3);
 						newComponents.add(b4);
 						shooter.setComponents(newComponents);
-				     	gameComments.healthUpdate(shooter.getComponentSize());
+						gameComments.healthUpdate(shooter.getComponentSize());
 						shooter.setX(x-size+20);
 						shooter.setY(y);
 						emptyAlien = new EmptyAlien();	
 						a.setActive(false);
+						Alien.UNIT_MOVE = 10;
 						a.setAnimation(emptyAlien);
 						shooter.setState(new SafeLevel(GameBoard.getComment()));
+					}
 				}
 			}
 		}
-
 
 		//enemies vs shooter
 		for(var row: rows){
@@ -417,11 +418,11 @@ public class EnemyComposite extends GameElement {
 					if(shooter.getComponentSize() == 2){
 						System.out.println("2");
 						shooter.setState(new CautionLevel(GameBoard.getComment()));
-						}
+					}
 					if(shooter.getComponentSize() == 1){
 						System.out.println("1");
 						shooter.setState(new DangerLevel(GameBoard.getComment()));
-						}
+					}
 					
 				}
 			}
@@ -435,6 +436,11 @@ public class EnemyComposite extends GameElement {
 
 	@Override
 	public void setActive(boolean status) {
+	}
+
+	@Override
+	public boolean getActive() {
+		return false;
 	}
 
 

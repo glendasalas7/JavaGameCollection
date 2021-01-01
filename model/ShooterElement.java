@@ -45,4 +45,9 @@ public class ShooterElement extends GameElement {
 	public void setActive(boolean status) {
 	}
 
+	@Override
+	public boolean getActive() {
+		return false;
+	}
+
 }

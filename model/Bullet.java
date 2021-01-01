@@ -2,7 +2,6 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-
 import model.StrategyPattern.Animation;
 
 public class Bullet extends GameElement {
@@ -33,6 +32,11 @@ public class Bullet extends GameElement {
 
 	@Override
 	public void setActive(boolean status) {
+	}
+
+	@Override
+	public boolean getActive() {
+		return false;
 	}
 
 

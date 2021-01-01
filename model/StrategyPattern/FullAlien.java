@@ -5,7 +5,6 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-
 public class FullAlien implements Animation{;
     private int x;
     private int y;

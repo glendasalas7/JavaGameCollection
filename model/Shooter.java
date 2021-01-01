@@ -119,6 +119,11 @@ public class Shooter extends GameElement {
 	@Override
 	public void setActive(boolean status) {
 	}
+
+	@Override
+	public boolean getActive() {
+		return false;
+	}
 }
 
 

@@ -2,15 +2,13 @@ package model.StrategyPattern;
 
 import java.awt.Graphics2D;
 import java.awt.Color;
-
 import model.GameElement;
-// import model.StrategyPattern.Animation;
 
 public class Alien extends GameElement{
     
     private Animation animation;
     public static final int SIZE = 33;
-    public static final int UNIT_MOVE = 5;
+    public static int UNIT_MOVE = 5;
     private boolean active;
 
     public Alien(int x, int y, Animation animation) {
@@ -56,4 +54,10 @@ public class Alien extends GameElement{
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    @Override
+    public boolean getActive() { 
+        return active;
+    }
+    
 }

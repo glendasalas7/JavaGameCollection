@@ -58,6 +58,7 @@ public abstract class GameElement implements Animation{
 		return observers;
 	}
 	public abstract void setActive(boolean status);
+	public abstract boolean getActive();
 	public abstract void render(Graphics2D g2);
 	public abstract void animate();
 	public abstract void setAnimation(Animation animation);

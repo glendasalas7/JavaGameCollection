@@ -8,8 +8,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import model.StrategyPattern.Animation;
 
-
 public class Enemy extends GameElement {
+
 	public Enemy(int x, int y, int size, Color color, boolean filled) {
 		super(x, y, color, filled, size, size);
 	}
@@ -42,6 +42,11 @@ public class Enemy extends GameElement {
 
 	@Override
 	public void setActive(boolean status) {
+	}
+
+	@Override
+	public boolean getActive() {
+		return false;
 	}
 
 
