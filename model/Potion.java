@@ -1,14 +1,11 @@
 package model;
 
-
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
-
 import model.StrategyPattern.Animation;
-
 import java.awt.Color;
 
 public class Potion extends GameElement {
@@ -38,6 +35,10 @@ public class Potion extends GameElement {
 
     @Override
     public void setAnimation(Animation animation) {
+    }
+
+    @Override
+    public void setActive(boolean status) {
     }
 
 

@@ -2,7 +2,6 @@ package model;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-
 import model.StatePattern.SafeLevel;
 import model.StatePattern.ShooterState;
 import model.StrategyPattern.Animation;
@@ -56,7 +55,6 @@ public class Shooter extends GameElement {
 		for (var w : weapons) {
 			if (w.y < 0)
 				remove.add(w);
-
 		}
 		weapons.removeAll(remove);
 	}
@@ -64,7 +62,6 @@ public class Shooter extends GameElement {
 	public ArrayList<GameElement> getWeapons() {
 		return weapons;
 	}
-
 
     public void goNextState() {
         state.goNext(this, GameBoard.getComment());
@@ -77,8 +74,6 @@ public class Shooter extends GameElement {
     public void setState(ShooterState state) {
         this.state = state;
     }
-
-
 
 	@Override
 	public void render(Graphics2D g2) {
@@ -93,7 +88,6 @@ public class Shooter extends GameElement {
 	public void animate() {
 		for (var w : weapons)
 			w.animate();
-
 	}
 
 	public ArrayList<GameElement> getComponents() {
@@ -120,6 +114,10 @@ public class Shooter extends GameElement {
 
 	@Override
 	public void setAnimation(Animation animation) {
+	}
+
+	@Override
+	public void setActive(boolean status) {
 	}
 }
 

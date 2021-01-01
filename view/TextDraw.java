@@ -3,7 +3,6 @@ package view;
 import java.awt.Graphics2D;
 import model.GameElement;
 import model.StrategyPattern.Animation;
-
 import java.awt.Color;
 import java.awt.Font;
 
@@ -30,8 +29,10 @@ public class TextDraw extends GameElement {
 
 	@Override
 	public void setAnimation(Animation animation) {
-		// TODO Auto-generated method stub
+	}
 
+	@Override
+	public void setActive(boolean status) {
 	}
 
 }

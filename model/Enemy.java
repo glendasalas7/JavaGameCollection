@@ -2,8 +2,6 @@
 package model;
 import java.awt.Color;
 import java.awt.Graphics2D;
-
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -24,7 +22,6 @@ public class Enemy extends GameElement {
 		// else
 		// 	g2.drawRect(x, y, width, height);
 
-
 		try {
 			BufferedImage enemyIMG = ImageIO.read(new File("pictures/enemyship.png"));
 			Image temp = enemyIMG.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -41,8 +38,10 @@ public class Enemy extends GameElement {
 
 	@Override
 	public void setAnimation(Animation animation) {
-		// TODO Auto-generated method stub
+	}
 
+	@Override
+	public void setActive(boolean status) {
 	}
 
 

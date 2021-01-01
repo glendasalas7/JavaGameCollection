@@ -10,8 +10,8 @@ import model.StatePattern.DangerLevel;
 import model.StatePattern.SafeLevel;
 import model.StatePattern.CautionLevel;
 import model.StrategyPattern.Animation;
-import model.StrategyPattern.AquiredAlien;
-import model.StrategyPattern.FallingAlien;
+import model.StrategyPattern.EmptyAlien;
+import model.StrategyPattern.FullAlien;
 import view.GameBoard;
 import view.TextDraw;
 
@@ -28,6 +28,8 @@ public class EnemyComposite extends GameElement {
 	private ArrayList<GameElement> bombs;
 	private ArrayList<GameElement> potions;
 	private ArrayList<GameElement> aliens;
+	private FullAlien fullAlien;
+	private EmptyAlien emptyAlien;
 
 	private int lostComponents = 0;
 	private boolean movingToRight = true;
@@ -183,8 +185,10 @@ public class EnemyComposite extends GameElement {
 	public void dropAliens() {
 		Random rand = new Random();
 		int randx = rand.nextInt(200);
-		FallingAlien alien = new FallingAlien();
-		aliens.add(new Alien(randx, 0, alien));
+		fullAlien = new FullAlien();
+		Alien alien = new Alien(randx, 0, fullAlien);
+		alien.setActive(true);
+		aliens.add(alien);
 	}
 
 	public void removeAliensOutOfBound() {
@@ -302,8 +306,7 @@ public class EnemyComposite extends GameElement {
 					var b2 = new ShooterElement(x, y, Color.GREEN, false);
 					var b3 = new ShooterElement(x-size, y-size, Color.red, false);
 					var b4 = new ShooterElement(x, y-size, Color.YELLOW, false);
-
-
+					
 						newComponents.add(b1);
 						newComponents.add(b2);
 						newComponents.add(b3);
@@ -311,8 +314,10 @@ public class EnemyComposite extends GameElement {
 						shooter.setComponents(newComponents);
 				     	gameComments.healthUpdate(shooter.getComponentSize());
 						shooter.setX(x-size+20);
-						shooter.setY(y);	
-						a.setAnimation(new AquiredAlien());
+						shooter.setY(y);
+						emptyAlien = new EmptyAlien();	
+						a.setActive(false);
+						a.setAnimation(emptyAlien);
 						shooter.setState(new SafeLevel(GameBoard.getComment()));
 				}
 			}
@@ -426,6 +431,10 @@ public class EnemyComposite extends GameElement {
 
 	@Override
 	public void setAnimation(Animation animation) {
+	}
+
+	@Override
+	public void setActive(boolean status) {
 	}
 
 

@@ -9,8 +9,9 @@ import model.GameElement;
 public class Alien extends GameElement{
     
     private Animation animation;
-    public static final int SIZE = 28;
+    public static final int SIZE = 33;
     public static final int UNIT_MOVE = 5;
+    private boolean active;
 
     public Alien(int x, int y, Animation animation) {
         super(x, y, Color.green, true, SIZE, SIZE);
@@ -31,7 +32,16 @@ public class Alien extends GameElement{
 	}
 
     public void animate() {
+        if(active == false){
+        super.x += UNIT_MOVE;
+        }
+        if(active == true){
         super.y += UNIT_MOVE;
+        }
+    }
+
+    public Animation getAnimation() {
+        return animation;
     }
 
     @Override
@@ -41,5 +51,9 @@ public class Alien extends GameElement{
     @Override
     public int getY() {
         return super.getY();
+    }
+    @Override
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

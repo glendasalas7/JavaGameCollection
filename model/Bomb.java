@@ -31,8 +31,10 @@ public class Bomb extends GameElement {
 
 	@Override
 	public void setAnimation(Animation animation) {
-		// TODO Auto-generated method stub
+	}
 
+	@Override
+	public void setActive(boolean status) {
 	}
 
 
