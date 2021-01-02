@@ -3,11 +3,15 @@ package model;
 import java.awt.Graphics2D;
 import model.StrategyPattern.Animation;
 import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 public class Bomb extends GameElement {
 
 	public static final int SIZE = 10;
-	public static final int UNIT_MOVE = 5;
+	public static final int UNIT_MOVE = 7;
 
 	public Bomb(int x, int y) {
 		super(x, y, Color.green, true, SIZE, SIZE);
@@ -16,10 +20,13 @@ public class Bomb extends GameElement {
 	@Override
 	public void render(Graphics2D g2) {
 		g2.setColor(color);
-		if (filled)
-			g2.fillOval(x, y, width, height);
-		else
-			g2.drawOval(x, y, width, height);
+		try {
+			BufferedImage shipIMG = ImageIO.read(new File("pictures/bomb.png"));
+			Image temp = shipIMG.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+			g2.drawImage(temp, x, y, null);
+		} catch (Exception e) {
+			System.out.println("Image file load error");
+		}
 	}
 
 	@Override

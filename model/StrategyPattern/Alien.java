@@ -8,7 +8,7 @@ public class Alien extends GameElement{
     
     private Animation animation;
     public static final int SIZE = 33;
-    public static int UNIT_MOVE = 5;
+    public static int UNIT_MOVE = 7;
     private boolean active;
 
     public Alien(int x, int y, Animation animation) {

@@ -169,7 +169,7 @@ public class EnemyComposite extends GameElement {
 	public void dropPotions() {
 		Random rand = new Random();
 		int randX = rand.nextInt(575);
-		potions.add(new Potion(randX, 0));
+		potions.add(new ShipHelper(randX, 0));
 	}
 
 	public void removePotionsOutOfBound() {
@@ -189,7 +189,6 @@ public class EnemyComposite extends GameElement {
 		Alien alien = new Alien(randx, 0, fullAlien);
 		alien.setActive(true);
 		aliens.add(alien);
-		System.out.println(alien.getActive());
 	}
 
 	public void removeAliensOutOfBound() {
@@ -317,7 +316,7 @@ public class EnemyComposite extends GameElement {
 						shooter.setY(y);
 						emptyAlien = new EmptyAlien();	
 						a.setActive(false);
-						Alien.UNIT_MOVE = 10;
+						// Alien.UNIT_MOVE = 10;
 						a.setAnimation(emptyAlien);
 						shooter.setState(new SafeLevel(GameBoard.getComment()));
 					}
@@ -371,7 +370,6 @@ public class EnemyComposite extends GameElement {
 
 
 					if(shooter.getComponentSize() == 1){
-						System.out.println(shooter.getComponentSize());
 						newComponents.add(b1);
 						newComponents.add(b2);
 						shooter.setComponents(newComponents);
@@ -381,8 +379,6 @@ public class EnemyComposite extends GameElement {
 						break;
 				
 					}if(shooter.getComponentSize() == 2){
-						System.out.println(shooter.getComponentSize());
-
 						newComponents.add(b1);
 						newComponents.add(b2);
 						newComponents.add(b3);
@@ -394,8 +390,6 @@ public class EnemyComposite extends GameElement {
 						break;
 
 					}if(shooter.getComponentSize() == 3){
-						System.out.println(shooter.getComponentSize());
-
 						newComponents.add(b1);
 						newComponents.add(b2);
 						newComponents.add(b3);
@@ -408,19 +402,15 @@ public class EnemyComposite extends GameElement {
 						break;
 					}
 					if(shooter.getComponentSize() == 4){
-						System.out.println("4");
 						shooter.setState(new SafeLevel(GameBoard.getComment()));
 						}
 					if(shooter.getComponentSize() == 3){
-						System.out.println("3");
 						shooter.setState(new SafeLevel(GameBoard.getComment()));
 						}
 					if(shooter.getComponentSize() == 2){
-						System.out.println("2");
 						shooter.setState(new CautionLevel(GameBoard.getComment()));
 					}
 					if(shooter.getComponentSize() == 1){
-						System.out.println("1");
 						shooter.setState(new DangerLevel(GameBoard.getComment()));
 					}
 					

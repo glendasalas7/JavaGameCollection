@@ -23,7 +23,7 @@ public class Enemy extends GameElement {
 		// 	g2.drawRect(x, y, width, height);
 
 		try {
-			BufferedImage enemyIMG = ImageIO.read(new File("pictures/enemyship.png"));
+			BufferedImage enemyIMG = ImageIO.read(new File("pictures/enemy_ship.png"));
 			Image temp = enemyIMG.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
 			g2.drawImage(temp, x, y, null);

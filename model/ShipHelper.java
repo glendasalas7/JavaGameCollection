@@ -8,18 +8,18 @@ import javax.imageio.ImageIO;
 import model.StrategyPattern.Animation;
 import java.awt.Color;
 
-public class Potion extends GameElement {
+public class ShipHelper extends GameElement {
     public static final int SIZE = 7;
     public static final int UNIT_MOVE = 5;
 
-    public Potion(int x, int y) {
+    public ShipHelper(int x, int y) {
         super(x, y, Color.green, true, SIZE, SIZE);
     }
 
     @Override
     public void render(Graphics2D g2) {
         try {
-            BufferedImage potionIMG = ImageIO.read(new File("pictures/potion.png"));
+            BufferedImage potionIMG = ImageIO.read(new File("pictures/helper_ship.png"));
             Image temp = potionIMG.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 
             g2.drawImage(temp, x, y, null);
