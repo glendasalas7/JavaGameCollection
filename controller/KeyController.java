@@ -3,13 +3,13 @@ package controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import view.GameBoard;
+import view.SpaceGameBoard;
 
 public class KeyController implements KeyListener {
 
-	private GameBoard gameBoard;
+	private SpaceGameBoard gameBoard;
 
-	public KeyController(GameBoard gameBoard){
+	public KeyController(SpaceGameBoard gameBoard){
 		this.gameBoard = gameBoard;
 	}
 

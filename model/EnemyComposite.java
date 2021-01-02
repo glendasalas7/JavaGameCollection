@@ -12,7 +12,7 @@ import model.StatePattern.CautionLevel;
 import model.StrategyPattern.Animation;
 import model.StrategyPattern.EmptyAlien;
 import model.StrategyPattern.FullAlien;
-import view.GameBoard;
+import view.SpaceGameBoard;
 import view.TextDraw;
 
 public class EnemyComposite extends GameElement {
@@ -22,7 +22,7 @@ public class EnemyComposite extends GameElement {
 	public static final int ENEMY_SIZE = 15;// size of enemy block
 	public static final int UNIT_MOVE = 4; // speed
 
-	private GameBoard gameboard;
+	private SpaceGameBoard gameboard;
 	private HealthNotifier gameComments;
 	private ArrayList<ArrayList<GameElement>> rows;
 	private ArrayList<GameElement> bombs;
@@ -37,7 +37,7 @@ public class EnemyComposite extends GameElement {
 	private int score;
 	private int enemies;
 
-	public EnemyComposite(GameBoard gameboard, HealthNotifier gameComments) {
+	public EnemyComposite(SpaceGameBoard gameboard, HealthNotifier gameComments) {
 		this.gameboard = gameboard;
 		this.gameComments = gameComments;
 		rows = new ArrayList<>();
@@ -45,7 +45,7 @@ public class EnemyComposite extends GameElement {
 		potions = new ArrayList<>();
 		aliens = new ArrayList<>();
 		enemies = NROWS * NCOLS;
-		GameBoard.enemies = enemies;
+		SpaceGameBoard.enemies = enemies;
 
 		for (int r = 0; r < NROWS; r++) { // populate enemies
 			var oneRow = new ArrayList<GameElement>();
@@ -82,7 +82,7 @@ public class EnemyComposite extends GameElement {
 	public void animate() {
 		int dx = UNIT_MOVE;
 		if (movingToRight) {
-			if (rightEnd() >= GameBoard.WIDTH) {
+			if (rightEnd() >= SpaceGameBoard.WIDTH) {
 				for (var row : rows) {
 					for (var r : row)// enemy moves down - from right
 						r.y += 20;
@@ -159,7 +159,7 @@ public class EnemyComposite extends GameElement {
 	public void removeBombsOutOfBound() {
 		var remove = new ArrayList<GameElement>();
 		for (var b : bombs) {
-			if (b.y >= GameBoard.HEIGHT) {
+			if (b.y >= SpaceGameBoard.HEIGHT) {
 				remove.add(b);
 			}
 		}
@@ -175,7 +175,7 @@ public class EnemyComposite extends GameElement {
 	public void removePotionsOutOfBound() {
 		var remove = new ArrayList<GameElement>();
 		for (var p : potions) {
-			if (p.y >= GameBoard.HEIGHT) {
+			if (p.y >= SpaceGameBoard.HEIGHT) {
 				remove.add(p);
 			}
 		}
@@ -194,14 +194,14 @@ public class EnemyComposite extends GameElement {
 	public void removeAliensOutOfBound() {
 		var remove = new ArrayList<GameElement>();
 		for (var a : aliens) {
-			if (a.y >= GameBoard.HEIGHT) {
+			if (a.y >= SpaceGameBoard.HEIGHT) {
 				remove.add(a);
 			}
 		}
 		aliens.removeAll(remove);
 	}
 
-	public void processCollision(Shooter shooter){
+	public void processCollision(PlayerShip shooter){
 		var removeBullets = new ArrayList<GameElement>();
 
 		//bullets vs enemies
@@ -210,12 +210,12 @@ public class EnemyComposite extends GameElement {
 			for(var enemy: row){
 				for(var bullet: shooter.getWeapons()){
 					if (enemy.collideWith(bullet)){
-						score =	GameBoard.score +10;
-						GameBoard.scoreBoard.setText("Score: " + score);
-						GameBoard.score = score;
-						enemies = GameBoard.enemies -1;
-						GameBoard.enemyCount.setText("Enemies Left: " + enemies);
-						GameBoard.enemies = enemies;
+						score =	SpaceGameBoard.score +10;
+						SpaceGameBoard.scoreBoard.setText("Score: " + score);
+						SpaceGameBoard.score = score;
+						enemies = SpaceGameBoard.enemies -1;
+						SpaceGameBoard.enemyCount.setText("Enemies Left: " + enemies);
+						SpaceGameBoard.enemies = enemies;
 						removeBullets.add(bullet);
 						removeEnemies.add(enemy);
 					}
@@ -223,10 +223,10 @@ public class EnemyComposite extends GameElement {
 			}
 			row.removeAll(removeEnemies);
 
-			if(GameBoard.enemies == 0){
+			if(SpaceGameBoard.enemies == 0){
 				gameboard.getCanvas().getGameElements().clear();
 				gameboard.getCanvas().getGameElements().add(new TextDraw("YOU WIN!", 75, 150, Color.GREEN, 100));
-				gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + GameBoard.score, 210, 200, Color.GREEN, 35));
+				gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + SpaceGameBoard.score, 210, 200, Color.GREEN, 35));
 
 				score = 0;
 			}
@@ -253,13 +253,13 @@ public class EnemyComposite extends GameElement {
 			gameComments.healthUpdate(shooter.getComponentSize());
 			if(shooter.getComponentSize() == 1){
 				int x = shooter.getComponents().get(0).getX();
-				shooter.setX(x-ShooterElement.SIZE+28);
+				shooter.setX(x-PlayerShipElements.SIZE+28);
 			}
 			if(shooter.getComponentSize() == 2){
-				int size = ShooterElement.SIZE;
+				int size = PlayerShipElements.SIZE;
 				int x = shooter.getComponents().get(0).getX();
 				if(shooter.getComponents().get(1).getX() == x-size){
-					shooter.setX(x-ShooterElement.SIZE+28);
+					shooter.setX(x-PlayerShipElements.SIZE+28);
 				}
 		
 			}
@@ -270,7 +270,7 @@ public class EnemyComposite extends GameElement {
 		if(shooter.getComponentSize() == 0){
 			gameboard.getCanvas().getGameElements().clear();
 			gameboard.getCanvas().getGameElements().add(new TextDraw("GAME OVER!", 200, 100, Color.MAGENTA, 35));
-			gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + GameBoard.score, 210, 200, Color.GREEN, 35));
+			gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + SpaceGameBoard.score, 210, 200, Color.GREEN, 35));
 			score = 0;
 		}
 		//end bomb vs shooter
@@ -280,9 +280,9 @@ public class EnemyComposite extends GameElement {
 		for(var b: bombs){
 			for(var bullet: shooter.getWeapons()){
 				if(b.collideWith(bullet)){
-					score =	GameBoard.score +2;
-					GameBoard.scoreBoard.setText("Score: " + score);
-					GameBoard.score = score;
+					score =	SpaceGameBoard.score +2;
+					SpaceGameBoard.scoreBoard.setText("Score: " + score);
+					SpaceGameBoard.score = score;
 					removeBombs.add(b);
 					removeBullets.add(bullet);
 				}
@@ -299,13 +299,13 @@ public class EnemyComposite extends GameElement {
 				if(a.collideWith(player) && lostComponents > 0){	
 					if(a.getActive() == true){
 						lostComponents = 0;
-						int size = ShooterElement.SIZE;
+						int size = PlayerShipElements.SIZE;
 						int x = player.getX();
 						int y = 300-size;
-						var b1 = new ShooterElement(x-size, y, Color.MAGENTA, false);
-						var b2 = new ShooterElement(x, y, Color.GREEN, false);
-						var b3 = new ShooterElement(x-size, y-size, Color.red, false);
-						var b4 = new ShooterElement(x, y-size, Color.YELLOW, false);
+						var b1 = new PlayerShipElements(x-size, y, Color.MAGENTA, false);
+						var b2 = new PlayerShipElements(x, y, Color.GREEN, false);
+						var b3 = new PlayerShipElements(x-size, y-size, Color.red, false);
+						var b4 = new PlayerShipElements(x, y-size, Color.YELLOW, false);
 						newComponents.add(b1);
 						newComponents.add(b2);
 						newComponents.add(b3);
@@ -318,7 +318,7 @@ public class EnemyComposite extends GameElement {
 						a.setActive(false);
 						// Alien.UNIT_MOVE = 10;
 						a.setAnimation(emptyAlien);
-						shooter.setState(new SafeLevel(GameBoard.getComment()));
+						shooter.setState(new SafeLevel(SpaceGameBoard.getComment()));
 					}
 				}
 			}
@@ -336,13 +336,13 @@ public class EnemyComposite extends GameElement {
 					if(enemy.y >= 275){
 						gameboard.getCanvas().getGameElements().clear();
 						gameboard.getCanvas().getGameElements().add(new TextDraw("GAME OVER!", 200, 100, Color.MAGENTA, 35));
-						gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + GameBoard.score, 215, 200, Color.GREEN, 35));
+						gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + SpaceGameBoard.score, 215, 200, Color.GREEN, 35));
 						score = 0;
 					}
 					if(rows.size() == 0 && shooter.getComponentSize() !=0){
 						gameboard.getCanvas().getGameElements().clear();
 						gameboard.getCanvas().getGameElements().add(new TextDraw("YOU WIN!", 73, 150, Color.GREEN, 100));
-						gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + GameBoard.score, 215, 200, Color.GREEN, 35));
+						gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + SpaceGameBoard.score, 215, 200, Color.GREEN, 35));
 						score = 0;
 					}
 				}
@@ -360,13 +360,13 @@ public class EnemyComposite extends GameElement {
 					potions.remove(p);
 					newComponents.clear();
 					lostComponents--;
-					int size = ShooterElement.SIZE;
+					int size = PlayerShipElements.SIZE;
 					int x= player.getX();
 					int y = 300-size;
-					var b1 = new ShooterElement(x-size, y, Color.MAGENTA, false);
-					var b2 = new ShooterElement(x, y, Color.MAGENTA, false);
-					var b3 = new ShooterElement(x-size, y-size, Color.MAGENTA, false);
-					var b4 = new ShooterElement(x, y-size, Color.MAGENTA, false);
+					var b1 = new PlayerShipElements(x-size, y, Color.MAGENTA, false);
+					var b2 = new PlayerShipElements(x, y, Color.MAGENTA, false);
+					var b3 = new PlayerShipElements(x-size, y-size, Color.MAGENTA, false);
+					var b4 = new PlayerShipElements(x, y-size, Color.MAGENTA, false);
 
 
 					if(shooter.getComponentSize() == 1){
@@ -402,16 +402,16 @@ public class EnemyComposite extends GameElement {
 						break;
 					}
 					if(shooter.getComponentSize() == 4){
-						shooter.setState(new SafeLevel(GameBoard.getComment()));
+						shooter.setState(new SafeLevel(SpaceGameBoard.getComment()));
 						}
 					if(shooter.getComponentSize() == 3){
-						shooter.setState(new SafeLevel(GameBoard.getComment()));
+						shooter.setState(new SafeLevel(SpaceGameBoard.getComment()));
 						}
 					if(shooter.getComponentSize() == 2){
-						shooter.setState(new CautionLevel(GameBoard.getComment()));
+						shooter.setState(new CautionLevel(SpaceGameBoard.getComment()));
 					}
 					if(shooter.getComponentSize() == 1){
-						shooter.setState(new DangerLevel(GameBoard.getComment()));
+						shooter.setState(new DangerLevel(SpaceGameBoard.getComment()));
 					}
 					
 				}

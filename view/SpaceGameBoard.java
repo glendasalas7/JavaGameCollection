@@ -14,16 +14,16 @@ import controller.TimerListener;
 import model.EnemyComposite;
 import model.ObserverPattern.HealthNotifier;
 import model.ObserverPattern.HealthChanger;
-import model.Shooter;
-import model.ShooterElement;
+import model.PlayerShip;
+import model.PlayerShipElements;
 import model.ObserverPattern.Observer;
 import java.awt.Font;
 
-public class GameBoard{
+public class SpaceGameBoard{
 	private final JFrame window;
-	private MyCanvas canvas;
+	private SpaceGameCanvas canvas;
 	private Timer timer;
-	private Shooter shooter;
+	private PlayerShip shooter;
 	private TimerListener timerListener;
 	private EnemyComposite enemyComposite;
 	private HealthNotifier gameComments;
@@ -38,13 +38,13 @@ public class GameBoard{
 	public static JPanel southPanel = new JPanel();
 	public static ArrayList<Observer> observers;
 	public static JLabel comment = new JLabel("");
-	public GameBoard(JFrame window){
+	public SpaceGameBoard(JFrame window){
 		this.window = window;
 	}
 
 	public void init(){
 		Container cp = window.getContentPane();
-		canvas = new MyCanvas(this, WIDTH, HEIGHT);	
+		canvas = new SpaceGameCanvas(this, WIDTH, HEIGHT);	
 		cp.add(BorderLayout.CENTER, canvas);
 		canvas.addKeyListener(new KeyController(this));
 		canvas.requestFocusInWindow();
@@ -75,12 +75,12 @@ public class GameBoard{
 
 		startButton.addActionListener(event ->{
 			startButton.setText("Restart");
-			shooter = new Shooter(GameBoard.WIDTH /2, GameBoard.HEIGHT - ShooterElement.SIZE);
+			shooter = new PlayerShip(SpaceGameBoard.WIDTH /2, SpaceGameBoard.HEIGHT - PlayerShipElements.SIZE);
 			enemyComposite = new EnemyComposite(this, gameComments);
 			canvas.getGameElements().clear();
 			score = 0;
-			GameBoard.scoreBoard.setText("Score: " + score);
-			GameBoard.enemyCount.setText("Enemies Left: " + enemies);
+			SpaceGameBoard.scoreBoard.setText("Score: " + score);
+			SpaceGameBoard.enemyCount.setText("Enemies Left: " + enemies);
 			canvas.getGameElements().add(shooter);
 			canvas.getGameElements().add(enemyComposite);
 			timer.start();
@@ -88,7 +88,7 @@ public class GameBoard{
 
 		quitButton.addActionListener(event -> System.exit(0));
 	}
-	public MyCanvas getCanvas() {
+	public SpaceGameCanvas getCanvas() {
 		return canvas;
 	}
 	public Timer getTimer() {
@@ -97,7 +97,7 @@ public class GameBoard{
 	public TimerListener getTimerListener() {
 		return timerListener;
 	}
-	public Shooter getShooter() {
+	public PlayerShip getShooter() {
 		return shooter;
 	}
 	public EnemyComposite getEnemyComposite() {
@@ -110,16 +110,16 @@ public class GameBoard{
 		return southPanel;
 	}
 	public static void setSouthPanel(JPanel southPanel) {
-		GameBoard.southPanel = southPanel;
+		SpaceGameBoard.southPanel = southPanel;
 	}
 	public static int getEnemies() {
 		return enemies;
 	}
 	public static void setEnemies(int enemies) {
-		GameBoard.enemies = enemies;
+		SpaceGameBoard.enemies = enemies;
 	}
 	public static void setEnemyCount(JLabel enemyCount) {
-		GameBoard.enemyCount = enemyCount;
+		SpaceGameBoard.enemyCount = enemyCount;
 	}
 	public static JLabel getEnemyCount() {
 		return enemyCount;
@@ -128,6 +128,6 @@ public class GameBoard{
 		return comment;
 	}
 	public static void setComment(JLabel comment) {
-		GameBoard.comment = comment;
+		SpaceGameBoard.comment = comment;
 	}
 }

@@ -13,14 +13,14 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import model.GameElement;
 
-public class MyCanvas extends JPanel {
+public class SpaceGameCanvas extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private GameBoard gameBoard;
+	private SpaceGameBoard gameBoard;
 	private ArrayList<GameElement> gameElements = new ArrayList<>();
 
 	private int width;
 	private int height;
-	public MyCanvas(GameBoard gameBoard, int width, int height) {
+	public SpaceGameCanvas(SpaceGameBoard gameBoard, int width, int height) {
 		this.gameBoard = gameBoard;
 		setBackground(Color.BLUE);
 		this.width = width;

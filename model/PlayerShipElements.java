@@ -7,11 +7,11 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-public class ShooterElement extends GameElement {
+public class PlayerShipElements extends GameElement {
 
 	public static final int SIZE = 20;
 
-	public ShooterElement(int x, int y, Color color, boolean filled) {
+	public PlayerShipElements(int x, int y, Color color, boolean filled) {
 		super(x, y, color, filled, SIZE, SIZE);
 	}
 

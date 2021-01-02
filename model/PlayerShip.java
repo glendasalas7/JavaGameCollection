@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import model.StatePattern.SafeLevel;
 import model.StatePattern.ShooterState;
 import model.StrategyPattern.Animation;
-import view.GameBoard;
+import view.SpaceGameBoard;
 import java.awt.Color;
 
-public class Shooter extends GameElement {
+public class PlayerShip extends GameElement {
 
 	public static final int UNIT_MOVE = 10;
 	public static final int MAX_BULLETS = 3;
@@ -16,14 +16,14 @@ public class Shooter extends GameElement {
 	private ArrayList<GameElement> weapons = new ArrayList<>();
 	private ShooterState state;
 
-	public Shooter(int x, int y) {
+	public PlayerShip(int x, int y) {
 		super(x, y, 0, 0);
-		state = new SafeLevel(GameBoard.getComment()); // initial state
-		var size = ShooterElement.SIZE;
-		var s1 = new ShooterElement(x - size, y - size, Color.MAGENTA, false);
-		var s2 = new ShooterElement(x, y - size, Color.MAGENTA, false);
-		var s3 = new ShooterElement(x - size, y, Color.MAGENTA, false);
-		var s4 = new ShooterElement(x, y, Color.MAGENTA, false);
+		state = new SafeLevel(SpaceGameBoard.getComment()); // initial state
+		var size = PlayerShipElements.SIZE;
+		var s1 = new PlayerShipElements(x - size, y - size, Color.MAGENTA, false);
+		var s2 = new PlayerShipElements(x, y - size, Color.MAGENTA, false);
+		var s3 = new PlayerShipElements(x - size, y, Color.MAGENTA, false);
+		var s4 = new PlayerShipElements(x, y, Color.MAGENTA, false);
 		components.add(s1);
 		components.add(s2);
 		components.add(s3);
@@ -64,11 +64,11 @@ public class Shooter extends GameElement {
 	}
 
     public void goNextState() {
-        state.goNext(this, GameBoard.getComment());
+        state.goNext(this, SpaceGameBoard.getComment());
 	}
 
 	public void goBackState() {
-        state.goBack(this, GameBoard.getComment());
+        state.goBack(this, SpaceGameBoard.getComment());
     }
 
     public void setState(ShooterState state) {

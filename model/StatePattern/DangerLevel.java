@@ -3,7 +3,7 @@ package model.StatePattern;
  * Participant: ConcreteState
  */
 import javax.swing.JLabel;
-import model.Shooter;
+import model.PlayerShip;
 
 public class DangerLevel implements ShooterState {
 
@@ -12,10 +12,10 @@ public class DangerLevel implements ShooterState {
 	}
 
 	@Override
-	public void goNext(Shooter context, JLabel label) {}
+	public void goNext(PlayerShip context, JLabel label) {}
 
 	@Override
-	public void goBack(Shooter context, JLabel label) {
+	public void goBack(PlayerShip context, JLabel label) {
 		context.setState(new CautionLevel(label));
 
 	}

@@ -4,9 +4,9 @@ package model.StatePattern;
  */
 import javax.swing.JLabel;
 
-import model.Shooter;
+import model.PlayerShip;
 public interface ShooterState {
 
-	void goNext(Shooter context, JLabel panel);
-	void goBack(Shooter context, JLabel panel);
+	void goNext(PlayerShip context, JLabel panel);
+	void goBack(PlayerShip context, JLabel panel);
 }

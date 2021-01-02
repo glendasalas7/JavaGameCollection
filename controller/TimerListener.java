@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import model.Bullet;
-import model.Shooter;
-import view.GameBoard;
+import model.PlayerShip;
+import view.SpaceGameBoard;
 
 public class TimerListener implements ActionListener{
 	
@@ -14,7 +14,7 @@ public class TimerListener implements ActionListener{
 		KEY_RIGHT, KEY_LEFT, KEY_SPACE
 	}
 
-	private GameBoard gameBoard;
+	private SpaceGameBoard gameBoard;
 	private LinkedList<EventType> eventQueue;
 	private final int BOMB_DROP_FREQ = 8;
 	private final int POTION_DROP_FREQ = 50;
@@ -23,7 +23,7 @@ public class TimerListener implements ActionListener{
 	private int frameCounter2 = 0;
 	private int frameCounter3 = 0;
 
-	public TimerListener(GameBoard gameBoard){
+	public TimerListener(SpaceGameBoard gameBoard){
 		this.gameBoard = gameBoard;
 		eventQueue = new LinkedList<>();
 	}
@@ -43,7 +43,7 @@ public class TimerListener implements ActionListener{
 		while (!eventQueue.isEmpty()){
 			var e = eventQueue.getFirst();
 			eventQueue.removeFirst();
-			Shooter shooter = gameBoard.getShooter();
+			PlayerShip shooter = gameBoard.getShooter();
 			if (shooter == null) return;
 			switch(e){
 				case KEY_LEFT:
@@ -92,7 +92,7 @@ public class TimerListener implements ActionListener{
 	public LinkedList<EventType> getEventQueue() {
 		return eventQueue;
 	}
-	public GameBoard getGameBoard() {
+	public SpaceGameBoard getGameBoard() {
 		return gameBoard;
 	}
 
