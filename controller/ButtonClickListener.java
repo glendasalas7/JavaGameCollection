@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import model.Stats;
-import view.GameScreen;
+import view.MemoryScreen;
 import view.CompletionScreen;
 import view.MemoryMenu;
 
 public class ButtonClickListener implements ActionListener {
 
-	public GameScreen panel;
+	public MemoryScreen panel;
 	public ArrayList<String> card;
 	private Stats s;
 	public JFrame window;
@@ -21,7 +21,7 @@ public class ButtonClickListener implements ActionListener {
 	private int tracker;//keeps track of what card is being compared to the rest
 	private long startTime;//start time
 	
-	public ButtonClickListener(GameScreen panel, ArrayList<String> card, Stats s){
+	public ButtonClickListener(MemoryScreen panel, ArrayList<String> card, Stats s){
 		this.panel = panel;
 		this.card = card;
 		window = panel.getWindow();
@@ -31,7 +31,7 @@ public class ButtonClickListener implements ActionListener {
 	}
 
 
-	public void checkRemaining(GameScreen panel, long elapsed){
+	public void checkRemaining(MemoryScreen panel, long elapsed){
 		for(var c: panel.getmemoryCards()){
 			if(c.isVisible() == true) return;
 		}
@@ -43,14 +43,14 @@ public class ButtonClickListener implements ActionListener {
 		window.pack();
 		window.revalidate();
 	}
-	public GameScreen checkButtonCount(GameScreen panel, int cardCount){//Ensure only 2 cards active at a time
+	public MemoryScreen checkButtonCount(MemoryScreen panel, int cardCount){//Ensure only 2 cards active at a time
 		for(var c:panel.getmemoryCards()){
 			if(c.getText() != "")
 				c.setText("");
 		}
 		return panel;
 	}
-	public void checkButtons(GameScreen panel, String cardSymbol, JButton card, int t){//Check pairs for matches
+	public void checkButtons(MemoryScreen panel, String cardSymbol, JButton card, int t){//Check pairs for matches
 		int count = 1;
 		for(var c: panel.getmemoryCards()){
 			if(c.getText() == cardSymbol && t != count){
@@ -68,8 +68,8 @@ public class ButtonClickListener implements ActionListener {
 		if(button == panel.getExitButton()){
 			s.decrementGC();
 			window.getContentPane().removeAll();
-			var menu = new MemoryMenu(window, s);
-			menu.stepIn();
+			var memMenu = new MemoryMenu(window, s);
+			memMenu.enter();
 			window.pack();
 			window.revalidate(); //changing contents			
 		} else { //flipping and unflipping card

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.StatePattern.SafeLevel;
 import model.StatePattern.ShooterState;
 import model.StrategyPattern.Animation;
-import view.SpaceGameBoard;
+import view.InvasionMenu;
 
 public class PlayerShip extends GameElement {
 
@@ -17,7 +17,7 @@ public class PlayerShip extends GameElement {
 
 	public PlayerShip(int x, int y) {
 		super(x, y, 0, 0);
-		state = new SafeLevel(SpaceGameBoard.getComment()); // initial state
+		state = new SafeLevel(InvasionMenu.getComment()); // initial state
 		var size = PlayerShipElements.SIZE;
 		var s1 = new PlayerShipElements(x - size, y - size);
 		var s2 = new PlayerShipElements(x, y - size);
@@ -63,11 +63,11 @@ public class PlayerShip extends GameElement {
 	}
 
     public void goNextState() {
-        state.goNext(this, SpaceGameBoard.getComment());
+        state.goNext(this, InvasionMenu.getComment());
 	}
 
 	public void goBackState() {
-        state.goBack(this, SpaceGameBoard.getComment());
+        state.goBack(this, InvasionMenu.getComment());
     }
 
     public void setState(ShooterState state) {

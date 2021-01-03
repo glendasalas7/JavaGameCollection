@@ -1,15 +1,15 @@
 package model.ObserverPattern;
 import javax.swing.JPanel;
-import view.SpaceGameBoard;
+import view.InvasionMenu;
 
 public class HealthChanger implements Observer {
-    private SpaceGameBoard gameBoard;
-    public HealthChanger(SpaceGameBoard gameBoard) {
+    private InvasionMenu gameBoard;
+    public HealthChanger(InvasionMenu gameBoard) {
         this.gameBoard = gameBoard;
     }
 
     @Override
     public void actionPerformed(JPanel panel) {
-		SpaceGameBoard.setSouthPanel(panel);
+		InvasionMenu.setSouthPanel(panel);
 	}
 }

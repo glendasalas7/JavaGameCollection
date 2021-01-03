@@ -22,7 +22,7 @@ public class MemoryMenu {
 		// window.setTitle("M E M O R Y : THE GAME");
 	}
 
-	public void stepIn(){
+	public void enter(){
 		JPanel menuPanel = new JPanel();
 		MenuCanvas canvas = new MenuCanvas(this, 800, 300);
 		JButton playBUTTON = new JButton("PLAY");
@@ -36,7 +36,7 @@ public class MemoryMenu {
 		menuPanel.add(statsBUTTON);
 		window.add(menuPanel);
 		playBUTTON.addActionListener(e -> {
-			var memory = new GameScreen(window, s);
+			var memory = new MemoryScreen(window, s);
 			window.getContentPane().removeAll();//clear window so you can load new window
 			memory.stepIn();
 			window.pack();

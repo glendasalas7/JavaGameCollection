@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 import model.Bullet;
 import model.PlayerShip;
-import view.SpaceGameBoard;
+import view.InvasionMenu;
 
 public class TimerListener implements ActionListener{
 	
@@ -14,7 +14,7 @@ public class TimerListener implements ActionListener{
 		KEY_RIGHT, KEY_LEFT, KEY_SPACE
 	}
 
-	private SpaceGameBoard gameBoard;
+	private InvasionMenu gameBoard;
 	private LinkedList<EventType> eventQueue;
 	private final int BOMB_DROP_FREQ = 8;
 	private final int POTION_DROP_FREQ = 50;
@@ -23,7 +23,7 @@ public class TimerListener implements ActionListener{
 	private int frameCounter2 = 0;
 	private int frameCounter3 = 0;
 
-	public TimerListener(SpaceGameBoard gameBoard){
+	public TimerListener(InvasionMenu gameBoard){
 		this.gameBoard = gameBoard;
 		eventQueue = new LinkedList<>();
 	}
@@ -92,7 +92,7 @@ public class TimerListener implements ActionListener{
 	public LinkedList<EventType> getEventQueue() {
 		return eventQueue;
 	}
-	public SpaceGameBoard getGameBoard() {
+	public InvasionMenu getGameBoard() {
 		return gameBoard;
 	}
 

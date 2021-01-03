@@ -15,12 +15,12 @@ import model.GameElement;
 
 public class SpaceGameCanvas extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private SpaceGameBoard gameBoard;
+	private InvasionMenu gameBoard;
 	private ArrayList<GameElement> gameElements = new ArrayList<>();
 
 	private int width;
 	private int height;
-	public SpaceGameCanvas(SpaceGameBoard gameBoard, int width, int height) {
+	public SpaceGameCanvas(InvasionMenu gameBoard, int width, int height) {
 		this.gameBoard = gameBoard;
 		setBackground(Color.BLUE);
 		this.width = width;

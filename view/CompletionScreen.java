@@ -38,8 +38,8 @@ public class CompletionScreen {
 
 		exitButton.addActionListener(e ->{
 			window.getContentPane().removeAll();
-			var menu = new MemoryMenu(window, s);
-			menu.stepIn();
+			var memMenu = new MemoryMenu(window, s);
+			memMenu.enter();
 			window.pack();
 			window.revalidate();
 		}

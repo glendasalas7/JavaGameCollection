@@ -1,18 +1,17 @@
 import java.awt.Dimension;
-
 import javax.swing.JFrame;
-import view.CollectionMenu;
+import view.MainMenu;
   
 public class Main{
     public static void main(String[] args){
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setTitle("Java Game Collection");
+        window.setTitle("J a v a   G a m e   C o l l e c t i o n");
         window.setLocation(500, 200);
-        window.setPreferredSize(new Dimension(600, 370));
+        window.setPreferredSize(new Dimension(700, 500));
         window.setResizable(false);
-        var game = new CollectionMenu(window);
-        game.stepIn();
+        var mainMenu = new MainMenu(window);
+        mainMenu.enter();
         window.pack();
         window.setVisible(true);
     }

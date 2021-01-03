@@ -3,7 +3,7 @@ package model.ObserverPattern;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-import view.SpaceGameBoard;
+import view.InvasionMenu;
 
 public class HealthNotifier implements Subject{
 
@@ -36,7 +36,7 @@ public class HealthNotifier implements Subject{
     }
 
     public void returnPane() {
-		SpaceGameBoard.setSouthPanel(getTempPanel());
+		InvasionMenu.setSouthPanel(getTempPanel());
     }
     
     @Override

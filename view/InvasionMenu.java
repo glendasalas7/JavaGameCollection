@@ -19,7 +19,7 @@ import model.PlayerShipElements;
 import model.ObserverPattern.Observer;
 import java.awt.Font;
 
-public class SpaceGameBoard{
+public class InvasionMenu{
 	private final JFrame window;
 	private SpaceGameCanvas canvas;
 	private Timer timer;
@@ -38,11 +38,11 @@ public class SpaceGameBoard{
 	public static JPanel southPanel = new JPanel();
 	public static ArrayList<Observer> observers;
 	public static JLabel comment = new JLabel("");
-	public SpaceGameBoard(JFrame window){
+	public InvasionMenu(JFrame window){
 		this.window = window;
 	}
 
-	public void init(){
+	public void enter(){
 		Container cp = window.getContentPane();
 		canvas = new SpaceGameCanvas(this, WIDTH, HEIGHT);	
 		cp.add(BorderLayout.CENTER, canvas);
@@ -75,12 +75,12 @@ public class SpaceGameBoard{
 
 		startButton.addActionListener(event ->{
 			startButton.setText("Restart");
-			shooter = new PlayerShip(SpaceGameBoard.WIDTH /2, SpaceGameBoard.HEIGHT - PlayerShipElements.SIZE);
+			shooter = new PlayerShip(InvasionMenu.WIDTH /2, InvasionMenu.HEIGHT - PlayerShipElements.SIZE);
 			enemyComposite = new EnemyComposite(this, gameComments);
 			canvas.getGameElements().clear();
 			score = 0;
-			SpaceGameBoard.scoreBoard.setText("Score: " + score);
-			SpaceGameBoard.enemyCount.setText("Enemies Left: " + enemies);
+			InvasionMenu.scoreBoard.setText("Score: " + score);
+			InvasionMenu.enemyCount.setText("Enemies Left: " + enemies);
 			canvas.getGameElements().add(shooter);
 			canvas.getGameElements().add(enemyComposite);
 			timer.start();
@@ -110,16 +110,16 @@ public class SpaceGameBoard{
 		return southPanel;
 	}
 	public static void setSouthPanel(JPanel southPanel) {
-		SpaceGameBoard.southPanel = southPanel;
+		InvasionMenu.southPanel = southPanel;
 	}
 	public static int getEnemies() {
 		return enemies;
 	}
 	public static void setEnemies(int enemies) {
-		SpaceGameBoard.enemies = enemies;
+		InvasionMenu.enemies = enemies;
 	}
 	public static void setEnemyCount(JLabel enemyCount) {
-		SpaceGameBoard.enemyCount = enemyCount;
+		InvasionMenu.enemyCount = enemyCount;
 	}
 	public static JLabel getEnemyCount() {
 		return enemyCount;
@@ -128,6 +128,6 @@ public class SpaceGameBoard{
 		return comment;
 	}
 	public static void setComment(JLabel comment) {
-		SpaceGameBoard.comment = comment;
+		InvasionMenu.comment = comment;
 	}
 }
