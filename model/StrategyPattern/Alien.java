@@ -1,7 +1,6 @@
 package model.StrategyPattern;
 
 import java.awt.Graphics2D;
-import java.awt.Color;
 import model.GameElement;
 
 public class Alien extends GameElement{
@@ -12,7 +11,7 @@ public class Alien extends GameElement{
     private boolean active;
 
     public Alien(int x, int y, Animation animation) {
-        super(x, y, Color.green, true, SIZE, SIZE);
+        super(x, y, SIZE, SIZE);
         this.animation = animation;
         animation.setX(super.x);
         animation.setY(super.y);

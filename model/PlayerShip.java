@@ -6,7 +6,6 @@ import model.StatePattern.SafeLevel;
 import model.StatePattern.ShooterState;
 import model.StrategyPattern.Animation;
 import view.SpaceGameBoard;
-import java.awt.Color;
 
 public class PlayerShip extends GameElement {
 
@@ -20,10 +19,10 @@ public class PlayerShip extends GameElement {
 		super(x, y, 0, 0);
 		state = new SafeLevel(SpaceGameBoard.getComment()); // initial state
 		var size = PlayerShipElements.SIZE;
-		var s1 = new PlayerShipElements(x - size, y - size, Color.MAGENTA, false);
-		var s2 = new PlayerShipElements(x, y - size, Color.MAGENTA, false);
-		var s3 = new PlayerShipElements(x - size, y, Color.MAGENTA, false);
-		var s4 = new PlayerShipElements(x, y, Color.MAGENTA, false);
+		var s1 = new PlayerShipElements(x - size, y - size);
+		var s2 = new PlayerShipElements(x, y - size);
+		var s3 = new PlayerShipElements(x - size, y);
+		var s4 = new PlayerShipElements(x, y);
 		components.add(s1);
 		components.add(s2);
 		components.add(s3);

@@ -2,7 +2,6 @@ package model;
 
 import java.awt.Graphics2D;
 import model.StrategyPattern.Animation;
-import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -14,12 +13,11 @@ public class Bomb extends GameElement {
 	public static final int UNIT_MOVE = 7;
 
 	public Bomb(int x, int y) {
-		super(x, y, Color.green, true, SIZE, SIZE);
+		super(x, y, SIZE, SIZE);
 	}
 
 	@Override
 	public void render(Graphics2D g2) {
-		g2.setColor(color);
 		try {
 			BufferedImage shipIMG = ImageIO.read(new File("pictures/bomb.png"));
 			Image temp = shipIMG.getScaledInstance(width, height, Image.SCALE_SMOOTH);

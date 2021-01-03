@@ -1,6 +1,5 @@
 
 package model;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
@@ -10,8 +9,8 @@ import model.StrategyPattern.Animation;
 
 public class Enemy extends GameElement {
 
-	public Enemy(int x, int y, int size, Color color, boolean filled) {
-		super(x, y, color, filled, size, size);
+	public Enemy(int x, int y, int size) {
+		super(x, y, size, size);
 	}
 
 	@Override

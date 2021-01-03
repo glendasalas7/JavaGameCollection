@@ -9,16 +9,13 @@ public class Bullet extends GameElement {
 	public static final int UNIT_MOVE = 30;
 
 	public Bullet(int x, int y) {
-		super(x, y, Color.red, true, WIDTH, WIDTH + 3);
+		super(x, y, WIDTH, WIDTH + 3);
 	}
 
 	@Override
 	public void render(Graphics2D g2) {
-		g2.setColor(color);
-		if (filled)
+		g2.setColor(Color.red);
 			g2.fillRect(x, y, width, height);
-		else
-			g2.drawRect(x, y, width, height);
 	}
 
 	@Override

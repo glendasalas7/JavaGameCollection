@@ -63,7 +63,7 @@ public class TimerListener implements ActionListener{
 			frameCounter = 0;
 		}
 		if(frameCounter2 == POTION_DROP_FREQ){
-			gameBoard.getEnemyComposite().dropPotions();
+			gameBoard.getEnemyComposite().dropShips();
 			frameCounter2 = 0;
 		}
 		if(frameCounter3 == ALIEN_FREQ){
@@ -79,7 +79,7 @@ public class TimerListener implements ActionListener{
 
 		shooter.removeBulletsOutOfBounds();
 		enemyComposite.removeBombsOutOfBound();
-		enemyComposite.removePotionsOutOfBound();
+		enemyComposite.removeShipsOutOfBound();
 		enemyComposite.removeAliensOutOfBound();
 		enemyComposite.processCollision(shooter);
 	}

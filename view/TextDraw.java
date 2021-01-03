@@ -9,9 +9,11 @@ import java.awt.Font;
 public class TextDraw extends GameElement {
 	private String text;
 	private int size;
+	private Color color;
 
 	public TextDraw(String text, int x, int y, Color color, int size) {
-		super(x, y, color, false, 0, 0);
+		super(x, y, 0, 0);
+		this.color = color;
 		this.text = text;
 		this.size = size;
 	}
@@ -36,7 +38,7 @@ public class TextDraw extends GameElement {
 	}
 
 	@Override
-	public boolean getActive(){
+	public boolean getActive() {
 		return false;
 	}
 

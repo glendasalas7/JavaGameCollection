@@ -6,14 +6,13 @@ import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
 import model.StrategyPattern.Animation;
-import java.awt.Color;
 
 public class ShipHelper extends GameElement {
     public static final int SIZE = 7;
     public static final int UNIT_MOVE = 5;
 
     public ShipHelper(int x, int y) {
-        super(x, y, Color.green, true, SIZE, SIZE);
+        super(x, y, SIZE, SIZE);
     }
 
     @Override
