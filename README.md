@@ -1,3 +1,4 @@
-# OOP_Project_2
+# Java Game Collection
 
-Space Invader Game
+Working collection of games created using Java
+tbd
