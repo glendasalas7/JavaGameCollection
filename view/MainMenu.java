@@ -1,12 +1,13 @@
 package view;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import AlienInvader.view.AlienInvaderMenu;
+import Memory.view.MemoryMenu;
 import java.awt.Dimension;
 import java.awt.Font;
+
 public class MainMenu {
-	
 	private JFrame window;
 	public MainMenu(JFrame window){
 		this.window = window;
@@ -33,7 +34,7 @@ public class MainMenu {
 		}
 		);
 		spaceInvBUTTON.addActionListener(e -> {
-			InvasionMenu spaceGame = new InvasionMenu(window);
+			AlienInvaderMenu spaceGame = new AlienInvaderMenu(window);
 			window.getContentPane().removeAll();
 			spaceGame.enter();
 			window.pack();

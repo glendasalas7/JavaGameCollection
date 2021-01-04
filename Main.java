@@ -1,7 +1,7 @@
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import view.MainMenu;
-  
+
 public class Main{
     public static void main(String[] args){
         JFrame window = new JFrame();
