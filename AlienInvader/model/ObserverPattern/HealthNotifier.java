@@ -2,7 +2,7 @@ package AlienInvader.model.ObserverPattern;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-import AlienInvader.view.AlienInvaderMenu;
+import AlienInvader.view.AlienMenuScreen;
 
 public class HealthNotifier implements Subject{
     private JPanel panel = new JPanel();
@@ -32,7 +32,7 @@ public class HealthNotifier implements Subject{
     }
 
     public void returnPane() {
-		AlienInvaderMenu.setSouthPanel(getTempPanel());
+		AlienMenuScreen.setSouthPanel(getTempPanel());
     }
 
     @Override

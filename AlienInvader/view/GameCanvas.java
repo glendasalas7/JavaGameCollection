@@ -12,14 +12,14 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import AlienInvader.model.GameElement;
 
-public class AlienInvaderCanvas extends JPanel {
+public class GameCanvas extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private AlienInvaderMenu gameBoard;
+	private AlienMenuScreen gameBoard;
 	private ArrayList<GameElement> gameElements = new ArrayList<>();
 	private int width;
 	private int height;
 	
-	public AlienInvaderCanvas(AlienInvaderMenu gameBoard, int width, int height) {
+	public GameCanvas(AlienMenuScreen gameBoard, int width, int height) {
 		this.gameBoard = gameBoard;
 		setBackground(Color.BLUE);
 		this.width = width;

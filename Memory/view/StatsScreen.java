@@ -37,7 +37,7 @@ public class StatsScreen {
 		
 		exitButton.addActionListener(e ->{
 			window.getContentPane().removeAll();
-			var memMenu = new MemoryMenu(window, stats);
+			var memMenu = new MemMenuScreen(window, stats);
 			memMenu.enter();
 			window.pack();
 			window.revalidate();

@@ -9,12 +9,12 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 
-public class MemoryEndScreen {
+public class EndScreen {
 	private JFrame window;
 	private long completionTime;
 	private Stats stats;
 
-	public MemoryEndScreen(JFrame window, long time, Stats stats){
+	public EndScreen(JFrame window, long time, Stats stats){
 		this.window = window;
 		window.setTitle("YOU DID IT!");
 		completionTime = time;
@@ -33,7 +33,7 @@ public class MemoryEndScreen {
 		cp.add(BorderLayout.CENTER, panel);
 		exitButton.addActionListener(e ->{
 			window.getContentPane().removeAll();
-			var memMenu = new MemoryMenu(window, stats);
+			var memMenu = new MemMenuScreen(window, stats);
 			memMenu.enter();
 			window.pack();
 			window.revalidate();

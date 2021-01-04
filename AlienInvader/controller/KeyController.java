@@ -3,12 +3,12 @@ package AlienInvader.controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import AlienInvader.view.AlienInvaderMenu;
+import AlienInvader.view.AlienMenuScreen;
 
 public class KeyController implements KeyListener {
-	private AlienInvaderMenu gameBoard;
+	private AlienMenuScreen gameBoard;
 	
-	public KeyController(AlienInvaderMenu gameBoard){
+	public KeyController(AlienMenuScreen gameBoard){
 		this.gameBoard = gameBoard;
 	}
 

@@ -6,23 +6,23 @@ import java.awt.Dimension;
 import java.awt.Font;
 import Memory.model.Stats;
 
-public class MemoryMenu {
+public class MemMenuScreen {
 	private JFrame window;
 	private Stats stats = new Stats();
-	public MemoryMenu(JFrame window){
+	public MemMenuScreen(JFrame window){
 		this.window = window;
-		window.setTitle("M E M O R Y : THE GAME");
+		window.setTitle("M E M O R Y");
 	}
 	
-	public MemoryMenu(JFrame window, Stats stats){
+	public MemMenuScreen(JFrame window, Stats stats){
 		this.window = window;
 		this.stats = stats;
-		// window.setTitle("M E M O R Y : THE GAME");
+		window.setTitle("M E M O R Y");
 	}
 
 	public void enter(){
 		JPanel menuPanel = new JPanel();
-		MemoryMenuCanvas canvas = new MemoryMenuCanvas(this, 800, 300);
+		MemMenuCanvas canvas = new MemMenuCanvas(this, 800, 300);
 		JButton playBUTTON = new JButton("PLAY");
 		JButton statsBUTTON = new JButton("VIEW STATS");
 		playBUTTON.setFont(new Font("Courier", Font.PLAIN, 40));
@@ -34,7 +34,7 @@ public class MemoryMenu {
 		menuPanel.add(statsBUTTON);
 		window.add(menuPanel);
 		playBUTTON.addActionListener(e -> {
-			var memory = new MemoryGameScreen(window, stats);
+			var memory = new GameScreen(window, stats);
 			window.getContentPane().removeAll();//clear window so you can load new window
 			memory.stepIn();
 			window.pack();

@@ -2,8 +2,8 @@ package view;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import AlienInvader.view.AlienInvaderMenu;
-import Memory.view.MemoryMenu;
+import AlienInvader.view.AlienMenuScreen;
+import Memory.view.MemMenuScreen;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -26,7 +26,7 @@ public class MainMenu {
 		menuPanel.add(spaceInvBUTTON);
 		window.add(menuPanel);
 		memBUTTON.addActionListener(e -> {
-			MemoryMenu memoryMenu = new MemoryMenu(window);
+			MemMenuScreen memoryMenu = new MemMenuScreen(window);
 			window.getContentPane().removeAll();
 			memoryMenu.enter();
 			window.pack();
@@ -34,7 +34,7 @@ public class MainMenu {
 		}
 		);
 		spaceInvBUTTON.addActionListener(e -> {
-			AlienInvaderMenu spaceGame = new AlienInvaderMenu(window);
+			AlienMenuScreen spaceGame = new AlienMenuScreen(window);
 			window.getContentPane().removeAll();
 			spaceGame.enter();
 			window.pack();

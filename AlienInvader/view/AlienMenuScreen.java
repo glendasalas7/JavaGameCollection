@@ -18,9 +18,9 @@ import AlienInvader.model.PlayerShipElements;
 import AlienInvader.model.ObserverPattern.Observer;
 import java.awt.Font;
 
-public class AlienInvaderMenu{
+public class AlienMenuScreen{
 	private final JFrame window;
-	private AlienInvaderCanvas canvas;
+	private GameCanvas canvas;
 	private Timer timer;
 	private PlayerShip shooter;
 	private TimerListener timerListener;
@@ -37,14 +37,14 @@ public class AlienInvaderMenu{
 	public static JPanel southPanel = new JPanel();
 	public static ArrayList<Observer> observers;
 	public static JLabel comment = new JLabel("");
-	public AlienInvaderMenu(JFrame window){
+	public AlienMenuScreen(JFrame window){
 		this.window = window;
         window.setTitle("M E M O R Y   G A M E");
 	}
 
 	public void enter(){
 		Container cp = window.getContentPane();
-		canvas = new AlienInvaderCanvas(this, WIDTH, HEIGHT);	
+		canvas = new GameCanvas(this, WIDTH, HEIGHT);	
 		cp.add(BorderLayout.CENTER, canvas);
 		canvas.addKeyListener(new KeyController(this));
 		canvas.requestFocusInWindow();
@@ -73,12 +73,12 @@ public class AlienInvaderMenu{
 
 		startButton.addActionListener(event ->{
 			startButton.setText("Restart");
-			shooter = new PlayerShip(AlienInvaderMenu.WIDTH /2, AlienInvaderMenu.HEIGHT - PlayerShipElements.SIZE);
+			shooter = new PlayerShip(AlienMenuScreen.WIDTH /2, AlienMenuScreen.HEIGHT - PlayerShipElements.SIZE);
 			enemyComposite = new EnemyComposite(this, gameComments);
 			canvas.getGameElements().clear();
 			score = 0;
-			AlienInvaderMenu.scoreBoard.setText("Score: " + score);
-			AlienInvaderMenu.enemyCount.setText("Enemies Left: " + enemies);
+			AlienMenuScreen.scoreBoard.setText("Score: " + score);
+			AlienMenuScreen.enemyCount.setText("Enemies Left: " + enemies);
 			canvas.getGameElements().add(shooter);
 			canvas.getGameElements().add(enemyComposite);
 			timer.start();
@@ -87,7 +87,7 @@ public class AlienInvaderMenu{
 		quitButton.addActionListener(event -> System.exit(0));
 	}
 
-	public AlienInvaderCanvas getCanvas() {
+	public GameCanvas getCanvas() {
 		return canvas;
 	}
 	
@@ -116,7 +116,7 @@ public class AlienInvaderMenu{
 	}
 	
 	public static void setSouthPanel(JPanel southPanel) {
-		AlienInvaderMenu.southPanel = southPanel;
+		AlienMenuScreen.southPanel = southPanel;
 	}
 	
 	public static int getEnemies() {
@@ -124,11 +124,11 @@ public class AlienInvaderMenu{
 	}
 	
 	public static void setEnemies(int enemies) {
-		AlienInvaderMenu.enemies = enemies;
+		AlienMenuScreen.enemies = enemies;
 	}
 	
 	public static void setEnemyCount(JLabel enemyCount) {
-		AlienInvaderMenu.enemyCount = enemyCount;
+		AlienMenuScreen.enemyCount = enemyCount;
 	}
 	
 	public static JLabel getEnemyCount() {
@@ -140,6 +140,6 @@ public class AlienInvaderMenu{
 	}
 	
 	public static void setComment(JLabel comment) {
-		AlienInvaderMenu.comment = comment;
+		AlienMenuScreen.comment = comment;
 	}
 }

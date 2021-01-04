@@ -6,11 +6,11 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import AlienInvader.model.StrategyPattern.Animation;
 
-public class ShipHelper extends GameElement {
+public class HelperShips extends GameElement {
     public static final int SIZE = 7;
     public static final int UNIT_MOVE = 5;
 
-    public ShipHelper(int x, int y) {
+    public HelperShips(int x, int y) {
         super(x, y, SIZE, SIZE);
     }
 

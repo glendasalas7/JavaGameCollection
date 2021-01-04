@@ -1,15 +1,15 @@
 package Memory.view;
-import Memory.view.MemoryMenu;
+import Memory.view.MemMenuScreen;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Color;
-public class MemoryMenuCanvas extends JPanel {
+public class MemMenuCanvas extends JPanel {
     private static final long serialVersionUID = 1L;
-    private MemoryMenu menuScreen;
+    private MemMenuScreen menuScreen;
 
-    public MemoryMenuCanvas(MemoryMenu menuScreen, int width, int height){
+    public MemMenuCanvas(MemMenuScreen menuScreen, int width, int height){
 		this.menuScreen = menuScreen;
 		setPreferredSize(new Dimension(width, height));
         setBackground(Color.BLACK);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import AlienInvader.model.StatePattern.SafeLevel;
 import AlienInvader.model.StatePattern.ShooterState;
 import AlienInvader.model.StrategyPattern.Animation;
-import AlienInvader.view.AlienInvaderMenu;
+import AlienInvader.view.AlienMenuScreen;
 
 public class PlayerShip extends GameElement {
 
@@ -16,7 +16,7 @@ public class PlayerShip extends GameElement {
 
 	public PlayerShip(int x, int y) {
 		super(x, y, 0, 0);
-		state = new SafeLevel(AlienInvaderMenu.getComment()); // initial state
+		state = new SafeLevel(AlienMenuScreen.getComment()); // initial state
 		var size = PlayerShipElements.SIZE;
 		var s1 = new PlayerShipElements(x - size, y - size);
 		var s2 = new PlayerShipElements(x, y - size);
@@ -62,11 +62,11 @@ public class PlayerShip extends GameElement {
 	}
 
     public void goNextState() {
-        state.goNext(this, AlienInvaderMenu.getComment());
+        state.goNext(this, AlienMenuScreen.getComment());
 	}
 
 	public void goBackState() {
-        state.goBack(this, AlienInvaderMenu.getComment());
+        state.goBack(this, AlienMenuScreen.getComment());
     }
 
     public void setState(ShooterState state) {
