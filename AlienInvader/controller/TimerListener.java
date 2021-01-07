@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import AlienInvader.model.Bullet;
 import AlienInvader.model.PlayerShip;
-import AlienInvader.view.AlienMenuScreen;
+import AlienInvader.view.AlienBoard;
 
 public class TimerListener implements ActionListener{
 	
@@ -12,7 +12,7 @@ public class TimerListener implements ActionListener{
 		KEY_RIGHT, KEY_LEFT, KEY_SPACE
 	}
 
-	private AlienMenuScreen gameBoard;
+	private AlienBoard gameBoard;
 	private LinkedList<EventType> eventQueue;
 	private final int BOMB_DROP_FREQ = 8;
 	private final int POTION_DROP_FREQ = 50;
@@ -21,7 +21,7 @@ public class TimerListener implements ActionListener{
 	private int frameCounter2 = 0;
 	private int frameCounter3 = 0;
 
-	public TimerListener(AlienMenuScreen gameBoard){
+	public TimerListener(AlienBoard gameBoard){
 		this.gameBoard = gameBoard;
 		eventQueue = new LinkedList<>();
 	}
@@ -88,7 +88,7 @@ public class TimerListener implements ActionListener{
 	public LinkedList<EventType> getEventQueue() {
 		return eventQueue;
 	}
-	public AlienMenuScreen getGameBoard() {
+	public AlienBoard getGameBoard() {
 		return gameBoard;
 	}
 }

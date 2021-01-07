@@ -18,9 +18,9 @@ import AlienInvader.model.PlayerShipElements;
 import AlienInvader.model.ObserverPattern.Observer;
 import java.awt.Font;
 
-public class AlienMenuScreen{
+public class AlienBoard{
 	private final JFrame window;
-	private GameCanvas canvas;
+	private AlienCanvas canvas;
 	private Timer timer;
 	private PlayerShip shooter;
 	private TimerListener timerListener;
@@ -37,14 +37,15 @@ public class AlienMenuScreen{
 	public static JPanel southPanel = new JPanel();
 	public static ArrayList<Observer> observers;
 	public static JLabel comment = new JLabel("");
-	public AlienMenuScreen(JFrame window){
+
+	public AlienBoard(JFrame window){
 		this.window = window;
-        window.setTitle("M E M O R Y   G A M E");
+        window.setTitle("A L I E N   I N V A D E R S");
 	}
 
 	public void enter(){
 		Container cp = window.getContentPane();
-		canvas = new GameCanvas(this, WIDTH, HEIGHT);	
+		canvas = new AlienCanvas(700, 300, true);	
 		cp.add(BorderLayout.CENTER, canvas);
 		canvas.addKeyListener(new KeyController(this));
 		canvas.requestFocusInWindow();
@@ -56,29 +57,28 @@ public class AlienMenuScreen{
 		comment.setFont(new Font("Courier", Font.BOLD, 16));
 		enemyCount.setFont(new Font("Courier", Font.BOLD, 16));
 		scoreBoard.setFont(new Font("Courier", Font.BOLD, 16));
+		southPanel.add(canvas);
+		
 		southPanel.add(comment);
-		southPanel.add(new JLabel("    "));
 		southPanel.add(startButton);
 		southPanel.add(quitButton);
 		southPanel.add(scoreBoard);
-		southPanel.add(new JLabel("  "));
 		southPanel.add(enemyCount);
 		gameComments = new HealthNotifier(southPanel);
 		gameComments.addListener(new HealthChanger(this));
-		cp.add(BorderLayout.SOUTH, southPanel);
-		canvas.getGameElements().add(new TextDraw("SPACE INVADER", 10, 125, Color.GREEN, 70));
-		canvas.getGameElements().add(new TextDraw("Click <Start> to play", 190, 190, Color.MAGENTA, 20));
+		window.add(southPanel);
+
 		timerListener = new TimerListener(this);
 		timer = new Timer(DELAY, timerListener);
 
 		startButton.addActionListener(event ->{
 			startButton.setText("Restart");
-			shooter = new PlayerShip(AlienMenuScreen.WIDTH /2, AlienMenuScreen.HEIGHT - PlayerShipElements.SIZE);
+			shooter = new PlayerShip(AlienBoard.WIDTH /2, AlienBoard.HEIGHT - PlayerShipElements.SIZE);
 			enemyComposite = new EnemyComposite(this, gameComments);
 			canvas.getGameElements().clear();
 			score = 0;
-			AlienMenuScreen.scoreBoard.setText("Score: " + score);
-			AlienMenuScreen.enemyCount.setText("Enemies Left: " + enemies);
+			AlienBoard.scoreBoard.setText("Score: " + score);
+			AlienBoard.enemyCount.setText("Enemies Left: " + enemies);
 			canvas.getGameElements().add(shooter);
 			canvas.getGameElements().add(enemyComposite);
 			timer.start();
@@ -87,7 +87,7 @@ public class AlienMenuScreen{
 		quitButton.addActionListener(event -> System.exit(0));
 	}
 
-	public GameCanvas getCanvas() {
+	public AlienCanvas getCanvas() {
 		return canvas;
 	}
 	
@@ -116,7 +116,7 @@ public class AlienMenuScreen{
 	}
 	
 	public static void setSouthPanel(JPanel southPanel) {
-		AlienMenuScreen.southPanel = southPanel;
+		AlienBoard.southPanel = southPanel;
 	}
 	
 	public static int getEnemies() {
@@ -124,11 +124,11 @@ public class AlienMenuScreen{
 	}
 	
 	public static void setEnemies(int enemies) {
-		AlienMenuScreen.enemies = enemies;
+		AlienBoard.enemies = enemies;
 	}
 	
 	public static void setEnemyCount(JLabel enemyCount) {
-		AlienMenuScreen.enemyCount = enemyCount;
+		AlienBoard.enemyCount = enemyCount;
 	}
 	
 	public static JLabel getEnemyCount() {
@@ -140,6 +140,6 @@ public class AlienMenuScreen{
 	}
 	
 	public static void setComment(JLabel comment) {
-		AlienMenuScreen.comment = comment;
+		AlienBoard.comment = comment;
 	}
 }

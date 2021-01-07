@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import Memory.model.Stats;
-import Memory.view.GameScreen;
-import Memory.view.EndScreen;
-import Memory.view.MemMenuScreen;
+import Memory.view.MemoryBoard;
+import Memory.view.EndGame;
+import Memory.view.MemoryMenu;
 
 public class ButtonClickListener implements ActionListener {
-	public GameScreen panel;
+	public MemoryBoard panel;
 	public ArrayList<String> card;
 	private Stats stats;
 	public JFrame window;
@@ -19,7 +19,7 @@ public class ButtonClickListener implements ActionListener {
 	private int tracker;//keeps track of what card is being compared to the rest
 	private long startTime;//start time
 	
-	public ButtonClickListener(GameScreen panel, ArrayList<String> card, Stats stats){
+	public ButtonClickListener(MemoryBoard panel, ArrayList<String> card, Stats stats){
 		this.panel = panel;
 		this.card = card;
 		window = panel.getWindow();
@@ -28,20 +28,20 @@ public class ButtonClickListener implements ActionListener {
 		this.stats = stats;
 	}
 
-	public void checkRemaining(GameScreen panel, long elapsed){
+	public void checkRemaining(MemoryBoard panel, long elapsed){
 		for(var c: panel.getmemoryCards()){
 			if(c.isVisible() == true) return;
 		}
 		elapsedTime = (System.currentTimeMillis() - elapsed)/1000;
 		stats.setCT(elapsedTime);
 		window.getContentPane().removeAll();
-		var completed = new EndScreen(window, elapsedTime, stats);
+		var completed = new EndGame(window, elapsedTime, stats);
 		completed.stepIn();
 		window.pack();
 		window.revalidate();
 	}
 
-	public GameScreen checkButtonCount(GameScreen panel, int cardCount){//Ensure only 2 cards active at a time
+	public MemoryBoard checkButtonCount(MemoryBoard panel, int cardCount){//Ensure only 2 cards active at a time
 		for(var c:panel.getmemoryCards()){
 			if(c.getText() != "")
 				c.setText("");
@@ -49,7 +49,7 @@ public class ButtonClickListener implements ActionListener {
 		return panel;
 	}
 
-	public void checkButtons(GameScreen panel, String cardSymbol, JButton card, int t){//Check pairs for matches
+	public void checkButtons(MemoryBoard panel, String cardSymbol, JButton card, int t){//Check pairs for matches
 		int count = 1;
 		for(var c: panel.getmemoryCards()){
 			if(c.getText() == cardSymbol && t != count){
@@ -67,7 +67,7 @@ public class ButtonClickListener implements ActionListener {
 		if(button == panel.getExitButton()){
 			stats.decrementGC();
 			window.getContentPane().removeAll();
-			var memMenu = new MemMenuScreen(window, stats);
+			var memMenu = new MemoryMenu(window, stats);
 			memMenu.enter();
 			window.pack();
 			window.revalidate(); //changing contents			

@@ -11,7 +11,7 @@ import AlienInvader.model.StatePattern.CautionLevel;
 import AlienInvader.model.StrategyPattern.Animation;
 import AlienInvader.model.StrategyPattern.EmptyAlien;
 import AlienInvader.model.StrategyPattern.FullAlien;
-import AlienInvader.view.AlienMenuScreen;
+import AlienInvader.view.AlienBoard;
 import AlienInvader.view.TextDraw;
 
 public class EnemyComposite extends GameElement {
@@ -21,7 +21,7 @@ public class EnemyComposite extends GameElement {
 	public static final int ENEMY_SIZE = 15;// size of enemy block
 	public static final int UNIT_MOVE = 4; // speed
 
-	private AlienMenuScreen gameboard;
+	private AlienBoard gameboard;
 	private HealthNotifier gameComments;
 	private ArrayList<ArrayList<GameElement>> rows;
 	private ArrayList<GameElement> bombs;
@@ -36,7 +36,7 @@ public class EnemyComposite extends GameElement {
 	private int score;
 	private int enemies;
 
-	public EnemyComposite(AlienMenuScreen gameboard, HealthNotifier gameComments) {
+	public EnemyComposite(AlienBoard gameboard, HealthNotifier gameComments) {
 		this.gameboard = gameboard;
 		this.gameComments = gameComments;
 		rows = new ArrayList<>();
@@ -44,7 +44,7 @@ public class EnemyComposite extends GameElement {
 		ships = new ArrayList<>();
 		aliens = new ArrayList<>();
 		enemies = NROWS * NCOLS;
-		AlienMenuScreen.enemies = enemies;
+		AlienBoard.enemies = enemies;
 
 		for (int r = 0; r < NROWS; r++) { // populate enemies
 			var oneRow = new ArrayList<GameElement>();
@@ -81,7 +81,7 @@ public class EnemyComposite extends GameElement {
 	public void animate() {
 		int dx = UNIT_MOVE;
 		if (movingToRight) {
-			if (rightEnd() >= AlienMenuScreen.WIDTH) {
+			if (rightEnd() >= AlienBoard.WIDTH) {
 				for (var row : rows) {
 					for (var r : row)// enemy moves down - from right
 						r.y += 20;
@@ -158,7 +158,7 @@ public class EnemyComposite extends GameElement {
 	public void removeBombsOutOfBound() {
 		var remove = new ArrayList<GameElement>();
 		for (var b : bombs) {
-			if (b.y >= AlienMenuScreen.HEIGHT) {
+			if (b.y >= AlienBoard.HEIGHT) {
 				remove.add(b);
 			}
 		}
@@ -174,7 +174,7 @@ public class EnemyComposite extends GameElement {
 	public void removeShipsOutOfBound() {
 		var remove = new ArrayList<GameElement>();
 		for (var s : ships) {
-			if (s.y >= AlienMenuScreen.HEIGHT) {
+			if (s.y >= AlienBoard.HEIGHT) {
 				remove.add(s);
 			}
 		}
@@ -193,7 +193,7 @@ public class EnemyComposite extends GameElement {
 	public void removeAliensOutOfBound() {
 		var remove = new ArrayList<GameElement>();
 		for (var a : aliens) {
-			if (a.y >= AlienMenuScreen.HEIGHT) {
+			if (a.y >= AlienBoard.HEIGHT) {
 				remove.add(a);
 			}
 		}
@@ -208,22 +208,22 @@ public class EnemyComposite extends GameElement {
 			for(var enemy: row){
 				for(var bullet: shooter.getWeapons()){
 					if (enemy.collideWith(bullet)){
-						score =	AlienMenuScreen.score +10;
-						AlienMenuScreen.scoreBoard.setText("Score: " + score);
-						AlienMenuScreen.score = score;
-						enemies = AlienMenuScreen.enemies -1;
-						AlienMenuScreen.enemyCount.setText("Enemies Left: " + enemies);
-						AlienMenuScreen.enemies = enemies;
+						score =	AlienBoard.score +10;
+						AlienBoard.scoreBoard.setText("Score: " + score);
+						AlienBoard.score = score;
+						enemies = AlienBoard.enemies -1;
+						AlienBoard.enemyCount.setText("Enemies Left: " + enemies);
+						AlienBoard.enemies = enemies;
 						removeBullets.add(bullet);
 						removeEnemies.add(enemy);
 					}
 				}
 			}
 			row.removeAll(removeEnemies);
-			if(AlienMenuScreen.enemies == 0){
+			if(AlienBoard.enemies == 0){
 				gameboard.getCanvas().getGameElements().clear();
 				gameboard.getCanvas().getGameElements().add(new TextDraw("YOU WIN!", 75, 150, Color.GREEN, 100));
-				gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + AlienMenuScreen.score, 210, 200, Color.GREEN, 35));
+				gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + AlienBoard.score, 210, 200, Color.GREEN, 35));
 
 				score = 0;
 			}
@@ -267,7 +267,7 @@ public class EnemyComposite extends GameElement {
 		if(shooter.getComponentSize() == 0){
 			gameboard.getCanvas().getGameElements().clear();
 			gameboard.getCanvas().getGameElements().add(new TextDraw("GAME OVER!", 200, 100, Color.MAGENTA, 35));
-			gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + AlienMenuScreen.score, 210, 200, Color.GREEN, 35));
+			gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + AlienBoard.score, 210, 200, Color.GREEN, 35));
 			score = 0;
 		}
 		//end bomb vs shooter
@@ -277,9 +277,9 @@ public class EnemyComposite extends GameElement {
 		for(var b: bombs){
 			for(var bullet: shooter.getWeapons()){
 				if(b.collideWith(bullet)){
-					score =	AlienMenuScreen.score +2;
-					AlienMenuScreen.scoreBoard.setText("Score: " + score);
-					AlienMenuScreen.score = score;
+					score =	AlienBoard.score +2;
+					AlienBoard.scoreBoard.setText("Score: " + score);
+					AlienBoard.score = score;
 					removeBombs.add(b);
 					removeBullets.add(bullet);
 				}
@@ -315,7 +315,7 @@ public class EnemyComposite extends GameElement {
 						a.setActive(false);
 						// Alien.UNIT_MOVE = 10;
 						a.setAnimation(emptyAlien);
-						shooter.setState(new SafeLevel(AlienMenuScreen.getComment()));
+						shooter.setState(new SafeLevel(AlienBoard.getComment()));
 					}
 				}
 			}
@@ -333,13 +333,13 @@ public class EnemyComposite extends GameElement {
 					if(enemy.y >= 275){
 						gameboard.getCanvas().getGameElements().clear();
 						gameboard.getCanvas().getGameElements().add(new TextDraw("GAME OVER!", 200, 100, Color.MAGENTA, 35));
-						gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + AlienMenuScreen.score, 215, 200, Color.GREEN, 35));
+						gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + AlienBoard.score, 215, 200, Color.GREEN, 35));
 						score = 0;
 					}
 					if(rows.size() == 0 && shooter.getComponentSize() !=0){
 						gameboard.getCanvas().getGameElements().clear();
 						gameboard.getCanvas().getGameElements().add(new TextDraw("YOU WIN!", 73, 150, Color.GREEN, 100));
-						gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + AlienMenuScreen.score, 215, 200, Color.GREEN, 35));
+						gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + AlienBoard.score, 215, 200, Color.GREEN, 35));
 						score = 0;
 					}
 				}
@@ -396,16 +396,16 @@ public class EnemyComposite extends GameElement {
 						break;
 					}
 					if(shooter.getComponentSize() == 4){
-						shooter.setState(new SafeLevel(AlienMenuScreen.getComment()));
+						shooter.setState(new SafeLevel(AlienBoard.getComment()));
 						}
 					if(shooter.getComponentSize() == 3){
-						shooter.setState(new SafeLevel(AlienMenuScreen.getComment()));
+						shooter.setState(new SafeLevel(AlienBoard.getComment()));
 						}
 					if(shooter.getComponentSize() == 2){
-						shooter.setState(new CautionLevel(AlienMenuScreen.getComment()));
+						shooter.setState(new CautionLevel(AlienBoard.getComment()));
 					}
 					if(shooter.getComponentSize() == 1){
-						shooter.setState(new DangerLevel(AlienMenuScreen.getComment()));
+						shooter.setState(new DangerLevel(AlienBoard.getComment()));
 					}
 					
 				}

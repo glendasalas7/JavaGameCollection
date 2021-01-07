@@ -10,13 +10,13 @@ import javax.swing.border.LineBorder;
 import Memory.controller.ButtonClickListener;
 import Memory.model.Stats;
 
-public class GameScreen {
+public class MemoryBoard {
 	private Stats stats;
 	private JFrame window;
 	private ArrayList<JButton> memoryCards;
 	private JButton exitButton = new JButton("Exit");
 
-	public GameScreen(JFrame window, Stats stats){
+	public MemoryBoard(JFrame window, Stats stats){
 		this.window = window;
 		this.stats = stats;
 		stats.incrementGC();
