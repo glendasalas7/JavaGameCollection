@@ -17,7 +17,7 @@ public class HelperShips extends GameElement {
     @Override
     public void render(Graphics2D g2) {
         try {
-            BufferedImage potionIMG = ImageIO.read(new File("pictures/helper_ship.png"));
+            BufferedImage potionIMG = ImageIO.read(new File("AlienInvader/pictures/helper_ship.png"));
             Image temp = potionIMG.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 
             g2.drawImage(temp, x, y, null);

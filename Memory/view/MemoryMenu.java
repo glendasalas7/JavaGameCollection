@@ -24,7 +24,7 @@ public class MemoryMenu {
 
 	public void enter(){
 		JPanel menuPanel = new JPanel();
-		MemoryCanvas canvas = new MemoryCanvas(this, 800, 300);
+		MemoryCanvas canvas = new MemoryCanvas(this, MainMenu.WIDTH, MainMenu.HEIGHT);
 		JButton playBUTTON = new JButton("PLAY");
 		JButton statsBUTTON = new JButton("VIEW STATS");
 		JButton returnBUTTON = new JButton("RETURN");

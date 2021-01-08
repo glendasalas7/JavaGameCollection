@@ -1,7 +1,6 @@
 package AlienInvader.view;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -13,29 +12,39 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import AlienInvader.model.GameElement;
+import view.MainMenu;
 
 public class AlienCanvas extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private ArrayList<GameElement> gameElements = new ArrayList<>();
+	private AlienBoard gameBoard;
 	private int width;
 	private int height;
-	private boolean img;
+	private ArrayList<GameElement> gameElements = new ArrayList<>();
 
-	public AlienCanvas(int width, int height, boolean img) {
+	public AlienCanvas(AlienBoard gameBoard, int width, int height) {
+		this.gameBoard = gameBoard;
 		setBackground(Color.BLUE);
-		this.img = img;
 		this.width = width;
 		this.height = height;
 		setPreferredSize(new Dimension(width, height));
 	}
 
 	@Override
-	public void paintComponent(Graphics g2) {
-			super.paintComponent(g2);
-			g2.setColor(Color.green);
-			g2.setFont(new Font("Courier", Font.BOLD, 90));
-			g2.drawString("A L I E N", 215, 120);
-			g2.drawString("I N V A S I O N", 100, 250);
+	public void paintComponent(Graphics g) {
+		BufferedImage starBG;
+		try{
+			starBG = ImageIO.read(new File("AlienInvader/pictures/planet.png"));
+			Image temp = starBG.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+			g.drawImage(temp, 0,0,null);
+		}catch (IOException e1) {
+			e1.printStackTrace();
+			System.out.println("OOPS!");
+		}
+		// super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		for (var e : gameElements) {
+			e.render(g2);
+		}
 	}
 
 	public ArrayList<GameElement> getGameElements() {

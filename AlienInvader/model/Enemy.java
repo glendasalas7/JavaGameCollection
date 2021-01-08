@@ -17,7 +17,7 @@ public class Enemy extends GameElement {
 		// g2.setColor(color);
 		// 	g2.fillRect(x, y, width, height);
 		try {
-			BufferedImage enemyIMG = ImageIO.read(new File("pictures/enemy_ship.png"));
+			BufferedImage enemyIMG = ImageIO.read(new File("AlienInvader/pictures/enemy_ship.png"));
 			Image temp = enemyIMG.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
 			g2.drawImage(temp, x, y, null);

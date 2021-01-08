@@ -1,4 +1,5 @@
 package AlienInvader.model;
+
 import java.awt.Graphics2D;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import AlienInvader.model.StrategyPattern.EmptyAlien;
 import AlienInvader.model.StrategyPattern.FullAlien;
 import AlienInvader.view.AlienBoard;
 import AlienInvader.view.TextDraw;
+import view.MainMenu;
 
 public class EnemyComposite extends GameElement {
 
@@ -81,7 +83,7 @@ public class EnemyComposite extends GameElement {
 	public void animate() {
 		int dx = UNIT_MOVE;
 		if (movingToRight) {
-			if (rightEnd() >= AlienBoard.WIDTH) {
+			if (rightEnd() >= AlienBoard.WIDTH - PlayerShipElements.SIZE) {
 				for (var row : rows) {
 					for (var r : row)// enemy moves down - from right
 						r.y += 20;
@@ -167,7 +169,7 @@ public class EnemyComposite extends GameElement {
 
 	public void dropShips() {
 		Random rand = new Random();
-		int randX = rand.nextInt(575);
+		int randX = rand.nextInt(690);
 		ships.add(new HelperShips(randX, 0));
 	}
 
@@ -183,7 +185,7 @@ public class EnemyComposite extends GameElement {
 
 	public void dropAliens() {
 		Random rand = new Random();
-		int randx = rand.nextInt(200);
+		int randx = rand.nextInt(690);//edit
 		fullAlien = new FullAlien();
 		Alien alien = new Alien(randx, 0, fullAlien);
 		alien.setActive(true);
@@ -298,7 +300,7 @@ public class EnemyComposite extends GameElement {
 						lostComponents = 0;
 						int size = PlayerShipElements.SIZE;
 						int x = player.getX();
-						int y = 300-size;
+						int y = AlienBoard.HEIGHT;
 						var b1 = new PlayerShipElements(x, y);
 						var b2 = new PlayerShipElements(x+size, y);
 						var b3 = new PlayerShipElements(x, y-size);
@@ -330,7 +332,7 @@ public class EnemyComposite extends GameElement {
 						removeComponents.add(player);
 						removeEnemies.add(enemy);
 					}
-					if(enemy.y >= 275){
+					if(enemy.y >= AlienBoard.HEIGHT){
 						gameboard.getCanvas().getGameElements().clear();
 						gameboard.getCanvas().getGameElements().add(new TextDraw("GAME OVER!", 200, 100, Color.MAGENTA, 35));
 						gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + AlienBoard.score, 215, 200, Color.GREEN, 35));
@@ -359,7 +361,7 @@ public class EnemyComposite extends GameElement {
 					lostComponents--;
 					int size = PlayerShipElements.SIZE;
 					int x = player.getX();
-					int y = 300-size;
+					int y = AlienBoard.HEIGHT;
 					var b1 = new PlayerShipElements(x, y);
 					var b2 = new PlayerShipElements(x+size, y);
 					var b3 = new PlayerShipElements(x, y-size);
@@ -406,8 +408,7 @@ public class EnemyComposite extends GameElement {
 					}
 					if(shooter.getComponentSize() == 1){
 						shooter.setState(new DangerLevel(AlienBoard.getComment()));
-					}
-					
+					}					
 				}
 			}
 		}

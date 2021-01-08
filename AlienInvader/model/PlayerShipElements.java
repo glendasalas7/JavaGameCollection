@@ -16,10 +16,8 @@ public class PlayerShipElements extends GameElement {
 
 	@Override
 	public void render(Graphics2D g2) {
-		// g2.setColor(color);
-		// 	g2.fillRect(x, y, width, height);
 		try {
-			BufferedImage shipIMG = ImageIO.read(new File("pictures/ship.png"));
+			BufferedImage shipIMG = ImageIO.read(new File("AlienInvader/pictures/ship.png"));
 			Image temp = shipIMG.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
 			g2.drawImage(temp, x, y, null);

@@ -18,7 +18,7 @@ public class Bomb extends GameElement {
 	@Override
 	public void render(Graphics2D g2) {
 		try {
-			BufferedImage shipIMG = ImageIO.read(new File("pictures/bomb.png"));
+			BufferedImage shipIMG = ImageIO.read(new File("AlienInvader/pictures/bomb.png"));
 			Image temp = shipIMG.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 			g2.drawImage(temp, x, y, null);
 		} catch (Exception e) {

@@ -12,7 +12,7 @@ public class FullAlien implements Animation{;
     @Override
     public void render(Graphics2D g2) {
         try {
-            BufferedImage fallingAlienIMG = ImageIO.read(new File("pictures/alien_full.png"));
+            BufferedImage fallingAlienIMG = ImageIO.read(new File("AlienInvader/pictures/alien_full.png"));
             Image temp = fallingAlienIMG.getScaledInstance(35, 35, Image.SCALE_SMOOTH);
     
             g2.drawImage(temp, y, x, null);
