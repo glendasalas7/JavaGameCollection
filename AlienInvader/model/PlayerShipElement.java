@@ -6,11 +6,11 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-public class PlayerShipElements extends GameElement {
+public class PlayerShipElement extends GameElement {
 
 	public static final int SIZE = 20;
 
-	public PlayerShipElements(int x, int y) {
+	public PlayerShipElement(int x, int y) {
 		super(x, y, SIZE, SIZE);
 	}
 
@@ -22,7 +22,6 @@ public class PlayerShipElements extends GameElement {
 
 			g2.drawImage(temp, x, y, null);
 		} catch (Exception e) {
-			System.out.println("Image file load error");
 		}
 	}
 

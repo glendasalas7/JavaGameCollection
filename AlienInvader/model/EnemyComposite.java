@@ -83,7 +83,7 @@ public class EnemyComposite extends GameElement {
 	public void animate() {
 		int dx = UNIT_MOVE;
 		if (movingToRight) {
-			if (rightEnd() >= AlienBoard.WIDTH - PlayerShipElements.SIZE) {
+			if (rightEnd() >= AlienBoard.WIDTH - PlayerShipElement.SIZE) {
 				for (var row : rows) {
 					for (var r : row)// enemy moves down - from right
 						r.y += 20;
@@ -251,15 +251,15 @@ public class EnemyComposite extends GameElement {
 			gameComments.healthUpdate(shooter.getComponentSize());
 			if(shooter.getComponentSize() == 1){
 				int x = shooter.getComponents().get(0).getX();
-				shooter.setX(x-PlayerShipElements.SIZE+29);
+				shooter.setX(x-PlayerShipElement.SIZE+29);
 			}
 			if(shooter.getComponentSize() == 2){
-				int size = PlayerShipElements.SIZE;
+				int size = PlayerShipElement.SIZE;
 				int x = shooter.getComponents().get(0).getX();
 				if(shooter.getComponents().get(1).getY() == shooter.getComponents().get(0).getY()){
-					shooter.setX(x-PlayerShipElements.SIZE+38);
+					shooter.setX(x-PlayerShipElement.SIZE+38);
 				}
-				else shooter.setX(x-PlayerShipElements.SIZE+29);
+				else shooter.setX(x-PlayerShipElement.SIZE+29);
 		
 			}
 			// bombs.removeAll(removeBombs);
@@ -298,13 +298,13 @@ public class EnemyComposite extends GameElement {
 				if(a.collideWith(player) && lostComponents > 0){	
 					if(a.getActive() == true){
 						lostComponents = 0;
-						int size = PlayerShipElements.SIZE;
+						int size = PlayerShipElement.SIZE;
 						int x = player.getX();
 						int y = AlienBoard.HEIGHT;
-						var b1 = new PlayerShipElements(x, y);
-						var b2 = new PlayerShipElements(x+size, y);
-						var b3 = new PlayerShipElements(x, y-size);
-						var b4 = new PlayerShipElements(x+size, y-size);
+						var b1 = new PlayerShipElement(x, y);
+						var b2 = new PlayerShipElement(x+size, y);
+						var b3 = new PlayerShipElement(x, y-size);
+						var b4 = new PlayerShipElement(x+size, y-size);
 						newComponents.add(b1);
 						newComponents.add(b2);
 						newComponents.add(b3);
@@ -359,13 +359,13 @@ public class EnemyComposite extends GameElement {
 					ships.remove(s);
 					newComponents.clear();
 					lostComponents--;
-					int size = PlayerShipElements.SIZE;
+					int size = PlayerShipElement.SIZE;
 					int x = player.getX();
 					int y = AlienBoard.HEIGHT;
-					var b1 = new PlayerShipElements(x, y);
-					var b2 = new PlayerShipElements(x+size, y);
-					var b3 = new PlayerShipElements(x, y-size);
-					var b4 = new PlayerShipElements(x+size, y-size);
+					var b1 = new PlayerShipElement(x, y);
+					var b2 = new PlayerShipElement(x+size, y);
+					var b3 = new PlayerShipElement(x, y-size);
+					var b4 = new PlayerShipElement(x+size, y-size);
 
 					if(shooter.getComponentSize() == 1){
 						newComponents.add(b1);

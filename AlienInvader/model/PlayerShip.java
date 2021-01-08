@@ -17,11 +17,11 @@ public class PlayerShip extends GameElement {
 	public PlayerShip(int x, int y) {
 		super(x, y, 0, 0);
 		state = new SafeLevel(AlienBoard.getComment()); // initial state
-		var size = PlayerShipElements.SIZE;
-		var s1 = new PlayerShipElements(x - size, y - size);
-		var s2 = new PlayerShipElements(x, y - size);
-		var s3 = new PlayerShipElements(x - size, y);
-		var s4 = new PlayerShipElements(x, y);
+		var size = PlayerShipElement.SIZE;
+		var s1 = new PlayerShipElement(x - size, y - size);
+		var s2 = new PlayerShipElement(x, y - size);
+		var s3 = new PlayerShipElement(x - size, y);
+		var s4 = new PlayerShipElement(x, y);
 		components.add(s1);
 		components.add(s2);
 		components.add(s3);

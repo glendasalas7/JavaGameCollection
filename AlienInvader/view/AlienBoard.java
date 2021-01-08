@@ -15,7 +15,7 @@ import AlienInvader.model.EnemyComposite;
 import AlienInvader.model.ObserverPattern.HealthNotifier;
 import AlienInvader.model.ObserverPattern.HealthChanger;
 import AlienInvader.model.PlayerShip;
-import AlienInvader.model.PlayerShipElements;
+import AlienInvader.model.PlayerShipElement;
 import AlienInvader.model.ObserverPattern.Observer;
 import view.MainMenu;
 
@@ -77,7 +77,7 @@ public class AlienBoard{
 
 		startButton.addActionListener(event ->{
 			startButton.setText("Restart");
-			shooter = new PlayerShip(MainMenu.WIDTH/2, AlienBoard.HEIGHT - PlayerShipElements.SIZE);
+			shooter = new PlayerShip(MainMenu.WIDTH/2, AlienBoard.HEIGHT - PlayerShipElement.SIZE);
 			enemyComposite = new EnemyComposite(this, gameComments);
 			canvas.getGameElements().clear();
 			score = 0;
