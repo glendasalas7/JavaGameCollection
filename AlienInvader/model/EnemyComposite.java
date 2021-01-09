@@ -14,7 +14,6 @@ import AlienInvader.model.StrategyPattern.EmptyAlien;
 import AlienInvader.model.StrategyPattern.FullAlien;
 import AlienInvader.view.AlienBoard;
 import AlienInvader.view.TextDraw;
-import view.MainMenu;
 
 public class EnemyComposite extends GameElement {
 
@@ -29,9 +28,10 @@ public class EnemyComposite extends GameElement {
 	private ArrayList<GameElement> bombs;
 	private ArrayList<GameElement> ships;
 	private ArrayList<GameElement> aliens;
+	private ArrayList<GameElement> clouds;
 	private FullAlien fullAlien;
 	private EmptyAlien emptyAlien;
-
+	private Cloud cloud;
 	private int lostComponents = 0;
 	private boolean movingToRight = true;
 	private Random random = new Random();
@@ -45,6 +45,7 @@ public class EnemyComposite extends GameElement {
 		bombs = new ArrayList<>();
 		ships = new ArrayList<>();
 		aliens = new ArrayList<>();
+		clouds = new ArrayList<>();
 		enemies = NROWS * NCOLS;
 		AlienBoard.enemies = enemies;
 
@@ -76,6 +77,10 @@ public class EnemyComposite extends GameElement {
 		// render aliens
 		for (var a : aliens) {
 			a.render(g2);
+		}
+
+		for(var c: clouds){
+			c.render(g2);
 		}
 	}
 
@@ -119,6 +124,10 @@ public class EnemyComposite extends GameElement {
 		//animate aliens falling
 		for (var a : aliens) {
 			a.animate();
+		}
+
+		for(var c: clouds){
+			c.animate();
 		}
 
 	}
@@ -165,6 +174,21 @@ public class EnemyComposite extends GameElement {
 			}
 		}
 		bombs.removeAll(remove);
+	}
+	public void dropCloud(){
+		Random rand = new Random();
+		int randx = rand.nextInt(670);//edit
+		clouds.add(new Cloud(randx, -80));
+	}
+
+	public void removeCloudsOutOfBound() {
+		var remove = new ArrayList<GameElement>();
+		for (var c : clouds) {
+			if (c.y >= AlienBoard.HEIGHT) {
+				remove.add(c);
+			}
+		}
+		clouds.removeAll(remove);
 	}
 
 	public void dropShips() {
@@ -226,7 +250,6 @@ public class EnemyComposite extends GameElement {
 				gameboard.getCanvas().getGameElements().clear();
 				gameboard.getCanvas().getGameElements().add(new TextDraw("YOU WIN!", 75, 150, Color.GREEN, 100));
 				gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + AlienBoard.score, 210, 200, Color.GREEN, 35));
-
 				score = 0;
 			}
 		}
@@ -254,18 +277,15 @@ public class EnemyComposite extends GameElement {
 				shooter.setX(x-PlayerShipElement.SIZE+29);
 			}
 			if(shooter.getComponentSize() == 2){
-				int size = PlayerShipElement.SIZE;
 				int x = shooter.getComponents().get(0).getX();
 				if(shooter.getComponents().get(1).getY() == shooter.getComponents().get(0).getY()){
 					shooter.setX(x-PlayerShipElement.SIZE+38);
 				}
 				else shooter.setX(x-PlayerShipElement.SIZE+29);
-		
 			}
 			// bombs.removeAll(removeBombs);
 		}
 		bombs.removeAll(removeBombs);
-
 		if(shooter.getComponentSize() == 0){
 			gameboard.getCanvas().getGameElements().clear();
 			gameboard.getCanvas().getGameElements().add(new TextDraw("GAME OVER!", 200, 100, Color.MAGENTA, 35));
@@ -298,24 +318,23 @@ public class EnemyComposite extends GameElement {
 				if(a.collideWith(player) && lostComponents > 0){	
 					if(a.getActive() == true){
 						lostComponents = 0;
-						int size = PlayerShipElement.SIZE;
 						int x = player.getX();
-						int y = AlienBoard.HEIGHT;
+						int y = AlienBoard.HEIGHT - PlayerShipElement.SIZE;
 						var b1 = new PlayerShipElement(x, y);
-						var b2 = new PlayerShipElement(x+size, y);
-						var b3 = new PlayerShipElement(x, y-size);
-						var b4 = new PlayerShipElement(x+size, y-size);
+						var b2 = new PlayerShipElement(x + PlayerShipElement.SIZE, y);
+						var b3 = new PlayerShipElement(x, y - PlayerShipElement.SIZE);
+						var b4 = new PlayerShipElement(x + PlayerShipElement.SIZE, y - PlayerShipElement.SIZE);
 						newComponents.add(b1);
 						newComponents.add(b2);
 						newComponents.add(b3);
 						newComponents.add(b4);
 						shooter.setComponents(newComponents);
 						gameComments.healthUpdate(shooter.getComponentSize());
-						shooter.setX(x-size+38);
+						shooter.setX(x - PlayerShipElement.SIZE + 38);
 						shooter.setY(y);
 						emptyAlien = new EmptyAlien();	
 						a.setActive(false);
-						// Alien.UNIT_MOVE = 10;
+
 						a.setAnimation(emptyAlien);
 						shooter.setState(new SafeLevel(AlienBoard.getComment()));
 					}
@@ -351,7 +370,7 @@ public class EnemyComposite extends GameElement {
 			row.removeAll(removeEnemies);
 		}//end enemies vs shooter
 
-		//ships vs shooter
+		//Aquiring an extra ship
 		for(var s: ships){
 			ArrayList<GameElement> newComponents = new ArrayList<>();
 			for(var player: shooter.getComponents()){
@@ -359,20 +378,19 @@ public class EnemyComposite extends GameElement {
 					ships.remove(s);
 					newComponents.clear();
 					lostComponents--;
-					int size = PlayerShipElement.SIZE;
 					int x = player.getX();
-					int y = AlienBoard.HEIGHT;
+					int y = AlienBoard.HEIGHT - PlayerShipElement.SIZE;
 					var b1 = new PlayerShipElement(x, y);
-					var b2 = new PlayerShipElement(x+size, y);
-					var b3 = new PlayerShipElement(x, y-size);
-					var b4 = new PlayerShipElement(x+size, y-size);
+					var b2 = new PlayerShipElement(x + PlayerShipElement.SIZE, y);
+					var b3 = new PlayerShipElement(x, y - PlayerShipElement.SIZE);
+					var b4 = new PlayerShipElement(x + PlayerShipElement.SIZE, y - PlayerShipElement.SIZE);
 
 					if(shooter.getComponentSize() == 1){
 						newComponents.add(b1);
 						newComponents.add(b2);
 						shooter.setComponents(newComponents);
 				     	gameComments.healthUpdate(shooter.getComponentSize());
-						shooter.setX(x-size+29);
+						shooter.setX(x - PlayerShipElement.SIZE + 29);
 						shooter.setY(y);
 						break;
 				
@@ -382,7 +400,7 @@ public class EnemyComposite extends GameElement {
 						newComponents.add(b3);
 						shooter.setComponents(newComponents);
 					    gameComments.healthUpdate(shooter.getComponentSize());
-						shooter.setX(x-size+38);
+						shooter.setX(x - PlayerShipElement.SIZE + 38);
 						shooter.setY(y);
 						break;
 
@@ -393,7 +411,7 @@ public class EnemyComposite extends GameElement {
 						newComponents.add(b4);
 						shooter.setComponents(newComponents);
 					    gameComments.healthUpdate(shooter.getComponentSize());
-						shooter.setX(x-size+38);
+						shooter.setX(x - PlayerShipElement.SIZE + 38);
 						shooter.setY(y);
 						break;
 					}

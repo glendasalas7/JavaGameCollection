@@ -17,9 +17,12 @@ public class TimerListener implements ActionListener{
 	private final int BOMB_DROP_FREQ = 8;
 	private final int POTION_DROP_FREQ = 50;
 	private final int ALIEN_FREQ = 90;
+	private final int CLOUD_FREQ = 25;
+
 	private int frameCounter = 0;
 	private int frameCounter2 = 0;
 	private int frameCounter3 = 0;
+	private int frameCounter4 = 0;
 
 	public TimerListener(AlienBoard gameBoard){
 		this.gameBoard = gameBoard;
@@ -31,6 +34,7 @@ public class TimerListener implements ActionListener{
 		++frameCounter;
 		++frameCounter2;
 		++frameCounter3;
+		++frameCounter4;
 		update();
 		processEventQueue();
 		processCollision();
@@ -67,6 +71,10 @@ public class TimerListener implements ActionListener{
 		if(frameCounter3 == ALIEN_FREQ){
 			gameBoard.getEnemyComposite().dropAliens();
 			frameCounter3 = 0;
+		}
+		if(frameCounter4 == CLOUD_FREQ){
+			gameBoard.getEnemyComposite().dropCloud();
+			frameCounter4 = 0;
 		}
 	}
 
