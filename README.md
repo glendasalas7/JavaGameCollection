@@ -1,7 +1,7 @@
 # Java Game Collection
 
 Working collection of games created using Java
-
+NOT a final product
 
 All assets can be found on itch.io
 
