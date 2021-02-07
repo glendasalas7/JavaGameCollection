@@ -4,13 +4,11 @@ Working collection of games created using Java<br>
 NOT a final product
 
 
-Current Bugs:
-  -Memory Game Stats button not in use
-    Stats class in Memory Game is being transitioned to Log4j for use of entire game collection
-  -Adjusting speed and values of enemy location in Space Invasion game
-    this may cause some enemies to not dying when shot until I finish fixing that
-  -Working on fixing bug with bullets hitting muliple player ships at a time
-    bug may cause player to loose multiple ships at a time when player is shot between two ships
+Current Bugs:<br>
+  -Memory Game Stats button not in use<br>
+    Stats class in Memory Game is being transitioned to Log4j for use of entire game collection<br>
+  -Adjusting speed and values of enemy location in Space Invasion game<br>
+    this may cause some enemies to not dying when shot until I finish fixing that<br>
 
 All assets can be found on itch.io
 
