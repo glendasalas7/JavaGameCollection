@@ -1,7 +1,9 @@
 package AlienInvader.view;
+
 import java.awt.Graphics2D;
 import AlienInvader.model.GameElement;
-import AlienInvader.model.StrategyPattern.Animation;
+import AlienInvader.model.AlienActivity.Animation;
+
 import java.awt.Color;
 import java.awt.Font;
 

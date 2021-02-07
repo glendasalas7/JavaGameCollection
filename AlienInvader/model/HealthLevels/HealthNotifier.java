@@ -1,30 +1,29 @@
-package AlienInvader.model.ObserverPattern;
+package AlienInvader.model.HealthLevels;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import AlienInvader.view.AlienBoard;
 
-public class HealthNotifier implements Subject{
+public class HealthNotifier implements Subject {
     private JPanel panel = new JPanel();
     private JPanel tempPanel = new JPanel();
     private final ArrayList<Observer> observers = new ArrayList<>();
     private Boolean active = false;
 
-    public HealthNotifier(JPanel panel){
+    public HealthNotifier(JPanel panel) {
         this.panel = panel;
         tempPanel = panel;
     }
 
-    public void healthUpdate(int size){
-        if(size == 1){
+    public void healthUpdate(int size) {
+        if (size == 1) {
             panel.setBackground(Color.RED);
-        }
-        else if(size == 2){
+        } else if (size == 2) {
             panel.setBackground(Color.ORANGE);
-        }
-        else if(size == 3){
+        } else if (size == 3) {
             panel.setBackground(Color.YELLOW);
-        }else if(size == 4){
+        } else if (size == 4) {
             panel.setBackground(Color.GREEN);
         }
         notifyListeners();
@@ -32,7 +31,7 @@ public class HealthNotifier implements Subject{
     }
 
     public void returnPane() {
-		AlienBoard.setSouthPanel(getTempPanel());
+        AlienBoard.setSouthPanel(getTempPanel());
     }
 
     @Override
@@ -47,27 +46,27 @@ public class HealthNotifier implements Subject{
 
     @Override
     public void notifyListeners() {
-        for (Observer o: observers) {
+        for (Observer o : observers) {
             o.actionPerformed(panel);
         }
     }
-    
+
     public void setOriginalPanel(JPanel originalPanel) {
         this.panel = originalPanel;
     }
-    
+
     public JPanel getOriginalPanel() {
         return panel;
     }
-    
+
     public void setTempPanel(JPanel tempPanel) {
         this.tempPanel = tempPanel;
     }
-    
+
     public JPanel getTempPanel() {
         return tempPanel;
     }
-    
+
     public Boolean getActive() {
         return active;
     }

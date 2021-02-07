@@ -1,10 +1,11 @@
 package AlienInvader.model;
+
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
+import AlienInvader.model.AlienActivity.Animation;
 import java.awt.image.BufferedImage;
-import AlienInvader.model.StrategyPattern.Animation;
 
 public class Enemy extends GameElement {
 
@@ -14,10 +15,8 @@ public class Enemy extends GameElement {
 
 	@Override
 	public void render(Graphics2D g2) {
-		// g2.setColor(color);
-		// 	g2.fillRect(x, y, width, height);
 		try {
-			BufferedImage enemyIMG = ImageIO.read(new File("AlienInvader/pictures/enemy_ship.png"));
+			BufferedImage enemyIMG = ImageIO.read(new File("AlienInvader/images/enemy_ship.png"));
 			Image temp = enemyIMG.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
 			g2.drawImage(temp, x, y, null);
@@ -42,7 +41,5 @@ public class Enemy extends GameElement {
 	public boolean getActive() {
 		return false;
 	}
-
-
 
 }

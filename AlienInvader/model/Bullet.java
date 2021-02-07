@@ -1,7 +1,8 @@
 package AlienInvader.model;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
-import AlienInvader.model.StrategyPattern.Animation;
+import AlienInvader.model.AlienActivity.Animation;
 
 public class Bullet extends GameElement {
 	public static final int WIDTH = 5;
@@ -14,7 +15,7 @@ public class Bullet extends GameElement {
 	@Override
 	public void render(Graphics2D g2) {
 		g2.setColor(Color.red);
-			g2.fillRect(x, y, width, height);
+		g2.fillRect(x, y, width, height);
 	}
 
 	@Override

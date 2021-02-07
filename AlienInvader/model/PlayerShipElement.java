@@ -1,9 +1,10 @@
 package AlienInvader.model;
+
 import java.awt.Graphics2D;
-import AlienInvader.model.StrategyPattern.Animation;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
+import AlienInvader.model.AlienActivity.Animation;
 import java.awt.image.BufferedImage;
 
 public class PlayerShipElement extends GameElement {
@@ -17,7 +18,7 @@ public class PlayerShipElement extends GameElement {
 	@Override
 	public void render(Graphics2D g2) {
 		try {
-			BufferedImage shipIMG = ImageIO.read(new File("AlienInvader/pictures/ship.png"));
+			BufferedImage shipIMG = ImageIO.read(new File("AlienInvader/images/ship.png"));
 			Image temp = shipIMG.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
 			g2.drawImage(temp, x, y, null);

@@ -1,9 +1,10 @@
 package AlienInvader.model;
+
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import AlienInvader.model.StatePattern.SafeLevel;
-import AlienInvader.model.StatePattern.ShooterState;
-import AlienInvader.model.StrategyPattern.Animation;
+import AlienInvader.model.AlienActivity.Animation;
+import AlienInvader.model.CautionLevel.SafeLevel;
+import AlienInvader.model.CautionLevel.ShooterState;
 import AlienInvader.view.AlienBoard;
 
 public class PlayerShip extends GameElement {
@@ -61,17 +62,17 @@ public class PlayerShip extends GameElement {
 		return weapons;
 	}
 
-    public void goNextState() {
-        state.goNext(this, AlienBoard.getComment());
+	public void goNextState() {
+		state.goNext(this, AlienBoard.getComment());
 	}
 
 	public void goBackState() {
-        state.goBack(this, AlienBoard.getComment());
-    }
+		state.goBack(this, AlienBoard.getComment());
+	}
 
-    public void setState(ShooterState state) {
-        this.state = state;
-    }
+	public void setState(ShooterState state) {
+		this.state = state;
+	}
 
 	@Override
 	public void render(Graphics2D g2) {
@@ -123,6 +124,3 @@ public class PlayerShip extends GameElement {
 		return false;
 	}
 }
-
-
-

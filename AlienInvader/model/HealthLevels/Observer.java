@@ -1,4 +1,5 @@
-package AlienInvader.model.ObserverPattern;
+package AlienInvader.model.HealthLevels;
+
 import javax.swing.JPanel;
 
 public interface Observer {

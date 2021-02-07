@@ -14,13 +14,12 @@ import AlienInvader.model.GameElement;
 
 public class AlienCanvas extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private AlienBoard gameBoard;
+
 	private int width;
 	private int height;
 	private ArrayList<GameElement> gameElements = new ArrayList<>();
 
-	public AlienCanvas(AlienBoard gameBoard, int width, int height) {
-		this.gameBoard = gameBoard;
+	public AlienCanvas(int width, int height) {
 		this.width = width;
 		this.height = height;
 		setPreferredSize(new Dimension(width, height));
@@ -30,12 +29,11 @@ public class AlienCanvas extends JPanel {
 	public void paintComponent(Graphics g) {
 		BufferedImage starBG;
 		try {
-			starBG = ImageIO.read(new File("AlienInvader/pictures/planet.png"));
+			starBG = ImageIO.read(new File("AlienInvader/images/planet.png"));
 			Image temp = starBG.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 			g.drawImage(temp, 0, 0, null);
 		} catch (IOException e1) {
 			e1.printStackTrace();
-			System.out.println("OOPS!");
 		}
 		// super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;

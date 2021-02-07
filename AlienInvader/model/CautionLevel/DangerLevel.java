@@ -1,4 +1,5 @@
-package AlienInvader.model.StatePattern;
+package AlienInvader.model.CautionLevel;
+
 import javax.swing.JLabel;
 import AlienInvader.model.PlayerShip;
 
@@ -9,7 +10,8 @@ public class DangerLevel implements ShooterState {
 	}
 
 	@Override
-	public void goNext(PlayerShip context, JLabel label) {}
+	public void goNext(PlayerShip context, JLabel label) {
+	}
 
 	@Override
 	public void goBack(PlayerShip context, JLabel label) {

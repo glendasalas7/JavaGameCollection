@@ -30,7 +30,7 @@ public class MemoryCanvas extends JPanel {
 
         BufferedImage memBG;
         try {
-            memBG = ImageIO.read(new File("Memory/pictures/hall.png"));
+            memBG = ImageIO.read(new File("Memory/images/hall.png"));
             Image temp = memBG.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             g.drawImage(temp, 0, 0, null);
         } catch (IOException e) {

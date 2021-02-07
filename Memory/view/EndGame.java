@@ -13,7 +13,6 @@ import java.awt.BorderLayout;
 public class EndGame {
 	private JFrame window;
 	private long completionTime;
-	private Stats stats;
 
 	public EndGame(JFrame window, long time) {
 		this.window = window;

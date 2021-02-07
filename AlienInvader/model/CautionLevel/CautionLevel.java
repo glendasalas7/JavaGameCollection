@@ -1,4 +1,5 @@
-package AlienInvader.model.StatePattern;
+package AlienInvader.model.CautionLevel;
+
 import javax.swing.JLabel;
 import AlienInvader.model.PlayerShip;
 

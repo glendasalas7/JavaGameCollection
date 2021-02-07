@@ -4,14 +4,14 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
-import AlienInvader.model.StrategyPattern.Alien;
-import AlienInvader.model.ObserverPattern.HealthNotifier;
-import AlienInvader.model.StatePattern.DangerLevel;
-import AlienInvader.model.StatePattern.SafeLevel;
-import AlienInvader.model.StatePattern.CautionLevel;
-import AlienInvader.model.StrategyPattern.Animation;
-import AlienInvader.model.StrategyPattern.EmptyAlien;
-import AlienInvader.model.StrategyPattern.FullAlien;
+import AlienInvader.model.AlienActivity.Alien;
+import AlienInvader.model.AlienActivity.Animation;
+import AlienInvader.model.AlienActivity.EmptyAlien;
+import AlienInvader.model.AlienActivity.FullAlien;
+import AlienInvader.model.CautionLevel.CautionLevel;
+import AlienInvader.model.CautionLevel.DangerLevel;
+import AlienInvader.model.CautionLevel.SafeLevel;
+import AlienInvader.model.HealthLevels.HealthNotifier;
 import AlienInvader.view.AlienBoard;
 import AlienInvader.view.TextDraw;
 
@@ -19,7 +19,7 @@ public class EnemyComposite extends GameElement {
 
 	public static final int NROWS = 2;
 	public static final int NCOLS = 15;
-	public static final int ENEMY_SIZE = 15;// size of enemy block
+	public static final int ENEMY_SIZE = 19;// size of enemy block
 	public static final int UNIT_MOVE = 4; // speed
 
 	private AlienBoard gameboard;
@@ -79,7 +79,7 @@ public class EnemyComposite extends GameElement {
 			a.render(g2);
 		}
 
-		for(var c: clouds){
+		for (var c : clouds) {
 			c.render(g2);
 		}
 	}
@@ -121,12 +121,12 @@ public class EnemyComposite extends GameElement {
 		for (var s : ships) {
 			s.animate();
 		}
-		//animate aliens falling
+		// animate aliens falling
 		for (var a : aliens) {
 			a.animate();
 		}
 
-		for(var c: clouds){
+		for (var c : clouds) {
 			c.animate();
 		}
 
@@ -175,9 +175,10 @@ public class EnemyComposite extends GameElement {
 		}
 		bombs.removeAll(remove);
 	}
-	public void dropCloud(){
+
+	public void dropCloud() {
 		Random rand = new Random();
-		int randx = rand.nextInt(670);//edit
+		int randx = rand.nextInt(670);// edit
 		clouds.add(new Cloud(randx, -80));
 	}
 
@@ -209,7 +210,7 @@ public class EnemyComposite extends GameElement {
 
 	public void dropAliens() {
 		Random rand = new Random();
-		int randx = rand.nextInt(690);//edit
+		int randx = rand.nextInt(690);// edit
 		fullAlien = new FullAlien();
 		Alien alien = new Alien(randx, 0, fullAlien);
 		alien.setActive(true);
@@ -226,18 +227,18 @@ public class EnemyComposite extends GameElement {
 		aliens.removeAll(remove);
 	}
 
-	public void processCollision(PlayerShip shooter){
+	public void processCollision(PlayerShip shooter) {
 		var removeBullets = new ArrayList<GameElement>();
-		//bullets vs enemies
-		for(var row: rows){
+		// bullets vs enemies
+		for (var row : rows) {
 			var removeEnemies = new ArrayList<GameElement>();
-			for(var enemy: row){
-				for(var bullet: shooter.getWeapons()){
-					if (enemy.collideWith(bullet)){
-						score =	AlienBoard.score +10;
+			for (var enemy : row) {
+				for (var bullet : shooter.getWeapons()) {
+					if (enemy.collideWith(bullet)) {
+						score = AlienBoard.score + 10;
 						AlienBoard.scoreBoard.setText("Score: " + score);
 						AlienBoard.score = score;
-						enemies = AlienBoard.enemies -1;
+						enemies = AlienBoard.enemies - 1;
 						AlienBoard.enemyCount.setText("Enemies Left: " + enemies);
 						AlienBoard.enemies = enemies;
 						removeBullets.add(bullet);
@@ -245,24 +246,27 @@ public class EnemyComposite extends GameElement {
 					}
 				}
 			}
+			shooter.getWeapons().removeAll(removeBullets);
 			row.removeAll(removeEnemies);
-			if(AlienBoard.enemies == 0){
+
+			if (AlienBoard.enemies == 0) {
 				gameboard.getCanvas().getGameElements().clear();
 				gameboard.getCanvas().getGameElements().add(new TextDraw("YOU WIN!", 75, 150, Color.GREEN, 100));
-				gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + AlienBoard.score, 210, 200, Color.GREEN, 35));
+				gameboard.getCanvas().getGameElements()
+						.add(new TextDraw("Score: " + AlienBoard.score, 210, 200, Color.GREEN, 35));
 				score = 0;
 			}
 		}
 		shooter.getWeapons().removeAll(removeBullets);
-		//end bullets vs enemies
+		// end bullets vs enemies
 
-		//bombs vs shooter
+		// bombs vs shooter
 		var removeComponents = new ArrayList<GameElement>();
 		var removeBombs = new ArrayList<GameElement>();
-		for(var b: bombs){
-			for(var player: shooter.getComponents()){
-				if(b.collideWith(player)){
-					if(shooter.getComponentSize() != 1){
+		for (var b : bombs) {
+			for (var player : shooter.getComponents()) {
+				if (b.collideWith(player)) {
+					if (shooter.getComponentSize() != 1) {
 						shooter.goNextState();
 					}
 					removeBombs.add(b);
@@ -272,34 +276,35 @@ public class EnemyComposite extends GameElement {
 			}
 			shooter.getComponents().removeAll(removeComponents);
 			gameComments.healthUpdate(shooter.getComponentSize());
-			if(shooter.getComponentSize() == 1){
+			if (shooter.getComponentSize() == 1) {
 				int x = shooter.getComponents().get(0).getX();
-				shooter.setX(x-PlayerShipElement.SIZE+29);
+				shooter.setX(x - PlayerShipElement.SIZE + 29);
 			}
-			if(shooter.getComponentSize() == 2){
+			if (shooter.getComponentSize() == 2) {
 				int x = shooter.getComponents().get(0).getX();
-				if(shooter.getComponents().get(1).getY() == shooter.getComponents().get(0).getY()){
-					shooter.setX(x-PlayerShipElement.SIZE+38);
-				}
-				else shooter.setX(x-PlayerShipElement.SIZE+29);
+				if (shooter.getComponents().get(1).getY() == shooter.getComponents().get(0).getY()) {
+					shooter.setX(x - PlayerShipElement.SIZE + 38);
+				} else
+					shooter.setX(x - PlayerShipElement.SIZE + 29);
 			}
 			// bombs.removeAll(removeBombs);
 		}
 		bombs.removeAll(removeBombs);
-		if(shooter.getComponentSize() == 0){
+		if (shooter.getComponentSize() == 0) {
 			gameboard.getCanvas().getGameElements().clear();
 			gameboard.getCanvas().getGameElements().add(new TextDraw("GAME OVER!", 200, 100, Color.MAGENTA, 35));
-			gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + AlienBoard.score, 210, 200, Color.GREEN, 35));
+			gameboard.getCanvas().getGameElements()
+					.add(new TextDraw("Score: " + AlienBoard.score, 210, 200, Color.GREEN, 35));
 			score = 0;
 		}
-		//end bomb vs shooter
+		// end bomb vs shooter
 
-		//bullets vs bombs
+		// bullets vs bombs
 		removeBullets.clear();
-		for(var b: bombs){
-			for(var bullet: shooter.getWeapons()){
-				if(b.collideWith(bullet)){
-					score =	AlienBoard.score +2;
+		for (var b : bombs) {
+			for (var bullet : shooter.getWeapons()) {
+				if (b.collideWith(bullet)) {
+					score = AlienBoard.score + 2;
 					AlienBoard.scoreBoard.setText("Score: " + score);
 					AlienBoard.score = score;
 					removeBombs.add(b);
@@ -309,14 +314,14 @@ public class EnemyComposite extends GameElement {
 		}
 		shooter.getWeapons().removeAll(removeBullets);
 		bombs.removeAll(removeBombs);
-		//end bullet vs bombs
-	
+		// end bullet vs bombs
+
 		// alien vs player
-		for(var a: aliens){
+		for (var a : aliens) {
 			ArrayList<GameElement> newComponents = new ArrayList<>();
-			for(var player: shooter.getComponents()){
-				if(a.collideWith(player) && lostComponents > 0){	
-					if(a.getActive() == true){
+			for (var player : shooter.getComponents()) {
+				if (a.collideWith(player) && lostComponents > 0) {
+					if (a.getActive() == true) {
 						lostComponents = 0;
 						int x = player.getX();
 						int y = AlienBoard.HEIGHT - PlayerShipElement.SIZE;
@@ -332,7 +337,7 @@ public class EnemyComposite extends GameElement {
 						gameComments.healthUpdate(shooter.getComponentSize());
 						shooter.setX(x - PlayerShipElement.SIZE + 38);
 						shooter.setY(y);
-						emptyAlien = new EmptyAlien();	
+						emptyAlien = new EmptyAlien();
 						a.setActive(false);
 
 						a.setAnimation(emptyAlien);
@@ -342,25 +347,29 @@ public class EnemyComposite extends GameElement {
 			}
 		}
 
-		//enemies vs shooter
-		for(var row: rows){
+		// enemies vs shooter
+		for (var row : rows) {
 			var removeEnemies = new ArrayList<GameElement>();
-			for(var enemy: row){	
-				for(var player: shooter.getComponents()){
-					if (enemy.collideWith(player)){
+			for (var enemy : row) {
+				for (var player : shooter.getComponents()) {
+					if (enemy.collideWith(player)) {
 						removeComponents.add(player);
 						removeEnemies.add(enemy);
 					}
-					if(enemy.y >= AlienBoard.HEIGHT){
+					if (enemy.y >= AlienBoard.HEIGHT) {
 						gameboard.getCanvas().getGameElements().clear();
-						gameboard.getCanvas().getGameElements().add(new TextDraw("GAME OVER!", 200, 100, Color.MAGENTA, 35));
-						gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + AlienBoard.score, 215, 200, Color.GREEN, 35));
+						gameboard.getCanvas().getGameElements()
+								.add(new TextDraw("GAME OVER!", 200, 100, Color.MAGENTA, 35));
+						gameboard.getCanvas().getGameElements()
+								.add(new TextDraw("Score: " + AlienBoard.score, 215, 200, Color.GREEN, 35));
 						score = 0;
 					}
-					if(rows.size() == 0 && shooter.getComponentSize() !=0){
+					if (rows.size() == 0 && shooter.getComponentSize() != 0) {
 						gameboard.getCanvas().getGameElements().clear();
-						gameboard.getCanvas().getGameElements().add(new TextDraw("YOU WIN!", 73, 150, Color.GREEN, 100));
-						gameboard.getCanvas().getGameElements().add(new TextDraw("Score: " + AlienBoard.score, 215, 200, Color.GREEN, 35));
+						gameboard.getCanvas().getGameElements()
+								.add(new TextDraw("YOU WIN!", 73, 150, Color.GREEN, 100));
+						gameboard.getCanvas().getGameElements()
+								.add(new TextDraw("Score: " + AlienBoard.score, 215, 200, Color.GREEN, 35));
 						score = 0;
 					}
 				}
@@ -368,13 +377,13 @@ public class EnemyComposite extends GameElement {
 			shooter.getComponents().removeAll(removeComponents);
 			gameComments.healthUpdate(shooter.getComponentSize());
 			row.removeAll(removeEnemies);
-		}//end enemies vs shooter
+		} // end enemies vs shooter
 
-		//Aquiring an extra ship
-		for(var s: ships){
+		// Aquiring an extra ship
+		for (var s : ships) {
 			ArrayList<GameElement> newComponents = new ArrayList<>();
-			for(var player: shooter.getComponents()){
-				if(s.collideWith(player) && lostComponents !=0){
+			for (var player : shooter.getComponents()) {
+				if (s.collideWith(player) && lostComponents != 0) {
 					ships.remove(s);
 					newComponents.clear();
 					lostComponents--;
@@ -385,52 +394,54 @@ public class EnemyComposite extends GameElement {
 					var b3 = new PlayerShipElement(x, y - PlayerShipElement.SIZE);
 					var b4 = new PlayerShipElement(x + PlayerShipElement.SIZE, y - PlayerShipElement.SIZE);
 
-					if(shooter.getComponentSize() == 1){
+					if (shooter.getComponentSize() == 1) {
 						newComponents.add(b1);
 						newComponents.add(b2);
 						shooter.setComponents(newComponents);
-				     	gameComments.healthUpdate(shooter.getComponentSize());
+						gameComments.healthUpdate(shooter.getComponentSize());
 						shooter.setX(x - PlayerShipElement.SIZE + 29);
 						shooter.setY(y);
 						break;
-				
-					}if(shooter.getComponentSize() == 2){
+
+					}
+					if (shooter.getComponentSize() == 2) {
 						newComponents.add(b1);
 						newComponents.add(b2);
 						newComponents.add(b3);
 						shooter.setComponents(newComponents);
-					    gameComments.healthUpdate(shooter.getComponentSize());
+						gameComments.healthUpdate(shooter.getComponentSize());
 						shooter.setX(x - PlayerShipElement.SIZE + 38);
 						shooter.setY(y);
 						break;
 
-					}if(shooter.getComponentSize() == 3){
+					}
+					if (shooter.getComponentSize() == 3) {
 						newComponents.add(b1);
 						newComponents.add(b2);
 						newComponents.add(b3);
 						newComponents.add(b4);
 						shooter.setComponents(newComponents);
-					    gameComments.healthUpdate(shooter.getComponentSize());
+						gameComments.healthUpdate(shooter.getComponentSize());
 						shooter.setX(x - PlayerShipElement.SIZE + 38);
 						shooter.setY(y);
 						break;
 					}
-					if(shooter.getComponentSize() == 4){
+					if (shooter.getComponentSize() == 4) {
 						shooter.setState(new SafeLevel(AlienBoard.getComment()));
-						}
-					if(shooter.getComponentSize() == 3){
+					}
+					if (shooter.getComponentSize() == 3) {
 						shooter.setState(new SafeLevel(AlienBoard.getComment()));
-						}
-					if(shooter.getComponentSize() == 2){
+					}
+					if (shooter.getComponentSize() == 2) {
 						shooter.setState(new CautionLevel(AlienBoard.getComment()));
 					}
-					if(shooter.getComponentSize() == 1){
+					if (shooter.getComponentSize() == 1) {
 						shooter.setState(new DangerLevel(AlienBoard.getComment()));
-					}					
+					}
 				}
 			}
 		}
-		//end ships vs shooter
+		// end ships vs shooter
 	}
 
 	@Override
@@ -446,4 +457,3 @@ public class EnemyComposite extends GameElement {
 		return false;
 	}
 }
-
