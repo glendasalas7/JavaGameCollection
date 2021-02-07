@@ -1,4 +1,5 @@
 package Memory.view;
+
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,63 +9,59 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import Memory.controller.ButtonClickListener;
-import Memory.model.Stats;
 
 public class MemoryBoard {
-	private Stats stats;
+	// private Stats stats;
 	private JFrame window;
 	private ArrayList<JButton> memoryCards;
 	private JButton exitButton = new JButton("Exit");
 
-	public MemoryBoard(JFrame window, Stats stats){
+	public MemoryBoard(JFrame window) {
 		this.window = window;
-		this.stats = stats;
-		stats.incrementGC();
+
 	}
 
-	public void stepIn(){
+	public void stepIn() {
 		JPanel memoryPanel = new JPanel();
 		memoryPanel.setBorder(new LineBorder(Color.BLACK, 3));
-		window.add(memoryPanel);//add menuPanel to window 
-		GridLayout memoryLayout = new GridLayout(2, 5, 5, 5); //height, width
+		window.add(memoryPanel);// add menuPanel to window
+		GridLayout memoryLayout = new GridLayout(2, 5, 5, 5); // height, width
 		memoryPanel.setLayout(memoryLayout);
-		ArrayList<String>  cardlist = new ArrayList<String>(); 
-        cardlist.add("$"); 
-        cardlist.add("!"); 
-        cardlist.add("$"); 
+		ArrayList<String> cardlist = new ArrayList<String>();
+		cardlist.add("$");
+		cardlist.add("!");
+		cardlist.add("$");
 		cardlist.add("!");
 		cardlist.add("%");
 		cardlist.add("%");
 		cardlist.add("&");
 		cardlist.add("&");
-        cardlist.add("#"); 
-		cardlist.add("#"); 
-		Collections.shuffle(cardlist); 
-		ButtonClickListener buttonClickListener = new ButtonClickListener(this, cardlist, stats);
+		cardlist.add("#");
+		cardlist.add("#");
+		Collections.shuffle(cardlist);
+		ButtonClickListener buttonClickListener = new ButtonClickListener(this, cardlist);
 		memoryCards = new ArrayList<>();
-		// button.setPreferredSize(new Dimension(2, 2));
-		for(var c: cardlist){
+		for (var c : cardlist) {
 			memoryCards.add(new JButton(""));
 		}
-		for(var c: memoryCards){
+		for (var c : memoryCards) {
 			c.addActionListener(buttonClickListener);
 			memoryPanel.add(c);
 		}
 		memoryPanel.add(exitButton);
-		// exitButton.setPreferredSize(new Dimension(2, 2));
 		exitButton.addActionListener(buttonClickListener);
 	}
 
-	public ArrayList<JButton> getmemoryCards(){
+	public ArrayList<JButton> getmemoryCards() {
 		return memoryCards;
 	}
-	
-	public JButton getExitButton(){
+
+	public JButton getExitButton() {
 		return exitButton;
 	}
 
-	public JFrame getWindow(){
+	public JFrame getWindow() {
 		return window;
 	}
-	
+
 }

@@ -1,4 +1,5 @@
 package Memory.view;
+
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,14 +15,14 @@ public class EndGame {
 	private long completionTime;
 	private Stats stats;
 
-	public EndGame(JFrame window, long time, Stats stats){
+	public EndGame(JFrame window, long time, Stats stats) {
 		this.window = window;
 		window.setTitle("YOU DID IT!");
 		completionTime = time;
 		this.stats = stats;
 	}
 
-	public void stepIn(){
+	public void stepIn() {
 		Container cp = window.getContentPane();
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(2, 1));
@@ -31,13 +32,12 @@ public class EndGame {
 		panel.add(finisingStatement);
 		panel.add(exitButton);
 		cp.add(BorderLayout.CENTER, panel);
-		exitButton.addActionListener(e ->{
+		exitButton.addActionListener(e -> {
 			window.getContentPane().removeAll();
-			var memMenu = new MemoryMenu(window, stats);
+			var memMenu = new MemoryMenu(window);
 			memMenu.enter();
 			window.pack();
 			window.revalidate();
-		}
-		);
+		});
 	}
 }
