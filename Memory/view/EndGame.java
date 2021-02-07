@@ -15,11 +15,10 @@ public class EndGame {
 	private long completionTime;
 	private Stats stats;
 
-	public EndGame(JFrame window, long time, Stats stats) {
+	public EndGame(JFrame window, long time) {
 		this.window = window;
 		window.setTitle("YOU DID IT!");
 		completionTime = time;
-		this.stats = stats;
 	}
 
 	public void stepIn() {

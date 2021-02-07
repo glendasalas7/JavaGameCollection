@@ -20,8 +20,9 @@ public class MenuClickListener implements MouseInputListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (e.getX() >= 116 && e.getX() <= 291) {
-            if (e.getY() >= 279 && e.getY() <= 332) {
+        // play button
+        if (e.getX() >= 298 && e.getX() <= 408) {
+            if (e.getY() >= 385 && e.getY() <= 422) {
                 memory = new MemoryBoard(window);
                 window.getContentPane().removeAll();// clear window so you can load new window
                 memory.stepIn();
@@ -36,8 +37,8 @@ public class MenuClickListener implements MouseInputListener {
         // }
         // }
         // return button
-        if (e.getX() >= 215 && e.getX() <= 483) {
-            if (e.getY() >= 370 && e.getY() <= 422) {
+        if (e.getX() >= 52 && e.getX() <= 216) {
+            if (e.getY() >= 385 && e.getY() <= 422) {
                 var mainMenu = new MainMenu(window);
                 window.getContentPane().removeAll();
                 mainMenu.enter();

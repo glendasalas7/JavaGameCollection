@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import Memory.model.Stats;
 import Memory.view.MemoryBoard;
 import Memory.view.EndGame;
 import Memory.view.MemoryMenu;
@@ -13,7 +12,6 @@ import Memory.view.MemoryMenu;
 public class ButtonClickListener implements ActionListener {
 	public MemoryBoard panel;
 	public ArrayList<String> card;
-	private Stats stats;
 	public JFrame window;
 	private long elapsedTime;// end time
 	private int count;// count of cards that are actve
@@ -34,9 +32,9 @@ public class ButtonClickListener implements ActionListener {
 				return;
 		}
 		elapsedTime = (System.currentTimeMillis() - elapsed) / 1000;
-		stats.setCT(elapsedTime);
+		// stats.setCT(elapsedTime);
 		window.getContentPane().removeAll();
-		var completed = new EndGame(window, elapsedTime, stats);
+		var completed = new EndGame(window, elapsedTime);
 		completed.stepIn();
 		window.pack();
 		window.revalidate();
