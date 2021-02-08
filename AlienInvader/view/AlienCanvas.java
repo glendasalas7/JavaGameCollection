@@ -29,7 +29,7 @@ public class AlienCanvas extends JPanel {
 	public void paintComponent(Graphics g) {
 		BufferedImage starBG;
 		try {
-			starBG = ImageIO.read(new File("AlienInvader/images/planet.png"));
+			starBG = ImageIO.read(new File("AlienInvader/images/space.png"));
 			Image temp = starBG.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 			g.drawImage(temp, 0, 0, null);
 		} catch (IOException e1) {

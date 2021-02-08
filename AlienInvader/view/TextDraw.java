@@ -43,4 +43,7 @@ public class TextDraw extends GameElement {
 		return false;
 	}
 
+	public void setText(String text) {
+		this.text = text;
+	}
 }
