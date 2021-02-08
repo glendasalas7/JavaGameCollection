@@ -3,7 +3,7 @@ package AlienInvader.model;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import AlienInvader.model.AlienActivity.Animation;
-import AlienInvader.model.HealthLevels.Observer;
+import AlienInvader.model.HealthLevel.Observer;
 
 public abstract class GameElement implements Animation {
 	public int y;

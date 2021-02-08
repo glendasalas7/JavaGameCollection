@@ -11,7 +11,7 @@ import AlienInvader.model.AlienActivity.FullAlien;
 import AlienInvader.model.CautionLevel.CautionLevel;
 import AlienInvader.model.CautionLevel.DangerLevel;
 import AlienInvader.model.CautionLevel.SafeLevel;
-import AlienInvader.model.HealthLevels.HealthNotifier;
+import AlienInvader.model.HealthLevel.HealthNotifier;
 import AlienInvader.view.AlienBoard;
 import AlienInvader.view.TextDraw;
 

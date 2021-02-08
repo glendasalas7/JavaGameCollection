@@ -1,4 +1,4 @@
-package AlienInvader.model.HealthLevels;
+package AlienInvader.model.HealthLevel;
 
 public interface Subject {
 

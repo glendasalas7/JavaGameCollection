@@ -12,9 +12,9 @@ import AlienInvader.controller.MouseClickListener;
 import AlienInvader.controller.TimerListener;
 import AlienInvader.model.EnemyComposite;
 import AlienInvader.model.PlayerShip;
-import AlienInvader.model.HealthLevels.HealthChanger;
-import AlienInvader.model.HealthLevels.HealthNotifier;
-import AlienInvader.model.HealthLevels.Observer;
+import AlienInvader.model.HealthLevel.HealthChanger;
+import AlienInvader.model.HealthLevel.HealthNotifier;
+import AlienInvader.model.HealthLevel.Observer;
 import view.MainMenu;
 import java.awt.Font;
 

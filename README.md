@@ -3,13 +3,10 @@
 Working collection of games created using Java<br>
 NOT a final product
 
-
 Current Bugs:<br>
-  -Memory Game Stats button not in use<br>
-    Stats class in Memory Game is being transitioned to Log4j for use of entire game collection<br>
-  -Adjusting speed and values of enemy location in Space Invasion game<br>
-    this may cause some enemies to not dying when shot until I finish fixing that<br>
-
+-Memory Game Stats button not in use<br>
+Stats class in Memory Game is being transitioned to Log4j for use of entire game collection<br>
+-Re linking Caution Level and Health Level classes so some values in AlienBoard are not currently in use till then
 All assets can be found on itch.io
 
 Planet Backdrop : "PixelPlanets" by Deep-Fold
