@@ -6,8 +6,7 @@ NOT a final product
 Current Bugs:<br>
 -Memory Game Stats button not in use<br>
 Stats class in Memory Game is being transitioned to Log4j for use in entire game collection<br>
--Updating CautionLevel and HealthLevel classes
-some values in AlienBoard will not be in use till then
+-Updating CautionLevel and HealthLevel classes(Some attributes may not be used till then)
 All assets can be found on itch.io
 
 Planet Backdrop : "PixelPlanets" by Deep-Fold
